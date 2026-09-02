@@ -1,0 +1,50 @@
+---
+import { getUi } from '../i18n/utils';
+import type { Area } from '../data/types';
+import type { Locale } from '../i18n/locales';
+
+interface Props {
+  locale: Locale;
+  area: Area;
+}
+
+const { locale, area } = Astro.props;
+const t = getUi(locale);
+const { permit } = area;
+---
+
+<div class="reveal rounded-2xl border border-canopy-700/15 bg-canopy-100/60 p-6">
+  <div class="flex items-center justify-between gap-3">
+    <h2 class="font-display text-xl font-semibold text-canopy-900">{t.common.permit}</h2>
+    <span class={`rounded-full px-3 py-1 text-xs font-semibold ${permit.required ? 'bg-canopy-700 text-white' : 'bg-white text-canopy-700 border border-canopy-700/30'}`}>
+      {permit.required ? t.common.permitRequired : t.common.noPermitNeeded}
+    </span>
+  </div>
+
+  <dl class="mt-4 space-y-3 text-sm">
+    <div>
+      <dt class="font-semibold text-ink-950">{t.common.officialSource}</dt>
+      <dd class="mt-0.5">
+        <a href={permit.url} target="_blank" rel="noopener noreferrer" class="text-canopy-700 underline underline-offset-2 hover:text-canopy-900">
+          {permit.authorityName}
+        </a>
+      </dd>
+    </div>
+    {permit.fee && (
+      <div>
+        <dt class="font-semibold text-ink-950">{t.common.permitFee}</dt>
+        <dd class="mt-0.5 text-ink-900/80">{permit.fee[locale]}</dd>
+      </div>
+    )}
+    {permit.advanceNotice && (
+      <div>
+        <dt class="font-semibold text-ink-950">{t.common.advanceNotice}</dt>
+        <dd class="mt-0.5 text-ink-900/80">{permit.advanceNotice[locale]}</dd>
+      </div>
+    )}
+    <div>
+      <dt class="font-semibold text-ink-950">{t.common.howToApply}</dt>
+      <dd class="mt-0.5 text-ink-900/80">{permit.howToApply[locale]}</dd>
+    </div>
+  </dl>
+</div>

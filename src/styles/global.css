@@ -1,0 +1,108 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans Tamil', 'Noto Sans Arabic', system-ui, sans-serif;
+  --font-display: 'Fraunces', 'Noto Serif SC', 'Noto Serif TC', 'Noto Serif Tamil', 'Noto Naskh Arabic', serif;
+
+  --color-ink-950: #0b1410;
+  --color-ink-900: #101d16;
+  --color-canopy-900: #0e2a1d;
+  --color-canopy-700: #1f5c3c;
+  --color-canopy-500: #2f8f57;
+  --color-canopy-300: #7fd39a;
+  --color-canopy-100: #e4f5ea;
+  --color-sun-500: #e8b04b;
+  --color-mist-100: #f6f4ee;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: var(--color-mist-100);
+  color: var(--color-ink-950);
+}
+
+[dir='rtl'] .ltr-only {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Cinematic hero: slow Ken Burns drift on the background layer */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.12) translate3d(-1%, -1.5%, 0);
+  }
+}
+
+.ken-burns {
+  animation: ken-burns 24s ease-out forwards;
+}
+
+@keyframes drift-slow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+.drift-slow {
+  animation: drift-slow 7s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-delay-1.is-visible { animation-delay: 0.08s; }
+.reveal-delay-2.is-visible { animation-delay: 0.16s; }
+.reveal-delay-3.is-visible { animation-delay: 0.24s; }
+.reveal-delay-4.is-visible { animation-delay: 0.32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ken-burns, .drift-slow, .reveal { animation: none !important; }
+  .reveal { opacity: 1 !important; }
+  html { scroll-behavior: auto; }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.illustrative-gradient {
+  background-image:
+    radial-gradient(120% 100% at 15% 0%, rgb(255 255 255 / 0.14), transparent 55%),
+    radial-gradient(100% 120% at 100% 100%, rgb(0 0 0 / 0.25), transparent 60%);
+}
+
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}

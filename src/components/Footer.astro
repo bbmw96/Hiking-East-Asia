@@ -1,0 +1,40 @@
+---
+import { getUi } from '../i18n/utils';
+import { localeMeta, locales, type Locale } from '../i18n/locales';
+import { SITE_NAME } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+---
+
+<footer class="border-t border-black/5 bg-ink-950 text-mist-100">
+  <div class="mx-auto max-w-6xl px-5 py-12">
+    <div class="grid gap-8 md:grid-cols-3">
+      <div>
+        <p class="font-display text-lg font-semibold">{SITE_NAME}</p>
+        <p class="mt-2 text-sm text-mist-100/70">{t.footer.builtFor} <span class="ltr-only">bbmw0.com</span></p>
+      </div>
+      <div>
+        <p class="text-sm font-semibold text-mist-100/90">{t.nav.malaysia} / {t.nav.singapore}</p>
+        <ul class="mt-2 space-y-1 text-sm text-mist-100/70">
+          <li><a class="hover:text-canopy-300" href={`/${locale}/malaysia/`}>{t.nav.malaysia}</a></li>
+          <li><a class="hover:text-canopy-300" href={`/${locale}/singapore/`}>{t.nav.singapore}</a></li>
+          <li><a class="hover:text-canopy-300" href={`/${locale}/safety/`}>{t.nav.safety}</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-sm font-semibold text-mist-100/90">{t.footer.languages}</p>
+        <ul class="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm text-mist-100/70">
+          {locales.map((l) => (
+            <li><a class="hover:text-canopy-300" href={`/${l}/`}>{localeMeta[l].nativeLabel}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <p class="mt-10 max-w-3xl text-xs leading-relaxed text-mist-100/50">{t.footer.rights}</p>
+  </div>
+</footer>
