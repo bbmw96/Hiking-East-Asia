@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TerrainArt from '../../../components/TerrainArt.astro';
+import AreaCard from '../../../components/AreaCard.astro';
+import { getUi } from '../../../i18n/utils';
+import { locales, type Locale } from '../../../i18n/locales';
+import { getCountry } from '../../../data/countries';
+import { singaporeAreas } from '../../../data/singapore';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+const country = getCountry('singapore')!;
+---
+
+<BaseLayout locale={locale} title={country.name[locale]} description={country.teaser[locale]}>
+  <section class="relative flex min-h-[55vh] items-end overflow-hidden">
+    <TerrainArt gradient={country.heroGradient} class="absolute inset-0 -z-10 h-full w-full" animated>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/5"></div>
+    </TerrainArt>
+    <div class="relative z-10 mx-auto w-full max-w-6xl px-5 pb-14 pt-28 text-white">
+      <p class="reveal text-4xl">{country.flagEmoji}</p>
+      <h1 class="reveal reveal-delay-1 mt-3 font-display text-4xl font-semibold sm:text-5xl">{country.name[locale]}</h1>
+      <p class="reveal reveal-delay-2 mt-4 max-w-xl text-lg text-white/85">{country.teaser[locale]}</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <h2 class="reveal font-display text-2xl font-semibold text-ink-950">{t.common.exploreTrails}</h2>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {singaporeAreas.map((area) => (
+        <AreaCard locale={locale} area={area} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

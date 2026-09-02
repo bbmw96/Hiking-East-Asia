@@ -1,0 +1,208 @@
+import type { CountryMeta } from './types';
+
+export const countries: CountryMeta[] = [
+  {
+    slug: 'malaysia',
+    status: 'live',
+    region: 'southeast-asia',
+    flagEmoji: '🇲🇾',
+    heroGradient: 'from-emerald-800 via-emerald-600 to-lime-500',
+    name: { en: 'Malaysia', ms: 'Malaysia', 'zh-cn': '马来西亚', 'zh-hk': '馬來西亞', ta: 'மலேசியா', ar: 'ماليزيا' },
+    teaser: {
+      en: "Rainforest peaks, cool highland trails and Borneo's granite giant, Mount Kinabalu.",
+      ms: 'Puncak hutan hujan, laluan tanah tinggi yang sejuk dan gergasi granit Borneo, Gunung Kinabalu.',
+      'zh-cn': '雨林高峰、凉爽的高原步道，以及婆罗洲的花岗岩巨人——京那巴鲁山。',
+      'zh-hk': '雨林高峰、涼爽嘅高原步道，仲有婆羅洲嘅花崗岩巨人——京那峇魯山。',
+      ta: 'மழைக்காட்டு சிகரங்கள், குளிர்ந்த மலைநில பாதைகள் மற்றும் போர்னியோவின் கிரானைட் ராட்சதனான கினாபாலு மலை.',
+      ar: 'قمم غابات مطيرة، ومسارات مرتفعات باردة، وعملاق بورنيو الجرانيتي، جبل كينابالو.',
+    },
+  },
+  {
+    slug: 'singapore',
+    status: 'live',
+    region: 'southeast-asia',
+    flagEmoji: '🇸🇬',
+    heroGradient: 'from-teal-800 via-teal-600 to-emerald-400',
+    name: { en: 'Singapore', ms: 'Singapura', 'zh-cn': '新加坡', 'zh-hk': '新加坡', ta: 'சிங்கப்பூர்', ar: 'سنغافورة' },
+    teaser: {
+      en: 'Boardwalks through primary rainforest and coastal ridges, all reachable by MRT.',
+      ms: 'Susur jejak melalui hutan hujan primer dan rabung pantai, semuanya boleh dicapai dengan MRT.',
+      'zh-cn': '穿越原始雨林与海岸山脊的木栈道，只需搭乘地铁即可抵达。',
+      'zh-hk': '穿越原始雨林同海岸山脊嘅木棧道，淨係搭地鐵就去到。',
+      ta: 'தொடக்க மழைக்காடு மற்றும் கடலோர மலைத்தொடர்கள் வழியாக செல்லும் மரப்பாதைகள், அனைத்தும் எம்ஆர்டி வழியாக அணுகக்கூடியவை.',
+      ar: 'ممرات خشبية عبر غابة مطيرة أولية وتلال ساحلية، يمكن الوصول إليها جميعًا عبر مترو الأنفاق (MRT).',
+    },
+  },
+  {
+    slug: 'thailand',
+    status: 'coming-soon',
+    region: 'southeast-asia',
+    flagEmoji: '🇹🇭',
+    heroGradient: 'from-amber-700 via-orange-600 to-yellow-400',
+    name: { en: 'Thailand', ms: 'Thailand', 'zh-cn': '泰国', 'zh-hk': '泰國', ta: 'தாய்லாந்து', ar: 'تايلاند' },
+    teaser: {
+      en: "Limestone karsts, jungle waterfalls and Doi Inthanon, Thailand's highest peak.",
+      ms: 'Bukit kapur, air terjun rimba dan Doi Inthanon, puncak tertinggi Thailand.',
+      'zh-cn': '石灰岩喀斯特、丛林瀑布，以及泰国最高峰因他侬山。',
+      'zh-hk': '石灰岩喀斯特地形、叢林瀑布，仲有泰國最高峰因他儂山。',
+      ta: 'சுண்ணாம்புக் கற்பாறைகள், காட்டு அருவிகள் மற்றும் தாய்லாந்தின் மிக உயரமான சிகரமான டோய் இந்தானான்.',
+      ar: 'تلال كارستية جيرية، وشلالات غابات، وقمة دوي إنثانون أعلى قمم تايلاند.',
+    },
+  },
+  {
+    slug: 'indonesia',
+    status: 'coming-soon',
+    region: 'southeast-asia',
+    flagEmoji: '🇮🇩',
+    heroGradient: 'from-red-800 via-orange-700 to-amber-500',
+    name: { en: 'Indonesia', ms: 'Indonesia', 'zh-cn': '印度尼西亚', 'zh-hk': '印尼', ta: 'இந்தோனேஷியா', ar: 'إندونيسيا' },
+    teaser: {
+      en: 'Volcano treks across Java, Sumatra and Bali, from Rinjani to Bromo.',
+      ms: 'Pendakian gunung berapi merentasi Jawa, Sumatera dan Bali, dari Rinjani hingga Bromo.',
+      'zh-cn': '横跨爪哇、苏门答腊与巴厘岛的火山徒步之旅，从林贾尼到布罗莫火山。',
+      'zh-hk': '橫跨爪哇、蘇門答臘同峇里島嘅火山健行之旅，由林賈尼火山到布羅莫火山。',
+      ta: 'ஜாவா, சுமத்ரா மற்றும் பாலி முழுவதும் எரிமலை மலையேற்றங்கள், ரின்ஜானி முதல் ப்ரோமோ வரை.',
+      ar: 'رحلات تسلّق للبراكين عبر جاوة وسومطرة وبالي، من رينجاني إلى برومو.',
+    },
+  },
+  {
+    slug: 'vietnam',
+    status: 'coming-soon',
+    region: 'southeast-asia',
+    flagEmoji: '🇻🇳',
+    heroGradient: 'from-lime-800 via-green-700 to-emerald-500',
+    name: { en: 'Vietnam', ms: 'Vietnam', 'zh-cn': '越南', 'zh-hk': '越南', ta: 'வியட்நாம்', ar: 'فيتنام' },
+    teaser: {
+      en: 'Terraced highlands and Fansipan, the roof of Indochina.',
+      ms: 'Tanah tinggi berteres dan Fansipan, bumbung Indochina.',
+      'zh-cn': '梯田高地与番西邦峰，中南半岛之巅。',
+      'zh-hk': '梯田高地同番西邦峰，中南半島之巔。',
+      ta: 'படிக்கட்டு உயர்நிலங்களும் இந்தோசீனாவின் கூரையான ஃபான்சிபானும்.',
+      ar: 'مرتفعات مدرّجة وقمة فانسيبان، سقف الهند الصينية.',
+    },
+  },
+  {
+    slug: 'philippines',
+    status: 'coming-soon',
+    region: 'southeast-asia',
+    flagEmoji: '🇵🇭',
+    heroGradient: 'from-blue-800 via-sky-600 to-cyan-400',
+    name: { en: 'Philippines', ms: 'Filipina', 'zh-cn': '菲律宾', 'zh-hk': '菲律賓', ta: 'பிலிப்பீன்ஸ்', ar: 'الفلبين' },
+    teaser: {
+      en: 'Volcanic cones and island trails across Luzon, Visayas and Mindanao.',
+      ms: 'Kon gunung berapi dan laluan pulau merentasi Luzon, Visayas dan Mindanao.',
+      'zh-cn': '横跨吕宋、米沙鄢与棉兰老的火山锥与岛屿路线。',
+      'zh-hk': '橫跨呂宋、米沙鄢同棉蘭老嘅火山錐同島嶼路線。',
+      ta: 'லுசோன், விசாயாஸ் மற்றும் மிண்டனாவோ முழுவதும் எரிமலைக் கூம்புகளும் தீவுப் பாதைகளும்.',
+      ar: 'مخاريط بركانية ومسارات جزرية عبر لوزون وفيساياس ومينداناو.',
+    },
+  },
+  {
+    slug: 'brunei',
+    status: 'coming-soon',
+    region: 'southeast-asia',
+    flagEmoji: '🇧🇳',
+    heroGradient: 'from-yellow-800 via-yellow-600 to-lime-400',
+    name: { en: 'Brunei', ms: 'Brunei', 'zh-cn': '文莱', 'zh-hk': '汶萊', ta: 'புருனை', ar: 'بروناي' },
+    teaser: {
+      en: 'Untouched Bornean rainforest inside Ulu Temburong National Park.',
+      ms: 'Hutan hujan Borneo yang masih asli di dalam Taman Negara Ulu Temburong.',
+      'zh-cn': '乌鲁淡布隆国家公园内未经破坏的婆罗洲雨林。',
+      'zh-hk': '烏魯淡布隆國家公園入面未經破壞嘅婆羅洲雨林。',
+      ta: 'உலு தெம்புரோங் தேசியப் பூங்காவிற்குள் தூய்மையான போர்னியோ மழைக்காடு.',
+      ar: 'غابة مطيرة بورنيوية بكر داخل حديقة أولو تيمبورونج الوطنية.',
+    },
+  },
+  {
+    slug: 'japan',
+    status: 'coming-soon',
+    region: 'east-asia',
+    flagEmoji: '🇯🇵',
+    heroGradient: 'from-rose-800 via-pink-700 to-rose-400',
+    name: { en: 'Japan', ms: 'Jepun', 'zh-cn': '日本', 'zh-hk': '日本', ta: 'ஜப்பான்', ar: 'اليابان' },
+    teaser: {
+      en: "From the Kumano Kodo pilgrim trails to Mount Fuji's summit season.",
+      ms: 'Dari laluan ziarah Kumano Kodo hingga musim mendaki puncak Gunung Fuji.',
+      'zh-cn': '从熊野古道朝圣路线到富士山的登顶季节。',
+      'zh-hk': '由熊野古道朝聖路線到富士山嘅登頂季節。',
+      ta: 'குமானோ கோடோ யாத்திரைப் பாதைகளில் இருந்து மவுண்ட் ஃபுஜியின் சிகர ஏற்றப் பருவம் வரை.',
+      ar: 'من مسارات حج كومانو كودو إلى موسم تسلّق قمة جبل فوجي.',
+    },
+  },
+  {
+    slug: 'south-korea',
+    status: 'coming-soon',
+    region: 'east-asia',
+    flagEmoji: '🇰🇷',
+    heroGradient: 'from-slate-800 via-red-700 to-blue-500',
+    name: { en: 'South Korea', ms: 'Korea Selatan', 'zh-cn': '韩国', 'zh-hk': '韓國', ta: 'தென் கொரியா', ar: 'كوريا الجنوبية' },
+    teaser: {
+      en: 'Granite peaks and autumn colour across Seoraksan and Jirisan.',
+      ms: 'Puncak granit dan warna musim luruh merentasi Seoraksan dan Jirisan.',
+      'zh-cn': '雪岳山与智异山的花岗岩山峰与秋色。',
+      'zh-hk': '雪嶽山同智異山嘅花崗岩山峰同秋色。',
+      ta: 'சியோராக்சான் மற்றும் ஜிரிசான் முழுவதும் கிரானைட் சிகரங்களும் இலையுதிர்கால வண்ணங்களும்.',
+      ar: 'قمم جرانيتية وألوان الخريف عبر سيوراكسان وجيريسان.',
+    },
+  },
+  {
+    slug: 'taiwan',
+    status: 'coming-soon',
+    region: 'east-asia',
+    flagEmoji: '🇹🇼',
+    heroGradient: 'from-emerald-900 via-teal-700 to-cyan-500',
+    name: { en: 'Taiwan', ms: 'Taiwan', 'zh-cn': '台湾', 'zh-hk': '台灣', ta: 'தைவான்', ar: 'تايوان' },
+    teaser: {
+      en: "High mountain trails through Taroko Gorge and Yushan, Northeast Asia's tallest peak.",
+      ms: 'Laluan gunung tinggi melalui Gaung Taroko dan Yushan, puncak tertinggi Asia Timur Laut.',
+      'zh-cn': '穿越太鲁阁峡谷与东北亚最高峰玉山的高山路线。',
+      'zh-hk': '穿越太魯閣峽谷同東北亞最高峰玉山嘅高山路線。',
+      ta: 'தரோகோ பள்ளத்தாக்கு மற்றும் வடகிழக்கு ஆசியாவின் மிக உயரமான சிகரமான யுஷான் வழியாக உயர மலைப் பாதைகள்.',
+      ar: 'مسارات جبلية عالية عبر مضيق تارّوكو وقمة يوشان، أعلى قمم شمال شرق آسيا.',
+    },
+  },
+  {
+    slug: 'hong-kong',
+    status: 'coming-soon',
+    region: 'east-asia',
+    flagEmoji: '🇭🇰',
+    heroGradient: 'from-red-900 via-rose-700 to-orange-400',
+    name: { en: 'Hong Kong', ms: 'Hong Kong', 'zh-cn': '香港', 'zh-hk': '香港', ta: 'ஹாங்காங்', ar: 'هونغ كونغ' },
+    teaser: {
+      en: 'The MacLehose Trail and country parks minutes from the skyline.',
+      ms: 'Laluan MacLehose dan taman negara beberapa minit dari garis langit kota.',
+      'zh-cn': '麦理浩径与近在市区咫尺的郊野公园。',
+      'zh-hk': '麥理浩徑同埋離市區得幾分鐘嘅郊野公園。',
+      ta: 'மேக்லேஹோஸ் பாதையும், நகர எல்லைக்கோட்டிலிருந்து சில நிமிடங்களில் உள்ள நாட்டுப் பூங்காக்களும்.',
+      ar: 'مسار ماكليهوس والحدائق الريفية على بعد دقائق من أفق المدينة.',
+    },
+  },
+  {
+    slug: 'china',
+    status: 'coming-soon',
+    region: 'east-asia',
+    flagEmoji: '🇨🇳',
+    heroGradient: 'from-red-800 via-amber-700 to-yellow-500',
+    name: { en: 'Mainland China', ms: 'China Tanah Besar', 'zh-cn': '中国大陆', 'zh-hk': '中國大陸', ta: 'சீனா', ar: 'الصين' },
+    teaser: {
+      en: "From Huangshan's granite pillars to the Tiger Leaping Gorge.",
+      ms: 'Dari tiang granit Huangshan hingga Gaung Tiger Leaping.',
+      'zh-cn': '从黄山花岗岩石柱到虎跳峡。',
+      'zh-hk': '由黃山花崗岩石柱到虎跳峽。',
+      ta: 'ஹுவாங்ஷானின் கிரானைட் தூண்களில் இருந்து புலி பாயும் பள்ளத்தாக்கு வரை.',
+      ar: 'من أعمدة هوانگشان الجرانيتية إلى وادي نطّة النمر.',
+    },
+  },
+];
+
+export function getCountry(slug: string) {
+  return countries.find((c) => c.slug === slug);
+}
+
+export function getLiveCountries() {
+  return countries.filter((c) => c.status === 'live');
+}
+
+export function getComingSoonCountries() {
+  return countries.filter((c) => c.status === 'coming-soon');
+}

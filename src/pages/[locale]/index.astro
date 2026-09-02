@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerrainArt from '../../components/TerrainArt.astro';
+import CountryCard from '../../components/CountryCard.astro';
+import { getUi } from '../../i18n/utils';
+import { locales, type Locale } from '../../i18n/locales';
+import { getLiveCountries, getComingSoonCountries } from '../../data/countries';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+const liveCountries = getLiveCountries();
+const comingSoon = getComingSoonCountries();
+---
+
+<BaseLayout locale={locale} title={t.home.heroTitle} description={t.home.heroSubtitle}>
+  <section class="relative flex min-h-[86vh] items-end overflow-hidden">
+    <TerrainArt gradient="from-emerald-950 via-emerald-800 to-lime-500" class="absolute inset-0 -z-10 h-full w-full" animated>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10"></div>
+    </TerrainArt>
+    <div class="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 pt-32 text-white">
+      <p class="reveal text-sm font-semibold uppercase tracking-[0.2em] text-canopy-300">{t.home.heroEyebrow}</p>
+      <h1 class="reveal reveal-delay-1 mt-4 max-w-3xl text-balance font-display text-4xl font-semibold leading-[1.08] sm:text-6xl">
+        {t.home.heroTitle}
+      </h1>
+      <p class="reveal reveal-delay-2 mt-5 max-w-xl text-balance text-lg text-white/85">{t.home.heroSubtitle}</p>
+      <a
+        href={`/${locale}/malaysia/`}
+        class="reveal reveal-delay-3 mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink-950 transition hover:bg-canopy-100"
+      >
+        {t.home.heroCta}
+        <span aria-hidden="true" class="drift-slow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-20">
+    <div class="reveal max-w-2xl">
+      <h2 class="font-display text-3xl font-semibold text-ink-950">{t.home.introTitle}</h2>
+      <p class="mt-4 text-lg leading-relaxed text-ink-900/75">{t.home.introBody}</p>
+    </div>
+  </section>
+
+  <section class="bg-canopy-900 py-20 text-white">
+    <div class="mx-auto max-w-6xl px-5">
+      <h2 class="reveal font-display text-2xl font-semibold sm:text-3xl">{t.home.featuredTitle}</h2>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2">
+        {liveCountries.map((country) => (
+          <CountryCard locale={locale} country={country} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-20">
+    <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+      <div class="reveal">
+        <h2 class="font-display text-3xl font-semibold text-ink-950">{t.home.whyTitle}</h2>
+        <p class="mt-4 text-lg leading-relaxed text-ink-900/75">{t.home.whyBody}</p>
+      </div>
+      <div class="reveal reveal-delay-1 rounded-2xl border border-canopy-700/20 bg-canopy-100 p-8">
+        <h3 class="font-display text-xl font-semibold text-canopy-900">{t.home.safetyCtaTitle}</h3>
+        <p class="mt-3 text-sm leading-relaxed text-ink-900/75">{t.home.safetyCtaBody}</p>
+        <a
+          href={`/${locale}/safety/`}
+          class="mt-5 inline-flex items-center gap-2 rounded-full bg-canopy-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-canopy-900"
+        >
+          {t.home.safetyCtaButton}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="regions" class="mx-auto max-w-6xl px-5 py-20">
+    <h2 class="reveal font-display text-3xl font-semibold text-ink-950">{t.home.regionsTitle}</h2>
+    <p class="reveal reveal-delay-1 mt-3 max-w-2xl text-ink-900/70">{t.home.regionsBody}</p>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {comingSoon.map((country) => (
+        <CountryCard locale={locale} country={country} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

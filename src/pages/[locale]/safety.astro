@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerrainArt from '../../components/TerrainArt.astro';
+import { getUi } from '../../i18n/utils';
+import { locales, type Locale } from '../../i18n/locales';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+
+const tips = [
+  { title: t.safety.tip1Title, body: t.safety.tip1Body },
+  { title: t.safety.tip2Title, body: t.safety.tip2Body },
+  { title: t.safety.tip3Title, body: t.safety.tip3Body },
+  { title: t.safety.tip4Title, body: t.safety.tip4Body },
+  { title: t.safety.tip5Title, body: t.safety.tip5Body },
+];
+---
+
+<BaseLayout locale={locale} title={t.safety.title} description={t.safety.intro}>
+  <section class="relative overflow-hidden">
+    <TerrainArt gradient="from-slate-900 via-emerald-900 to-emerald-700" class="absolute inset-0 -z-10 h-full w-full">
+      <div class="absolute inset-0 bg-black/50"></div>
+    </TerrainArt>
+    <div class="mx-auto max-w-3xl px-5 py-24 text-white">
+      <h1 class="reveal font-display text-4xl font-semibold sm:text-5xl">{t.safety.title}</h1>
+      <p class="reveal reveal-delay-1 mt-4 text-lg text-white/85">{t.safety.intro}</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5 py-16">
+    <ol class="space-y-10">
+      {tips.map((tip, i) => (
+        <li class="reveal flex gap-5">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-canopy-700 text-sm font-semibold text-white">
+            {i + 1}
+          </span>
+          <div>
+            <h2 class="font-display text-xl font-semibold text-ink-950">{tip.title}</h2>
+            <p class="mt-2 leading-relaxed text-ink-900/75">{tip.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="reveal mt-14 rounded-2xl border border-red-900/15 bg-red-50 p-7">
+      <h2 class="font-display text-xl font-semibold text-red-950">{t.safety.reportTitle}</h2>
+      <p class="mt-3 leading-relaxed text-red-900/85">{t.safety.reportBody}</p>
+    </div>
+  </section>
+</BaseLayout>
