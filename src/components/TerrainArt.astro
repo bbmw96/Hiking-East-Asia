@@ -1,0 +1,36 @@
+---
+interface Props {
+  gradient: string;
+  class?: string;
+  label?: string;
+  animated?: boolean;
+}
+
+const { gradient, class: className = '', label, animated = false } = Astro.props;
+---
+
+<div class={`relative overflow-hidden bg-gradient-to-br ${gradient} illustrative-gradient grain ${className}`}>
+  <svg
+    class={`absolute inset-0 h-full w-full opacity-30 ${animated ? 'ken-burns' : ''}`}
+    viewBox="0 0 400 300"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+  >
+    <g fill="none" stroke="white" stroke-width="0.6" opacity="0.55">
+      <path d="M-20 220 Q 80 160 160 200 T 340 170 T 460 210" />
+      <path d="M-20 190 Q 90 130 170 165 T 350 135 T 460 175" />
+      <path d="M-20 160 Q 100 100 180 130 T 360 100 T 460 140" />
+      <path d="M-20 250 Q 70 200 150 235 T 330 205 T 460 245" />
+      <path d="M-20 130 Q 110 70 190 100 T 370 70 T 460 105" />
+    </g>
+    <g fill="white" opacity="0.5">
+      <path d="M200 40 L 230 95 L 210 95 L 225 130 L 175 130 L 190 95 L 170 95 Z" />
+    </g>
+  </svg>
+  {label && (
+    <span class="absolute bottom-2 right-2 rounded-full bg-black/35 px-2 py-0.5 text-[10px] font-medium text-white/90 backdrop-blur-sm">
+      {label}
+    </span>
+  )}
+  <slot />
+</div>
