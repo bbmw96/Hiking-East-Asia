@@ -54,7 +54,7 @@ const items = [t.verify.item1, t.verify.item2, t.verify.item3, t.verify.item4, t
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch {
-      // localStorage unavailable (private mode, etc.) — checklist still works for this page view
+      // localStorage unavailable (private mode, etc.); checklist still works for this page view
     }
   }
 

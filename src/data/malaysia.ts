@@ -109,8 +109,8 @@ export const malaysiaAreas: Area[] = [
       ar: 'رسم توضيحي لسلسلة قمة جرانيت جبل كينابالو عند الشروق',
     },
     officialLinks: [
-      { label: 'Sabah Parks — Mount Kinabalu Climbing', url: 'https://www.sabahparks.org.my/services/mount-kinabalu-climbing' },
-      { label: 'Sabah Parks — Kinabalu Park', url: 'https://www.sabahparks.org.my/kinabalu-park/mount-kinabalu' },
+      { label: 'Sabah Parks · Mount Kinabalu Climbing', url: 'https://www.sabahparks.org.my/services/mount-kinabalu-climbing' },
+      { label: 'Sabah Parks · Kinabalu Park', url: 'https://www.sabahparks.org.my/kinabalu-park/mount-kinabalu' },
     ],
   },
   {
@@ -220,7 +220,7 @@ export const malaysiaAreas: Area[] = [
       ta: 'தமன் நேகராவில் உள்ள மழைக்காடு விதானப் பாலத்தின் விளக்கப்படம்',
       ar: 'رسم توضيحي لممر المظلة الشجري في غابة تامان نيغارا المطيرة',
     },
-    officialLinks: [{ label: 'PERHILITAN — Taman Negara Pahang, Kuala Tahan', url: 'https://www.wildlife.gov.my/en/taman-negara-pahang-kuala-tahan/' }],
+    officialLinks: [{ label: 'PERHILITAN · Taman Negara Pahang, Kuala Tahan', url: 'https://www.wildlife.gov.my/en/taman-negara-pahang-kuala-tahan/' }],
   },
   {
     slug: 'cameron-highlands',
@@ -392,8 +392,8 @@ export const malaysiaAreas: Area[] = [
     overview: {
       en: 'A UNESCO World Heritage Site in Sarawak, Gunung Mulu National Park is famous for vast limestone caves, including Deer Cave, and for the Pinnacles, a forest of razor-sharp rock spikes reached by a demanding three-day trek. There is no road access; visitors fly directly into Mulu.',
       ms: 'Sebuah Tapak Warisan Dunia UNESCO di Sarawak, Taman Negara Gunung Mulu terkenal dengan gua batu kapur yang luas, termasuk Gua Deer, dan Pinnacles, hutan cucuk batu tajam yang dicapai melalui pendakian tiga hari yang mencabar. Tiada akses jalan raya; pelawat terbang terus ke Mulu.',
-      'zh-cn': '姆鲁山国家公园是砂拉越的联合国教科文组织世界遗产，以巨大的石灰岩洞穴（包括鹿洞）著称，还有需经过艰苦三日行程才能抵达的尖峰石阵——一片锋利石林。此地没有陆路可达，游客须直接飞往姆鲁。',
-      'zh-hk': '姆魯山國家公園係砂拉越嘅聯合國教科文組織世界遺產，以巨大嘅石灰岩洞穴（包括鹿洞）出名，仲有要行辛苦嘅三日行程先去到嘅尖峰石陣——一片鋒利石林。呢度冇陸路可以去，遊客要直接飛去姆魯。',
+      'zh-cn': '姆鲁山国家公园是砂拉越的联合国教科文组织世界遗产，以巨大的石灰岩洞穴（包括鹿洞）著称，还有需经过艰苦三日行程才能抵达的尖峰石阵，一片锋利石林。此地没有陆路可达，游客须直接飞往姆鲁。',
+      'zh-hk': '姆魯山國家公園係砂拉越嘅聯合國教科文組織世界遺產，以巨大嘅石灰岩洞穴（包括鹿洞）出名，仲有要行辛苦嘅三日行程先去到嘅尖峰石陣，一片鋒利石林。呢度冇陸路可以去，遊客要直接飛去姆魯。',
       ta: 'சரவாக்கில் உள்ள யுனெஸ்கோ உலக பாரம்பரிய தளமான குனுங் முலு தேசியப் பூங்கா, டியர் குகை உள்பட பரந்த சுண்ணாம்பு குகைகளுக்காகவும், கடினமான மூன்று நாள் பயணத்தின் மூலம் அடையக்கூடிய கூர்மையான பாறை முனைகளின் காடான பின்னாக்கிள்ஸிற்காகவும் புகழ்பெற்றது. சாலை வழி அணுகல் இல்லை; பயணிகள் நேரடியாக முலுவிற்கு விமானம் மூலம் செல்கின்றனர்.',
       ar: 'تُعد حديقة جونونج مولو الوطنية، وهي موقع تراث عالمي لليونسكو في ساراواك، مشهورة بكهوفها الجيرية الشاسعة، ومنها كهف الغزلان، وبمنطقة بيناكلز، وهي غابة من الأشواك الصخرية الحادة تُبلغ عبر رحلة شاقة تستغرق ثلاثة أيام. لا يوجد طريق بري إليها؛ يصل الزوار مباشرة عبر الطيران إلى مولو.',
     },
@@ -439,7 +439,7 @@ export const malaysiaAreas: Area[] = [
       ar: 'رسم توضيحي لقمم بيناكلز الجيرية الحادة المرتفعة فوق مظلة الغابة المطيرة',
     },
     officialLinks: [
-      { label: 'Mulu National Park — Plan Your Trip', url: 'https://mulupark.com/plan-your-trip/' },
+      { label: 'Mulu National Park · Plan Your Trip', url: 'https://mulupark.com/plan-your-trip/' },
       { label: 'Sarawak Forestry Corporation', url: 'https://forestry.sarawak.gov.my/' },
     ],
   },
@@ -550,7 +550,7 @@ export const malaysiaAreas: Area[] = [
       ta: 'அமைதியான ஆமை கூடு கட்டும் கடற்கரையில் திறக்கும் காட்டுப் பாதையின் விளக்கப்படம்',
       ar: 'رسم توضيحي لمسار غابة ينتهي عند شاطئ هادئ لتعشيش السلاحف',
     },
-    officialLinks: [{ label: 'PERHILITAN — Penang National Park', url: 'https://www.wildlife.gov.my/en/taman-negara-pulau-pinang/' }],
+    officialLinks: [{ label: 'PERHILITAN · Penang National Park', url: 'https://www.wildlife.gov.my/en/taman-negara-pulau-pinang/' }],
   },
   {
     slug: 'bukit-gasing',

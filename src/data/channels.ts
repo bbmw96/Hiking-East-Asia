@@ -1,13 +1,16 @@
 import { malaysiaAreas } from './malaysia';
 import { singaporeAreas } from './singapore';
+import type { Locale } from '../i18n/locales';
+import type { LocalizedString } from './types';
 
 export interface OfficialChannel {
   authorityName: string;
+  areaName: LocalizedString;
   url: string;
   country: 'malaysia' | 'singapore';
 }
 
-/** Deduplicated list of every permit-issuing authority already cited across the area data, so this directory can never drift out of sync with the permit boxes it mirrors. */
+/** Deduplicated list of every permit-issuing authority already cited across the area data, so this directory can never drift out of sync with the permit boxes it mirrors. Several areas share one authority name (e.g. PERHILITAN, NParks) but link to that authority's page for a different park, so each entry also carries the area name to tell them apart. */
 export function getOfficialChannels(): OfficialChannel[] {
   const areas = [...malaysiaAreas, ...singaporeAreas];
   const seen = new Set<string>();
@@ -19,10 +22,15 @@ export function getOfficialChannels(): OfficialChannel[] {
     seen.add(key);
     channels.push({
       authorityName: area.permit.authorityName,
+      areaName: area.name,
       url: area.permit.url,
       country: area.country,
     });
   }
 
   return channels;
+}
+
+export function channelLabel(channel: OfficialChannel, locale: Locale): string {
+  return `${channel.authorityName} · ${channel.areaName[locale]}`;
 }
