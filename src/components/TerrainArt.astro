@@ -4,12 +4,13 @@ interface Props {
   class?: string;
   label?: string;
   animated?: boolean;
+  position?: 'relative' | 'absolute';
 }
 
-const { gradient, class: className = '', label, animated = false } = Astro.props;
+const { gradient, class: className = '', label, animated = false, position = 'relative' } = Astro.props;
 ---
 
-<div class={`relative overflow-hidden bg-gradient-to-br ${gradient} illustrative-gradient grain ${className}`}>
+<div class={`${position} overflow-hidden bg-linear-to-br ${gradient} illustrative-gradient grain ${className}`}>
   <svg
     class={`absolute inset-0 h-full w-full opacity-30 ${animated ? 'ken-burns' : ''}`}
     viewBox="0 0 400 300"

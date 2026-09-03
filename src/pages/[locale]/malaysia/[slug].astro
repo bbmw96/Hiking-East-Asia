@@ -24,8 +24,8 @@ const t = getUi(locale);
 
 <BaseLayout locale={locale} title={area.name[locale]} description={area.tagline[locale]}>
   <section class="relative flex min-h-[60vh] items-end overflow-hidden">
-    <TerrainArt gradient={area.heroGradient} class="absolute inset-0 -z-10 h-full w-full" label={t.common.photoCredit} animated>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/5"></div>
+    <TerrainArt gradient={area.heroGradient} class="inset-0 h-full w-full" position="absolute" label={t.common.photoCredit} animated>
+      <div class="absolute inset-0 bg-linear-to-t from-black/75 via-black/15 to-black/5"></div>
     </TerrainArt>
     <div class="relative z-10 mx-auto w-full max-w-5xl px-5 pb-14 pt-28 text-white">
       <a href={`/${locale}/malaysia/`} class="reveal text-sm font-medium text-white/80 hover:text-white">← {t.common.backTo} {t.nav.malaysia}</a>
