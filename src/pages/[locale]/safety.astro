@@ -29,10 +29,10 @@ const tips = [
 
 <BaseLayout locale={locale} title={t.safety.title} description={t.safety.intro}>
   <section class="relative overflow-hidden">
-    <TerrainArt gradient="from-slate-900 via-emerald-900 to-emerald-700" class="absolute inset-0 -z-10 h-full w-full">
+    <TerrainArt gradient="from-slate-900 via-emerald-900 to-emerald-700" class="inset-0 h-full w-full" position="absolute">
       <div class="absolute inset-0 bg-black/50"></div>
     </TerrainArt>
-    <div class="mx-auto max-w-3xl px-5 py-24 text-white">
+    <div class="relative z-10 mx-auto max-w-3xl px-5 py-24 text-white">
       <h1 class="reveal font-display text-4xl font-semibold sm:text-5xl">{t.safety.title}</h1>
       <p class="reveal reveal-delay-1 mt-4 text-lg text-white/85">{t.safety.intro}</p>
     </div>

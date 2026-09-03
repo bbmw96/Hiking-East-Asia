@@ -23,7 +23,7 @@ const t = getUi(locale);
 
 <BaseLayout locale={locale} title={country.name[locale]} description={country.teaser[locale]}>
   <section class="relative flex min-h-[70vh] items-center overflow-hidden">
-    <TerrainArt gradient={country.heroGradient} class="absolute inset-0 -z-10 h-full w-full" animated>
+    <TerrainArt gradient={country.heroGradient} class="inset-0 h-full w-full" position="absolute" animated>
       <div class="absolute inset-0 bg-black/45"></div>
     </TerrainArt>
     <div class="relative z-10 mx-auto w-full max-w-3xl px-5 py-24 text-center text-white">

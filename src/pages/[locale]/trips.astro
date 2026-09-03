@@ -21,10 +21,10 @@ const dateFormatter = new Intl.DateTimeFormat(locale === 'ar' ? 'ar' : locale, {
 
 <BaseLayout locale={locale} title={t.trips.title} description={t.trips.intro}>
   <section class="relative overflow-hidden">
-    <TerrainArt gradient="from-emerald-950 via-canopy-700 to-lime-500" class="absolute inset-0 -z-10 h-full w-full">
+    <TerrainArt gradient="from-emerald-950 via-canopy-700 to-lime-500" class="inset-0 h-full w-full" position="absolute">
       <div class="absolute inset-0 bg-black/45"></div>
     </TerrainArt>
-    <div class="mx-auto max-w-3xl px-5 py-24 text-white">
+    <div class="relative z-10 mx-auto max-w-3xl px-5 py-24 text-white">
       <h1 class="reveal font-display text-4xl font-semibold sm:text-5xl">{t.trips.title}</h1>
       <p class="reveal reveal-delay-1 mt-4 text-lg text-white/85">{t.trips.intro}</p>
     </div>
