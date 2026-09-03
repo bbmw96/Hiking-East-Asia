@@ -30,11 +30,11 @@ export const ui = {
       item5: 'I can find this organiser through an official channel (the park’s own partner list, a registered company, a long-standing club), not just a single social media post.',
       item6: 'If this trip disappeared tomorrow, I know how I’d get my money back.',
       reset: 'Reset checklist',
-      allDone: 'All checked. That’s a good sign, though it’s never a guarantee — trust your judgement too.',
+      allDone: 'All checked. That’s a good sign, though it’s never a guarantee. Trust your judgement too.',
     },
     channels: {
       title: 'Official booking channels',
-      intro: 'Skip the middleman where you can. These are the government departments and park corporations that actually issue every permit on this site — book or verify directly with them.',
+      intro: 'Skip the middleman where you can. These are the government departments and park corporations that actually issue every permit on this site. Book or verify directly with them.',
     },
     home: {
       heroEyebrow: 'Malaysia · Singapore · East Asia',
@@ -104,11 +104,11 @@ export const ui = {
       item5: 'Saya dapat mengesan penganjur ini melalui saluran rasmi (senarai rakan kongsi taman itu sendiri, syarikat berdaftar, kelab lama), bukan hanya satu hantaran media sosial.',
       item6: 'Jika perjalanan ini hilang esok, saya tahu bagaimana untuk mendapatkan semula wang saya.',
       reset: 'Set semula senarai semak',
-      allDone: 'Semua disemak. Itu tanda baik, walaupun ia bukan jaminan — percayai pertimbangan anda juga.',
+      allDone: 'Semua disemak. Itu tanda baik, walaupun ia bukan jaminan. Percayai pertimbangan anda juga.',
     },
     channels: {
       title: 'Saluran tempahan rasmi',
-      intro: 'Langkau orang tengah jika boleh. Ini adalah jabatan kerajaan dan perbadanan taman yang sebenarnya mengeluarkan setiap permit di laman ini — tempah atau sahkan terus dengan mereka.',
+      intro: 'Langkau orang tengah jika boleh. Ini adalah jabatan kerajaan dan perbadanan taman yang sebenarnya mengeluarkan setiap permit di laman ini. Tempah atau sahkan terus dengan mereka.',
     },
     home: {
       heroEyebrow: 'Malaysia · Singapura · Asia Timur',
@@ -326,11 +326,11 @@ export const ui = {
       item5: 'இந்த ஏற்பாட்டாளரை ஒரு சமூக ஊடகப் பதிவு மூலம் மட்டும் அல்லாமல், ஒரு அதிகாரப்பூர்வ வழி மூலம் (பூங்காவின் சொந்த பங்காளர் பட்டியல், பதிவுசெய்யப்பட்ட நிறுவனம், நீண்டகால கிளப்) என்னால் கண்டறிய முடிகிறது.',
       item6: 'இந்த பயணம் நாளை மறைந்துவிட்டால், என் பணத்தை எப்படி திரும்பப் பெறுவது என்று எனக்குத் தெரியும்.',
       reset: 'பட்டியலை மீட்டமை',
-      allDone: 'அனைத்தும் சரிபார்க்கப்பட்டது. இது ஒரு நல்ல அறிகுறி, ஆனால் இது ஒருபோதும் உத்தரவாதம் அல்ல — உங்கள் சொந்த தீர்மானத்தையும் நம்புங்கள்.',
+      allDone: 'அனைத்தும் சரிபார்க்கப்பட்டது. இது ஒரு நல்ல அறிகுறி, ஆனால் இது ஒருபோதும் உத்தரவாதம் அல்ல. உங்கள் சொந்த தீர்மானத்தையும் நம்புங்கள்.',
     },
     channels: {
       title: 'அதிகாரப்பூர்வ முன்பதிவு வழிகள்',
-      intro: 'முடிந்தவரை இடைத்தரகரைத் தவிர்க்கவும். இவை இந்த தளத்தில் உள்ள ஒவ்வொரு அனுமதியையும் உண்மையில் வழங்கும் அரசு துறைகளும் பூங்கா நிறுவனங்களும் — நேரடியாக இவர்களிடம் முன்பதிவு செய்யவும் அல்லது சரிபார்க்கவும்.',
+      intro: 'முடிந்தவரை இடைத்தரகரைத் தவிர்க்கவும். இவை இந்த தளத்தில் உள்ள ஒவ்வொரு அனுமதியையும் உண்மையில் வழங்கும் அரசு துறைகளும் பூங்கா நிறுவனங்களும். நேரடியாக இவர்களிடம் முன்பதிவு செய்யவும் அல்லது சரிபார்க்கவும்.',
     },
     home: {
       heroEyebrow: 'மலேசியா · சிங்கப்பூர் · கிழக்கு ஆசியா',
@@ -400,7 +400,7 @@ export const ui = {
       item5: 'يمكنني العثور على هذا المنظِّم عبر قناة رسمية (قائمة شركاء الحديقة نفسها، شركة مسجَّلة، نادٍ قائم منذ فترة طويلة)، لا عبر منشور واحد على وسائل التواصل الاجتماعي فقط.',
       item6: 'لو اختفت هذه الرحلة غدًا، أعرف كيف أسترد أموالي.',
       reset: 'إعادة تعيين القائمة',
-      allDone: 'تم التحقق من كل شيء. هذه علامة جيدة، لكنها ليست ضمانًا مطلقًا أبدًا — ثق بحكمك أيضًا.',
+      allDone: 'تم التحقق من كل شيء. هذه علامة جيدة، لكنها ليست ضمانًا مطلقًا أبدًا. ثق بحكمك أيضًا.',
     },
     channels: {
       title: 'قنوات الحجز الرسمية',

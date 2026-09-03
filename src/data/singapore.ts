@@ -101,8 +101,8 @@ export const singaporeAreas: Area[] = [
       ar: 'رسم توضيحي لجسر ماكريتشي المعلّق عبر مظلة الغابة المطيرة',
     },
     officialLinks: [
-      { label: 'NParks — Central Catchment Nature Reserve', url: 'https://www.nparks.gov.sg/visit/parks/park-detail/central-catchment-nature-reserve' },
-      { label: 'NParks — Hiking and nature walks', url: 'https://www.nparks.gov.sg/visit/parks/central-catchment-nature-reserve/activities/hiking-nature-walk' },
+      { label: 'NParks · Central Catchment Nature Reserve', url: 'https://www.nparks.gov.sg/visit/parks/park-detail/central-catchment-nature-reserve' },
+      { label: 'NParks · Hiking and nature walks', url: 'https://www.nparks.gov.sg/visit/parks/central-catchment-nature-reserve/activities/hiking-nature-walk' },
     ],
   },
   {
@@ -205,7 +205,7 @@ export const singaporeAreas: Area[] = [
       ta: 'புக்கிட் திமாவின் கிரானைட் சிகரப் பாதையில் அடர்ந்த முதன்மை மழைக்காட்டின் விளக்கப்படம்',
       ar: 'رسم توضيحي لغابة مطيرة أولية كثيفة على مسار قمة الجرانيت في بوكيت تيماه',
     },
-    officialLinks: [{ label: 'NParks — Hiking and nature walks at Bukit Timah', url: 'https://www.nparks.gov.sg/visit/parks/bukit-timah-nature-reserve/activities/hiking-and-nature-walks' }],
+    officialLinks: [{ label: 'NParks · Hiking and nature walks at Bukit Timah', url: 'https://www.nparks.gov.sg/visit/parks/bukit-timah-nature-reserve/activities/hiking-and-nature-walks' }],
   },
   {
     slug: 'southern-ridges',
@@ -254,8 +254,8 @@ export const singaporeAreas: Area[] = [
     overview: {
       en: 'The Southern Ridges string together Mount Faber Park, Telok Blangah Hill Park, HortPark and Kent Ridge Park along 10 kilometres of paved trail and elevated walkways, including Henderson Waves, the highest pedestrian bridge in Singapore.',
       ms: 'Southern Ridges merangkaikan Taman Mount Faber, Taman Bukit Telok Blangah, HortPark dan Taman Kent Ridge sepanjang 10 kilometer laluan turap dan jambatan siar tinggi, termasuk Henderson Waves, jambatan pejalan kaki tertinggi di Singapura.',
-      'zh-cn': '南部山脊线串联花柏山公园、direct拉美园山公园、绿橱苑（HortPark）与肯特岗公园，沿途10公里为铺设步道与高架步道，包括新加坡最高的人行天桥——魅力波浪桥（Henderson Waves）。',
-      'zh-hk': '南部山脊線串連花柏山公園、直落亞逸山公園、綠櫥苑（HortPark）同肯特崗公園，沿途10公里係鋪設步道同高架步道，包括新加坡最高嘅行人天橋——魅力波浪橋（Henderson Waves）。',
+      'zh-cn': '南部山脊线串联花柏山公园、直落布兰雅山公园、绿橱苑（HortPark）与肯特岗公园，沿途10公里为铺设步道与高架步道，包括新加坡最高的人行天桥，魅力波浪桥（Henderson Waves）。',
+      'zh-hk': '南部山脊線串連花柏山公園、直落布蘭雅山公園、綠櫥苑（HortPark）同肯特崗公園，沿途10公里係鋪設步道同高架步道，包括新加坡最高嘅行人天橋，魅力波浪橋（Henderson Waves）。',
       ta: 'சதர்ன் ரிட்ஜஸ், மவுண்ட் ஃபேபர் பூங்கா, தெலுக் பிளாங்கா மலைப் பூங்கா, ஹார்ட்பார்க் மற்றும் கென்ட் ரிட்ஜ் பூங்காவை, சிங்கப்பூரின் மிக உயரமான நடைபாலமான ஹென்டர்சன் வேவ்ஸ் உட்பட 10 கிலோமீட்டர் பாவப்பட்ட பாதை மற்றும் உயர்த்தப்பட்ட நடைபாதைகள் வழியாக இணைக்கிறது.',
       ar: 'تربط ساذرن ريدجز بين حديقة جبل فابر وحديقة تيلوك بلانجه هيل وهورت بارك وحديقة كنت ريدج على امتداد 10 كيلومترات من المسارات المعبّدة والممرات المرتفعة، بما فيها جسر هندرسون ويفز، أعلى جسر للمشاة في سنغافورة.',
     },
@@ -300,7 +300,7 @@ export const singaporeAreas: Area[] = [
       ta: 'அந்தி நேரத்தில் மரங்களின் உச்சிக்கு மேலே அலை போன்ற ஹென்டர்சன் வேவ்ஸ் பாலத்தின் விளக்கப்படம்',
       ar: 'رسم توضيحي لجسر هندرسون ويفز المتموج فوق قمم الأشجار عند الغسق',
     },
-    officialLinks: [{ label: 'NParks — Telok Blangah Hill Park (Southern Ridges)', url: 'https://www.nparks.gov.sg/visit/parks/park-detail/telok-blangah-hill-park/' }],
+    officialLinks: [{ label: 'NParks · Telok Blangah Hill Park (Southern Ridges)', url: 'https://www.nparks.gov.sg/visit/parks/park-detail/telok-blangah-hill-park/' }],
   },
   {
     slug: 'pulau-ubin-chek-jawa',
@@ -311,7 +311,7 @@ export const singaporeAreas: Area[] = [
     duration: { en: 'Half a day to a full day', ms: 'Separuh hari hingga sehari penuh', 'zh-cn': '半日至一整天', 'zh-hk': '半日到成日', ta: 'அரை நாள் முதல் முழு நாள் வரை', ar: 'من نصف يوم إلى يوم كامل' },
     permit: {
       required: false,
-      authorityName: 'National Parks Board (NParks) — Pulau Ubin',
+      authorityName: 'National Parks Board (NParks), Pulau Ubin',
       url: 'https://pulau-ubin.nparks.gov.sg/permits/',
       fee: {
         en: 'Free entry to the island and the Chek Jawa boardwalk; small fees for guided low-tide walks and the bumboat fare to reach the island',
@@ -409,8 +409,8 @@ export const singaporeAreas: Area[] = [
       ar: 'رسم توضيحي لممر تشيك جاوا الخشبي فوق السهول بين المد والجزر عند الجزر المنخفض',
     },
     officialLinks: [
-      { label: 'NParks — Pulau Ubin permits', url: 'https://pulau-ubin.nparks.gov.sg/permits/' },
-      { label: 'NParks — Chek Jawa Wetlands', url: 'https://pulau-ubin.nparks.gov.sg/chek-jawa-wetlands/' },
+      { label: 'NParks · Pulau Ubin permits', url: 'https://pulau-ubin.nparks.gov.sg/permits/' },
+      { label: 'NParks · Chek Jawa Wetlands', url: 'https://pulau-ubin.nparks.gov.sg/chek-jawa-wetlands/' },
     ],
   },
 ];

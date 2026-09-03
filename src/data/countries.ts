@@ -11,8 +11,8 @@ export const countries: CountryMeta[] = [
     teaser: {
       en: "Rainforest peaks, cool highland trails and Borneo's granite giant, Mount Kinabalu.",
       ms: 'Puncak hutan hujan, laluan tanah tinggi yang sejuk dan gergasi granit Borneo, Gunung Kinabalu.',
-      'zh-cn': '雨林高峰、凉爽的高原步道，以及婆罗洲的花岗岩巨人——京那巴鲁山。',
-      'zh-hk': '雨林高峰、涼爽嘅高原步道，仲有婆羅洲嘅花崗岩巨人——京那峇魯山。',
+      'zh-cn': '雨林高峰、凉爽的高原步道，以及婆罗洲的花岗岩巨人，京那巴鲁山。',
+      'zh-hk': '雨林高峰、涼爽嘅高原步道，仲有婆羅洲嘅花崗岩巨人，京那峇魯山。',
       ta: 'மழைக்காட்டு சிகரங்கள், குளிர்ந்த மலைநில பாதைகள் மற்றும் போர்னியோவின் கிரானைட் ராட்சதனான கினாபாலு மலை.',
       ar: 'قمم غابات مطيرة، ومسارات مرتفعات باردة، وعملاق بورنيو الجرانيتي، جبل كينابالو.',
     },
