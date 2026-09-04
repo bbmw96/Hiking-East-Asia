@@ -99,7 +99,7 @@ export const countries: CountryMeta[] = [
   },
   {
     slug: 'brunei',
-    status: 'coming-soon',
+    status: 'live',
     region: 'southeast-asia',
     flagEmoji: '🇧🇳',
     heroGradient: 'from-yellow-800 via-yellow-600 to-lime-400',
