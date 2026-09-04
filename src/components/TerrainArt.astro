@@ -5,9 +5,10 @@ interface Props {
   label?: string;
   animated?: boolean;
   position?: 'relative' | 'absolute';
+  icon?: boolean;
 }
 
-const { gradient, class: className = '', label, animated = false, position = 'relative' } = Astro.props;
+const { gradient, class: className = '', label, animated = false, position = 'relative', icon = true } = Astro.props;
 ---
 
 <div class={`${position} overflow-hidden bg-linear-to-br ${gradient} illustrative-gradient grain ${className}`}>
@@ -24,9 +25,11 @@ const { gradient, class: className = '', label, animated = false, position = 're
       <path d="M-20 250 Q 70 200 150 235 T 330 205 T 460 245" />
       <path d="M-20 130 Q 110 70 190 100 T 370 70 T 460 105" />
     </g>
-    <g fill="white" opacity="0.5">
-      <path d="M200 40 L 230 95 L 210 95 L 225 130 L 175 130 L 190 95 L 170 95 Z" />
-    </g>
+    {icon && (
+      <g fill="white" opacity="0.5">
+        <path d="M200 40 L 230 95 L 210 95 L 225 130 L 175 130 L 190 95 L 170 95 Z" />
+      </g>
+    )}
   </svg>
   {label && (
     <span class="absolute bottom-2 right-2 rounded-full bg-black/35 px-2 py-0.5 text-[10px] font-medium text-white/90 backdrop-blur-sm">
