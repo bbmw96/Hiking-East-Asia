@@ -1,0 +1,30 @@
+---
+import TerrainArt from './TerrainArt.astro';
+import { getUi } from '../i18n/utils';
+import type { CountryMeta } from '../data/types';
+import type { Locale } from '../i18n/locales';
+
+interface Props {
+  locale: Locale;
+  country: CountryMeta;
+}
+
+const { locale, country } = Astro.props;
+const t = getUi(locale);
+const href = country.status === 'live' ? `/${locale}/${country.slug}/` : `/${locale}/${country.slug}/`;
+---
+
+<a href={href} class="reveal group block overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+  <TerrainArt gradient={country.heroGradient} class="h-40 w-full">
+    <span class="absolute left-3 top-3 text-2xl drop-shadow">{country.flagEmoji}</span>
+    {country.status === 'coming-soon' && (
+      <span class="absolute right-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-ink-900">
+        {t.common.comingSoon}
+      </span>
+    )}
+  </TerrainArt>
+  <div class="p-5">
+    <h3 class="font-display text-lg font-semibold text-ink-950">{country.name[locale]}</h3>
+    <p class="mt-1.5 text-sm leading-relaxed text-ink-900/70">{country.teaser[locale]}</p>
+  </div>
+</a>
