@@ -2,7 +2,7 @@
 
 A multilingual hiking guide for Malaysia, Singapore and the wider Southeast and East Asian region, built for `hiking.bbmw0.com`. Every trail page links to the real government or park authority that issues its permit, states current best/avoid months, and covers safety, access and what to bring.
 
-Phase one covers Malaysia (Mount Kinabalu, Taman Negara, Cameron Highlands, Gunung Mulu, Penang National Park, Bukit Gasing) and Singapore (Central Catchment/MacRitchie, Bukit Timah, Southern Ridges, Pulau Ubin & Chek Jawa) in full. The other ten countries in the nav (Thailand, Indonesia, Vietnam, Philippines, Brunei, Japan, South Korea, Taiwan, Hong Kong, mainland China) are "coming soon" placeholders ready for the same treatment.
+All twelve countries in the nav are now live and built out to the same depth: Malaysia, Singapore, Thailand, Indonesia, Vietnam, the Philippines, Brunei, Japan, South Korea, Taiwan, Hong Kong and mainland China. Each has three to six researched trail areas with real permit/authority links, fees, best/avoid months, safety notes and what to bring, translated across all six locales. A small number of areas were deliberately substituted for a country's single most famous trail because research found it currently closed or inaccessible to independent trekkers rather than because it was overlooked: Taal Volcano (Philippines, active eruption risk), the classic Taroko Gorge trails (Taiwan, post-2024-earthquake closures not expected to fully reopen until 2031) and the Tiger Leaping Gorge High Trail (mainland China, closed to independent trekkers under a recurring rockfall/landslide pattern as of mid-2026) are all noted in the relevant country's git history rather than featured as flagship recommendations.
 
 ## Languages
 
@@ -52,7 +52,11 @@ This intentionally stops short of open trip listings, member accounts, or public
 
 ## Permit and season data
 
-Sourced from official authority websites and cross-checked in September 2026 (Sabah Parks, PERHILITAN, Pahang/Sarawak Forestry, Petaling Jaya City Council, Singapore's NParks). Fees and booking processes change; re-verify against the linked official source before publishing an update, and keep the pattern of always linking to the primary authority rather than a third-party booking agent.
+Sourced from official authority websites and cross-checked between May and September 2026, across every authority linked from `/safety/`'s official channels list: Sabah Parks, PERHILITAN, Pahang/Sarawak Forestry and Petaling Jaya City Council (Malaysia); NParks (Singapore); Thailand's DNP; Indonesia's national park offices; Vietnam's park management boards; the Philippines' DENR-run protected area offices; Brunei Forestry; Japan's prefectural and national park authorities; South Korea's Korea National Park Service; Taiwan's Hike Smart Taiwan / national park services; Hong Kong's AFCD; and mainland China's scenic-area administrative committees (Huangshan, Wulingyuan/Zhangjiajie, Mount Emei, Deqin County for Meili Snow Mountain). Fees and booking processes change; re-verify against the linked official source before publishing an update, and keep the pattern of always linking to the primary authority rather than a third-party booking agent.
+
+## Keeping dates live without a rebuild
+
+The footer's copyright year is computed from the visitor's own clock (`data-live-year`, set in `BaseLayout.astro`), not baked in at build time, so it never goes stale between deploys. A small Astro integration in `astro.config.mjs` also writes `dist/version.json` with the build timestamp; every page silently fetches it on load and again when the tab regains focus, and records in `localStorage` whether a newer deploy has shipped. This is intentionally invisible: no popup, no forced reload, nothing for a visitor to notice. It does not, and cannot, auto-refresh the permit/fee/season facts themselves, since those come from manual research against each authority's own site, not a live feed; re-verifying them stays a manual step (see above).
 
 ## Develop
 
