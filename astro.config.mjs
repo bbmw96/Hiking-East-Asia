@@ -22,6 +22,9 @@ function buildVersionMarker() {
 
 export default defineConfig({
   site: 'https://hiking.bbmw0.com',
+  // '/' for a domain root (Vercel, hiking.bbmw0.com). Set SITE_BASE to a subpath
+  // (e.g. /Hiking-East-Asia) to build for a project-subdirectory host instead.
+  base: process.env.SITE_BASE || '/',
   integrations: [buildVersionMarker()],
   vite: {
     plugins: [tailwindcss()],
