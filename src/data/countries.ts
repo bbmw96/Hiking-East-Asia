@@ -35,7 +35,7 @@ export const countries: CountryMeta[] = [
   },
   {
     slug: 'thailand',
-    status: 'coming-soon',
+    status: 'live',
     region: 'southeast-asia',
     flagEmoji: '🇹🇭',
     heroGradient: 'from-amber-700 via-orange-600 to-yellow-400',

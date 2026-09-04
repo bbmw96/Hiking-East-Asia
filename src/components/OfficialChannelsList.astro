@@ -24,7 +24,7 @@ const channels = getOfficialChannels();
           rel="noopener noreferrer"
           class="flex items-center justify-between gap-2 rounded-xl border border-black/5 px-4 py-3 text-sm text-ink-900 transition hover:border-canopy-700/40 hover:bg-canopy-100/50"
         >
-          <span>{channelLabel(channel, locale)}</span>
+          <span>{channelLabel(channel, channels, locale)}</span>
           <span aria-hidden="true" class="text-canopy-700">↗</span>
         </a>
       </li>
