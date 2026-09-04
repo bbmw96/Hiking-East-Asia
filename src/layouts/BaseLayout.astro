@@ -1,0 +1,210 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { localeMeta, type Locale } from '../i18n/locales';
+import { SITE_NAME } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+}
+
+const { locale, title, description } = Astro.props;
+const meta = localeMeta[locale];
+---
+
+<html lang={meta.htmlLang} dir={meta.dir}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · {SITE_NAME}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Tamil:wght@400;500;700&family=Noto+Sans+Arabic:wght@400;500;700&family=Noto+Naskh+Arabic:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <noscript>
+      <style>
+        .reveal { opacity: 1 !important; animation: none !important; }
+        .split-line > span { transform: translateY(0) !important; transition: none !important; }
+        .hero-layer { transform: none !important; }
+      </style>
+    </noscript>
+  </head>
+  <body class="min-h-screen flex flex-col antialiased">
+    <div id="scroll-progress" aria-hidden="true"></div>
+    <div id="cursor-ring" class="cursor-ring" aria-hidden="true" data-hot="false"></div>
+    <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+    <Header locale={locale} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+    <script>
+      // ---- scroll reveal (existing) + split-text headline ----------------
+      const revealEls = document.querySelectorAll('.reveal, .split-reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+        );
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add('is-visible'));
+      }
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const pointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const root = document.documentElement;
+      const progressBar = document.getElementById('scroll-progress');
+      const hero = document.querySelector<HTMLElement>('[data-parallax-hero]');
+
+      if (!reduceMotion) {
+        // ---- one rAF-batched loop: scroll progress + hero parallax var ---
+        // A raw scroll listener never touches layout here; it only flags
+        // `ticking` so the actual read/write happens once per frame.
+        let heroVisible = Boolean(hero);
+        if (hero && 'IntersectionObserver' in window) {
+          const heroIo = new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; }, { threshold: 0 });
+          heroIo.observe(hero);
+        }
+
+        let ticking = false;
+        function frame() {
+          ticking = false;
+          const doc = document.documentElement;
+          const maxScroll = doc.scrollHeight - doc.clientHeight;
+          const y = window.scrollY;
+          const progress = maxScroll > 0 ? Math.min(Math.max(y / maxScroll, 0), 1) : 0;
+          if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
+          if (hero && heroVisible) root.style.setProperty('--scroll-y', String(y));
+        }
+        addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(frame);
+            }
+          },
+          { passive: true }
+        );
+        addEventListener('resize', frame, { passive: true });
+        frame();
+
+        // ---- pointer-driven parallax, hero-scoped -------------------------
+        if (hero && pointerFine) {
+          hero.addEventListener('pointermove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            const px = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+            hero.style.setProperty('--pointer-x', px.toFixed(3));
+          });
+          hero.addEventListener('pointerleave', () => hero.style.setProperty('--pointer-x', '0'));
+        }
+
+        // ---- magnetic call-to-action ---------------------------------------
+        if (pointerFine) {
+          document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
+            el.addEventListener('pointermove', (e) => {
+              const r = el.getBoundingClientRect();
+              const mx = (e.clientX - r.left - r.width / 2) * 0.25;
+              const my = (e.clientY - r.top - r.height / 2) * 0.35;
+              el.style.transform = `translate3d(${mx.toFixed(1)}px, ${my.toFixed(1)}px, 0)`;
+            });
+            el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+          });
+        }
+      }
+
+      // ---- pointer-only custom cursor --------------------------------------
+      if (pointerFine && !reduceMotion) {
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        if (dot && ring) {
+          document.body.classList.add('has-custom-cursor');
+          let mx = innerWidth / 2;
+          let my = innerHeight / 2;
+          let rx = mx;
+          let ry = my;
+          addEventListener(
+            'pointermove',
+            (e) => {
+              mx = e.clientX;
+              my = e.clientY;
+              dot.style.translate = `${mx}px ${my}px`;
+            },
+            { passive: true }
+          );
+          (function ringLoop() {
+            rx += (mx - rx) * 0.18;
+            ry += (my - ry) * 0.18;
+            ring.style.translate = `${rx}px ${ry}px`;
+            requestAnimationFrame(ringLoop);
+          })();
+          document.querySelectorAll('a, button, [data-magnetic]').forEach((el) => {
+            el.addEventListener('pointerenter', () => ring.setAttribute('data-hot', 'true'));
+            el.addEventListener('pointerleave', () => ring.setAttribute('data-hot', 'false'));
+          });
+        }
+      }
+    </script>
+    <script>
+      // ---- live date/year, and a silent check for a newer deploy ----------
+      // Runs on every page (this layout wraps the whole site), so any
+      // element marked data-live-year always reflects the visitor's actual
+      // current year, even long after the last build. This never assumes
+      // a timezone; it simply reads the browser's own clock.
+      document.querySelectorAll('[data-live-year]').forEach((el) => {
+        el.textContent = String(new Date().getFullYear());
+      });
+
+      // A lightweight, non-disruptive freshness check: compare the
+      // timestamp baked into this build against version.json on the
+      // server. It never reloads or interrupts the visitor; it only keeps
+      // a record so a future feature (or a person checking devtools) can
+      // tell a newer deploy has shipped. Failures (offline, blocked
+      // request) are swallowed, since this is a background nicety, not a
+      // page requirement.
+      (async () => {
+        try {
+          const res = await fetch(`/version.json?t=${Date.now()}`, { cache: 'no-store' });
+          if (!res.ok) return;
+          const { builtAt } = await res.json();
+          const seen = localStorage.getItem('site-build-version');
+          if (builtAt && builtAt !== seen) {
+            localStorage.setItem('site-build-version', builtAt);
+            document.documentElement.setAttribute('data-build-fresh', seen ? 'updated' : 'first-load');
+          }
+        } catch {
+          // Offline or blocked: silently skip, nothing depends on this.
+        }
+      })();
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState !== 'visible') return;
+        fetch(`/version.json?t=${Date.now()}`, { cache: 'no-store' })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (!data?.builtAt) return;
+            const seen = localStorage.getItem('site-build-version');
+            if (data.builtAt !== seen) {
+              localStorage.setItem('site-build-version', data.builtAt);
+              document.documentElement.setAttribute('data-build-fresh', 'updated');
+            }
+          })
+          .catch(() => {});
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+---
+import { getUi } from '../i18n/utils';
+import { locales, localeMeta, type Locale } from '../i18n/locales';
+import { SITE_NAME } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+const path = Astro.url.pathname;
+---
+
+<div id="header-sentinel" aria-hidden="true"></div>
+<header id="site-header" data-stuck="false" class="sticky top-0 z-50 border-b border-black/5 bg-mist-100/85 backdrop-blur transition-shadow duration-300 supports-[backdrop-filter]:bg-mist-100/70">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
+    <a href={`/${locale}/`} class="flex items-center gap-2 font-display text-lg font-semibold tracking-tight text-canopy-900">
+      <span aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full bg-canopy-500"></span>
+      {SITE_NAME}
+    </a>
+
+    <nav class="hidden items-center gap-6 text-sm font-medium text-ink-900 md:flex">
+      <a class="hover:text-canopy-700" href={`/${locale}/malaysia/`}>{t.nav.malaysia}</a>
+      <a class="hover:text-canopy-700" href={`/${locale}/singapore/`}>{t.nav.singapore}</a>
+      <a class="hover:text-canopy-700" href={`/${locale}/#regions`}>{t.nav.moreCountries}</a>
+      <a class="hover:text-canopy-700" href={`/${locale}/trips/`}>{t.nav.trips}</a>
+      <a class="hover:text-canopy-700" href={`/${locale}/safety/`}>{t.nav.safety}</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <label class="sr-only" for="lang-switch">{t.nav.language}</label>
+      <select
+        id="lang-switch"
+        class="rounded-full border border-black/10 bg-white/70 px-3 py-1.5 text-sm text-ink-900"
+        data-current-path={path}
+      >
+        {locales.map((l) => (
+          <option value={l} selected={l === locale}>{localeMeta[l].nativeLabel}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+
+  <nav class="flex items-center gap-4 overflow-x-auto border-t border-black/5 px-5 py-2 text-sm font-medium text-ink-900 md:hidden">
+    <a class="whitespace-nowrap hover:text-canopy-700" href={`/${locale}/malaysia/`}>{t.nav.malaysia}</a>
+    <a class="whitespace-nowrap hover:text-canopy-700" href={`/${locale}/singapore/`}>{t.nav.singapore}</a>
+    <a class="whitespace-nowrap hover:text-canopy-700" href={`/${locale}/#regions`}>{t.nav.moreCountries}</a>
+    <a class="whitespace-nowrap hover:text-canopy-700" href={`/${locale}/trips/`}>{t.nav.trips}</a>
+    <a class="whitespace-nowrap hover:text-canopy-700" href={`/${locale}/safety/`}>{t.nav.safety}</a>
+  </nav>
+</header>
+
+<script>
+  const select = document.getElementById('lang-switch') as HTMLSelectElement | null;
+  select?.addEventListener('change', () => {
+    const current = select.dataset.currentPath ?? '/';
+    const parts = current.split('/').filter(Boolean);
+    parts[0] = select.value;
+    window.location.href = `/${parts.join('/')}/`;
+  });
+
+  const sentinel = document.getElementById('header-sentinel');
+  const header = document.getElementById('site-header');
+  if (sentinel && header && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(([entry]) => {
+      header.dataset.stuck = String(!entry.isIntersecting);
+    });
+    io.observe(sentinel);
+  }
+</script>

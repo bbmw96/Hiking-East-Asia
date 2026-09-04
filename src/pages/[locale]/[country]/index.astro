@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TerrainArt from '../../../components/TerrainArt.astro';
+import { getUi } from '../../../i18n/utils';
+import { locales, type Locale } from '../../../i18n/locales';
+import { getComingSoonCountries } from '../../../data/countries';
+
+export function getStaticPaths() {
+  const countries = getComingSoonCountries();
+  return locales.flatMap((locale) =>
+    countries.map((country) => ({ params: { locale, country: country.slug }, props: { locale, country } }))
+  );
+}
+
+interface Props {
+  locale: Locale;
+  country: ReturnType<typeof getComingSoonCountries>[number];
+}
+
+const { locale, country } = Astro.props;
+const t = getUi(locale);
+---
+
+<BaseLayout locale={locale} title={country.name[locale]} description={country.teaser[locale]}>
+  <section class="relative flex min-h-[70vh] items-center overflow-hidden">
+    <TerrainArt gradient={country.heroGradient} class="inset-0 h-full w-full" position="absolute" animated>
+      <div class="absolute inset-0 bg-black/45"></div>
+    </TerrainArt>
+    <div class="relative z-10 mx-auto w-full max-w-3xl px-5 py-24 text-center text-white">
+      <p class="reveal text-5xl">{country.flagEmoji}</p>
+      <h1 class="reveal reveal-delay-1 mt-4 font-display text-4xl font-semibold sm:text-5xl">{country.name[locale]}</h1>
+      <p class="reveal reveal-delay-2 mt-4 text-lg text-white/85">{country.teaser[locale]}</p>
+      <span class="reveal reveal-delay-3 mt-8 inline-flex items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-sm font-semibold text-ink-950">
+        {t.common.comingSoon}
+      </span>
+      <p class="reveal reveal-delay-4 mt-10 text-sm text-white/70">
+        <a href={`/${locale}/malaysia/`} class="underline underline-offset-2 hover:text-white">{t.nav.malaysia}</a>
+        <span class="mx-2">·</span>
+        <a href={`/${locale}/singapore/`} class="underline underline-offset-2 hover:text-white">{t.nav.singapore}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
