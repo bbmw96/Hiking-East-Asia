@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TerrainArt from '../../../components/TerrainArt.astro';
 import PermitBox from '../../../components/PermitBox.astro';
 import SeasonBox from '../../../components/SeasonBox.astro';
-import { getUi } from '../../../i18n/utils';
+import { getUi, url } from '../../../i18n/utils';
 import { locales, type Locale } from '../../../i18n/locales';
 import { taiwanAreas } from '../../../data/taiwan';
 
@@ -28,7 +28,7 @@ const t = getUi(locale);
       <div class="absolute inset-0 bg-linear-to-t from-black/75 via-black/15 to-black/5"></div>
     </TerrainArt>
     <div class="relative z-10 mx-auto w-full max-w-5xl px-5 pb-14 pt-28 text-white">
-      <a href={`/${locale}/taiwan/`} class="reveal text-sm font-medium text-white/80 hover:text-white">← {t.common.backTo} {t.nav.moreCountries}</a>
+      <a href={url(`/${locale}/taiwan/`)} class="reveal text-sm font-medium text-white/80 hover:text-white">← {t.common.backTo} {t.nav.moreCountries}</a>
       <h1 class="reveal reveal-delay-1 mt-4 max-w-2xl font-display text-4xl font-semibold sm:text-5xl">{area.name[locale]}</h1>
       <p class="reveal reveal-delay-2 mt-4 max-w-xl text-lg text-white/85">{area.tagline[locale]}</p>
       <dl class="reveal reveal-delay-3 mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm">

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TerrainArt from '../../components/TerrainArt.astro';
-import { getUi } from '../../i18n/utils';
+import { getUi, url } from '../../i18n/utils';
 import { locales, type Locale } from '../../i18n/locales';
 import { officialTrips } from '../../data/trips';
 
@@ -53,7 +53,7 @@ const dateFormatter = new Intl.DateTimeFormat(locale === 'ar' ? 'ar' : locale, {
                 {t.trips.register}
               </a>
               <a
-                href={`/${locale}/${trip.country}/${trip.areaSlug}/`}
+                href={url(`/${locale}/${trip.country}/${trip.areaSlug}/`)}
                 class="inline-flex items-center gap-2 rounded-full border border-black/10 px-5 py-2 text-sm font-semibold text-ink-900 transition hover:border-canopy-700/40"
               >
                 {t.trips.permitContext}

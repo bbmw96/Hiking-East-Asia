@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { localeMeta, type Locale } from '../i18n/locales';
 import { SITE_NAME } from '../i18n/ui';
+import { url } from '../i18n/utils';
 
 interface Props {
   locale: Locale;
@@ -21,7 +22,7 @@ const meta = localeMeta[locale];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} · {SITE_NAME}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -166,6 +167,7 @@ const meta = localeMeta[locale];
       // element marked data-live-year always reflects the visitor's actual
       // current year, even long after the last build. This never assumes
       // a timezone; it simply reads the browser's own clock.
+      const versionUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/version.json`;
       document.querySelectorAll('[data-live-year]').forEach((el) => {
         el.textContent = String(new Date().getFullYear());
       });
@@ -179,7 +181,7 @@ const meta = localeMeta[locale];
       // page requirement.
       (async () => {
         try {
-          const res = await fetch(`/version.json?t=${Date.now()}`, { cache: 'no-store' });
+          const res = await fetch(`${versionUrl}?t=${Date.now()}`, { cache: 'no-store' });
           if (!res.ok) return;
           const { builtAt } = await res.json();
           const seen = localStorage.getItem('site-build-version');
@@ -193,7 +195,7 @@ const meta = localeMeta[locale];
       })();
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState !== 'visible') return;
-        fetch(`/version.json?t=${Date.now()}`, { cache: 'no-store' })
+        fetch(`${versionUrl}?t=${Date.now()}`, { cache: 'no-store' })
           .then((res) => (res.ok ? res.json() : null))
           .then((data) => {
             if (!data?.builtAt) return;
