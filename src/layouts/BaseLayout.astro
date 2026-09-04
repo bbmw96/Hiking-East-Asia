@@ -29,17 +29,25 @@ const meta = localeMeta[locale];
       rel="stylesheet"
     />
     <noscript>
-      <style>.reveal { opacity: 1 !important; animation: none !important; }</style>
+      <style>
+        .reveal { opacity: 1 !important; animation: none !important; }
+        .split-line > span { transform: translateY(0) !important; transition: none !important; }
+        .hero-layer { transform: none !important; }
+      </style>
     </noscript>
   </head>
   <body class="min-h-screen flex flex-col antialiased">
+    <div id="scroll-progress" aria-hidden="true"></div>
+    <div id="cursor-ring" class="cursor-ring" aria-hidden="true" data-hot="false"></div>
+    <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
     <Header locale={locale} />
     <main class="flex-1">
       <slot />
     </main>
     <Footer locale={locale} />
     <script>
-      const revealEls = document.querySelectorAll('.reveal');
+      // ---- scroll reveal (existing) + split-text headline ----------------
+      const revealEls = document.querySelectorAll('.reveal, .split-reveal');
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver(
           (entries) => {
@@ -55,6 +63,101 @@ const meta = localeMeta[locale];
         revealEls.forEach((el) => io.observe(el));
       } else {
         revealEls.forEach((el) => el.classList.add('is-visible'));
+      }
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const pointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const root = document.documentElement;
+      const progressBar = document.getElementById('scroll-progress');
+      const hero = document.querySelector<HTMLElement>('[data-parallax-hero]');
+
+      if (!reduceMotion) {
+        // ---- one rAF-batched loop: scroll progress + hero parallax var ---
+        // A raw scroll listener never touches layout here; it only flags
+        // `ticking` so the actual read/write happens once per frame.
+        let heroVisible = Boolean(hero);
+        if (hero && 'IntersectionObserver' in window) {
+          const heroIo = new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; }, { threshold: 0 });
+          heroIo.observe(hero);
+        }
+
+        let ticking = false;
+        function frame() {
+          ticking = false;
+          const doc = document.documentElement;
+          const maxScroll = doc.scrollHeight - doc.clientHeight;
+          const y = window.scrollY;
+          const progress = maxScroll > 0 ? Math.min(Math.max(y / maxScroll, 0), 1) : 0;
+          if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
+          if (hero && heroVisible) root.style.setProperty('--scroll-y', String(y));
+        }
+        addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(frame);
+            }
+          },
+          { passive: true }
+        );
+        addEventListener('resize', frame, { passive: true });
+        frame();
+
+        // ---- pointer-driven parallax, hero-scoped -------------------------
+        if (hero && pointerFine) {
+          hero.addEventListener('pointermove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            const px = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+            hero.style.setProperty('--pointer-x', px.toFixed(3));
+          });
+          hero.addEventListener('pointerleave', () => hero.style.setProperty('--pointer-x', '0'));
+        }
+
+        // ---- magnetic call-to-action ---------------------------------------
+        if (pointerFine) {
+          document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
+            el.addEventListener('pointermove', (e) => {
+              const r = el.getBoundingClientRect();
+              const mx = (e.clientX - r.left - r.width / 2) * 0.25;
+              const my = (e.clientY - r.top - r.height / 2) * 0.35;
+              el.style.transform = `translate3d(${mx.toFixed(1)}px, ${my.toFixed(1)}px, 0)`;
+            });
+            el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+          });
+        }
+      }
+
+      // ---- pointer-only custom cursor --------------------------------------
+      if (pointerFine && !reduceMotion) {
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        if (dot && ring) {
+          document.body.classList.add('has-custom-cursor');
+          let mx = innerWidth / 2;
+          let my = innerHeight / 2;
+          let rx = mx;
+          let ry = my;
+          addEventListener(
+            'pointermove',
+            (e) => {
+              mx = e.clientX;
+              my = e.clientY;
+              dot.style.translate = `${mx}px ${my}px`;
+            },
+            { passive: true }
+          );
+          (function ringLoop() {
+            rx += (mx - rx) * 0.18;
+            ry += (my - ry) * 0.18;
+            ring.style.translate = `${rx}px ${ry}px`;
+            requestAnimationFrame(ringLoop);
+          })();
+          document.querySelectorAll('a, button, [data-magnetic]').forEach((el) => {
+            el.addEventListener('pointerenter', () => ring.setAttribute('data-hot', 'true'));
+            el.addEventListener('pointerleave', () => ring.setAttribute('data-hot', 'false'));
+          });
+        }
       }
     </script>
   </body>
