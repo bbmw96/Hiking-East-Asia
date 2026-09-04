@@ -115,7 +115,7 @@ export const countries: CountryMeta[] = [
   },
   {
     slug: 'japan',
-    status: 'coming-soon',
+    status: 'live',
     region: 'east-asia',
     flagEmoji: '🇯🇵',
     heroGradient: 'from-rose-800 via-pink-700 to-rose-400',
