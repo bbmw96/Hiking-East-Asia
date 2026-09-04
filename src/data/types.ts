@@ -10,9 +10,23 @@ export interface OfficialLink {
   url: string;
 }
 
+export type CountrySlug =
+  | 'malaysia'
+  | 'singapore'
+  | 'thailand'
+  | 'indonesia'
+  | 'vietnam'
+  | 'philippines'
+  | 'brunei'
+  | 'japan'
+  | 'south-korea'
+  | 'taiwan'
+  | 'hong-kong'
+  | 'china';
+
 export interface Area {
   slug: string;
-  country: 'malaysia' | 'singapore';
+  country: CountrySlug;
   region: string;
   coordinates: { lat: number; lng: number };
   difficulty: Difficulty;
