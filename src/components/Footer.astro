@@ -11,6 +11,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = getUi(locale);
 const liveCountries = getLiveCountries();
+const buildYear = new Date().getFullYear();
 ---
 
 <footer class="border-t border-black/5 bg-ink-950 text-mist-100">
@@ -40,5 +41,8 @@ const liveCountries = getLiveCountries();
       </div>
     </div>
     <p class="mt-10 max-w-3xl text-xs leading-relaxed text-mist-100/50">{t.footer.rights}</p>
+    <p class="mt-4 text-xs text-mist-100/40">
+      <span class="ltr-only">© <span data-live-year>{buildYear}</span> {SITE_NAME}.</span> {t.footer.copyright}
+    </p>
   </div>
 </footer>

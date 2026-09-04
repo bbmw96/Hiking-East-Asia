@@ -160,5 +160,51 @@ const meta = localeMeta[locale];
         }
       }
     </script>
+    <script>
+      // ---- live date/year, and a silent check for a newer deploy ----------
+      // Runs on every page (this layout wraps the whole site), so any
+      // element marked data-live-year always reflects the visitor's actual
+      // current year, even long after the last build. This never assumes
+      // a timezone; it simply reads the browser's own clock.
+      document.querySelectorAll('[data-live-year]').forEach((el) => {
+        el.textContent = String(new Date().getFullYear());
+      });
+
+      // A lightweight, non-disruptive freshness check: compare the
+      // timestamp baked into this build against version.json on the
+      // server. It never reloads or interrupts the visitor; it only keeps
+      // a record so a future feature (or a person checking devtools) can
+      // tell a newer deploy has shipped. Failures (offline, blocked
+      // request) are swallowed, since this is a background nicety, not a
+      // page requirement.
+      (async () => {
+        try {
+          const res = await fetch(`/version.json?t=${Date.now()}`, { cache: 'no-store' });
+          if (!res.ok) return;
+          const { builtAt } = await res.json();
+          const seen = localStorage.getItem('site-build-version');
+          if (builtAt && builtAt !== seen) {
+            localStorage.setItem('site-build-version', builtAt);
+            document.documentElement.setAttribute('data-build-fresh', seen ? 'updated' : 'first-load');
+          }
+        } catch {
+          // Offline or blocked: silently skip, nothing depends on this.
+        }
+      })();
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState !== 'visible') return;
+        fetch(`/version.json?t=${Date.now()}`, { cache: 'no-store' })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (!data?.builtAt) return;
+            const seen = localStorage.getItem('site-build-version');
+            if (data.builtAt !== seen) {
+              localStorage.setItem('site-build-version', data.builtAt);
+              document.documentElement.setAttribute('data-build-fresh', 'updated');
+            }
+          })
+          .catch(() => {});
+      });
+    </script>
   </body>
 </html>
