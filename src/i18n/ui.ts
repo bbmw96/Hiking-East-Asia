@@ -54,6 +54,7 @@ export const ui = {
     },
     footer: {
       builtFor: 'Built for',
+      countries: 'Countries',
       rights: 'All trail information is provided for planning purposes only. Always confirm current conditions, fees and permit requirements with the official authority before you travel.',
       languages: 'Available in',
     },
@@ -128,6 +129,7 @@ export const ui = {
     },
     footer: {
       builtFor: 'Dibina untuk',
+      countries: 'Negara',
       rights: 'Semua maklumat laluan disediakan untuk tujuan perancangan sahaja. Sentiasa sahkan keadaan semasa, bayaran dan keperluan permit dengan pihak berkuasa rasmi sebelum anda bermusafir.',
       languages: 'Tersedia dalam',
     },
@@ -202,6 +204,7 @@ export const ui = {
     },
     footer: {
       builtFor: '为以下网站打造',
+      countries: '国家',
       rights: '本站所有路线信息仅供规划参考。出发前请务必向官方机构确认最新状况、费用及许可证要求。',
       languages: '提供语言',
     },
@@ -276,6 +279,7 @@ export const ui = {
     },
     footer: {
       builtFor: '為以下網站打造',
+      countries: '國家',
       rights: '網站入面所有路線資訊只供計劃行程參考之用。出發前請務必向官方機構確認最新狀況、費用同許可證要求。',
       languages: '提供語言',
     },
@@ -350,6 +354,7 @@ export const ui = {
     },
     footer: {
       builtFor: 'இதற்காக உருவாக்கப்பட்டது',
+      countries: 'நாடுகள்',
       rights: 'இந்த வலைத்தளத்தில் உள்ள அனைத்து பாதைத் தகவல்களும் திட்டமிடல் நோக்கத்திற்காக மட்டுமே வழங்கப்படுகின்றன. பயணம் செய்வதற்கு முன், தற்போதைய நிலைமைகள், கட்டணங்கள் மற்றும் அனுமதி தேவைகளை அதிகாரப்பூர்வ அமைப்புடன் எப்போதும் உறுதிப்படுத்திக் கொள்ளுங்கள்.',
       languages: 'இந்த மொழிகளில் கிடைக்கிறது',
     },
@@ -424,6 +429,7 @@ export const ui = {
     },
     footer: {
       builtFor: 'صُمم من أجل',
+      countries: 'الدول',
       rights: 'جميع معلومات المسارات في هذا الموقع مُقدَّمة لأغراض التخطيط فقط. يُرجى دائمًا التأكد من الأوضاع الحالية والرسوم ومتطلبات التصاريح لدى الجهة الرسمية قبل السفر.',
       languages: 'متوفر باللغات',
     },
