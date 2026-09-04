@@ -83,7 +83,7 @@ export const countries: CountryMeta[] = [
   },
   {
     slug: 'philippines',
-    status: 'coming-soon',
+    status: 'live',
     region: 'southeast-asia',
     flagEmoji: '🇵🇭',
     heroGradient: 'from-blue-800 via-sky-600 to-cyan-400',
