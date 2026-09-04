@@ -131,7 +131,7 @@ export const countries: CountryMeta[] = [
   },
   {
     slug: 'south-korea',
-    status: 'coming-soon',
+    status: 'live',
     region: 'east-asia',
     flagEmoji: '🇰🇷',
     heroGradient: 'from-slate-800 via-red-700 to-blue-500',
