@@ -51,7 +51,7 @@ export const countries: CountryMeta[] = [
   },
   {
     slug: 'indonesia',
-    status: 'coming-soon',
+    status: 'live',
     region: 'southeast-asia',
     flagEmoji: '🇮🇩',
     heroGradient: 'from-red-800 via-orange-700 to-amber-500',

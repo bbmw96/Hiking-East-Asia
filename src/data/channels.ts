@@ -1,6 +1,7 @@
 import { malaysiaAreas } from './malaysia';
 import { singaporeAreas } from './singapore';
 import { thailandAreas } from './thailand';
+import { indonesiaAreas } from './indonesia';
 import type { Locale } from '../i18n/locales';
 import type { CountrySlug, LocalizedString } from './types';
 
@@ -13,7 +14,7 @@ export interface OfficialChannel {
 
 /** Deduplicated list of every permit-issuing authority already cited across the area data, so this directory can never drift out of sync with the permit boxes it mirrors. Several areas share one authority name (e.g. PERHILITAN, NParks, DNP) but link to that authority's page for a different park, so each entry also carries the area name to tell them apart. */
 export function getOfficialChannels(): OfficialChannel[] {
-  const areas = [...malaysiaAreas, ...singaporeAreas, ...thailandAreas];
+  const areas = [...malaysiaAreas, ...singaporeAreas, ...thailandAreas, ...indonesiaAreas];
   const seen = new Set<string>();
   const channels: OfficialChannel[] = [];
 
