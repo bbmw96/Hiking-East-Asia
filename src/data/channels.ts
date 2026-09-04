@@ -7,6 +7,7 @@ import { philippinesAreas } from './philippines';
 import { bruneiAreas } from './brunei';
 import { japanAreas } from './japan';
 import { southKoreaAreas } from './south-korea';
+import { taiwanAreas } from './taiwan';
 import type { Locale } from '../i18n/locales';
 import type { CountrySlug, LocalizedString } from './types';
 
@@ -19,7 +20,7 @@ export interface OfficialChannel {
 
 /** Deduplicated list of every permit-issuing authority already cited across the area data, so this directory can never drift out of sync with the permit boxes it mirrors. Several areas share one authority name (e.g. PERHILITAN, NParks, DNP) but link to that authority's page for a different park, so each entry also carries the area name to tell them apart. The dedup key combines authority name and URL, not URL alone, because a couple of authorities without a dedicated web page (e.g. the Philippines' DENR-run parks) fall back to the same national portal URL while remaining genuinely different offices. */
 export function getOfficialChannels(): OfficialChannel[] {
-  const areas = [...malaysiaAreas, ...singaporeAreas, ...thailandAreas, ...indonesiaAreas, ...vietnamAreas, ...philippinesAreas, ...bruneiAreas, ...japanAreas, ...southKoreaAreas];
+  const areas = [...malaysiaAreas, ...singaporeAreas, ...thailandAreas, ...indonesiaAreas, ...vietnamAreas, ...philippinesAreas, ...bruneiAreas, ...japanAreas, ...southKoreaAreas, ...taiwanAreas];
   const seen = new Set<string>();
   const channels: OfficialChannel[] = [];
 
