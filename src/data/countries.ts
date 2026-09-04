@@ -67,7 +67,7 @@ export const countries: CountryMeta[] = [
   },
   {
     slug: 'vietnam',
-    status: 'coming-soon',
+    status: 'live',
     region: 'southeast-asia',
     flagEmoji: '🇻🇳',
     heroGradient: 'from-lime-800 via-green-700 to-emerald-500',
