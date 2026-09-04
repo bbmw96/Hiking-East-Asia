@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TerrainArt from '../../components/TerrainArt.astro';
+import CinematicHero from '../../components/CinematicHero.astro';
 import CountryCard from '../../components/CountryCard.astro';
-import { getUi } from '../../i18n/utils';
+import { getUi, url } from '../../i18n/utils';
 import { locales, type Locale } from '../../i18n/locales';
 import { getLiveCountries, getComingSoonCountries } from '../../data/countries';
 
@@ -21,25 +21,13 @@ const comingSoon = getComingSoonCountries();
 ---
 
 <BaseLayout locale={locale} title={t.home.heroTitle} description={t.home.heroSubtitle}>
-  <section class="relative flex min-h-[86vh] items-end overflow-hidden">
-    <TerrainArt gradient="from-emerald-950 via-emerald-800 to-lime-500" class="absolute inset-0 -z-10 h-full w-full" animated>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10"></div>
-    </TerrainArt>
-    <div class="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 pt-32 text-white">
-      <p class="reveal text-sm font-semibold uppercase tracking-[0.2em] text-canopy-300">{t.home.heroEyebrow}</p>
-      <h1 class="reveal reveal-delay-1 mt-4 max-w-3xl text-balance font-display text-4xl font-semibold leading-[1.08] sm:text-6xl">
-        {t.home.heroTitle}
-      </h1>
-      <p class="reveal reveal-delay-2 mt-5 max-w-xl text-balance text-lg text-white/85">{t.home.heroSubtitle}</p>
-      <a
-        href={`/${locale}/malaysia/`}
-        class="reveal reveal-delay-3 mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink-950 transition hover:bg-canopy-100"
-      >
-        {t.home.heroCta}
-        <span aria-hidden="true" class="drift-slow">→</span>
-      </a>
-    </div>
-  </section>
+  <CinematicHero
+    eyebrow={t.home.heroEyebrow}
+    title={t.home.heroTitle}
+    subtitle={t.home.heroSubtitle}
+    ctaLabel={t.home.heroCta}
+    ctaHref={`/${locale}/malaysia/`}
+  />
 
   <section class="mx-auto max-w-6xl px-5 py-20">
     <div class="reveal max-w-2xl">
@@ -69,7 +57,7 @@ const comingSoon = getComingSoonCountries();
         <h3 class="font-display text-xl font-semibold text-canopy-900">{t.home.safetyCtaTitle}</h3>
         <p class="mt-3 text-sm leading-relaxed text-ink-900/75">{t.home.safetyCtaBody}</p>
         <a
-          href={`/${locale}/safety/`}
+          href={url(`/${locale}/safety/`)}
           class="mt-5 inline-flex items-center gap-2 rounded-full bg-canopy-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-canopy-900"
         >
           {t.home.safetyCtaButton}

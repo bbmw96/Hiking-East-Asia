@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerrainArt from '../../components/TerrainArt.astro';
+import { getUi, url } from '../../i18n/utils';
+import { locales, type Locale } from '../../i18n/locales';
+import { officialTrips } from '../../data/trips';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+const sortedTrips = [...officialTrips].sort((a, b) => a.date.localeCompare(b.date));
+const dateFormatter = new Intl.DateTimeFormat(locale === 'ar' ? 'ar' : locale, { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout locale={locale} title={t.trips.title} description={t.trips.intro}>
+  <section class="relative overflow-hidden">
+    <TerrainArt gradient="from-emerald-950 via-canopy-700 to-lime-500" class="inset-0 h-full w-full" position="absolute">
+      <div class="absolute inset-0 bg-black/45"></div>
+    </TerrainArt>
+    <div class="relative z-10 mx-auto max-w-3xl px-5 py-24 text-white">
+      <h1 class="reveal font-display text-4xl font-semibold sm:text-5xl">{t.trips.title}</h1>
+      <p class="reveal reveal-delay-1 mt-4 text-lg text-white/85">{t.trips.intro}</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5 py-16">
+    {sortedTrips.length === 0 ? (
+      <div class="reveal rounded-2xl border border-dashed border-black/15 p-10 text-center text-ink-900/60">
+        {t.trips.empty}
+      </div>
+    ) : (
+      <ul class="space-y-6">
+        {sortedTrips.map((trip) => (
+          <li class="reveal rounded-2xl border border-black/10 bg-white p-7">
+            <p class="text-sm font-semibold uppercase tracking-wide text-canopy-700">
+              {dateFormatter.format(new Date(trip.date))}
+            </p>
+            <h2 class="mt-1.5 font-display text-xl font-semibold text-ink-950">{trip.title[locale]}</h2>
+            <p class="mt-2 text-sm leading-relaxed text-ink-900/75">{trip.description[locale]}</p>
+            <p class="mt-3 text-xs text-ink-900/60">{t.trips.organisedBy} {trip.organiser[locale]}</p>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a
+                href={trip.contactUrl}
+                class="inline-flex items-center gap-2 rounded-full bg-canopy-700 px-5 py-2 text-sm font-semibold text-white transition hover:bg-canopy-900"
+              >
+                {t.trips.register}
+              </a>
+              <a
+                href={url(`/${locale}/${trip.country}/${trip.areaSlug}/`)}
+                class="inline-flex items-center gap-2 rounded-full border border-black/10 px-5 py-2 text-sm font-semibold text-ink-900 transition hover:border-canopy-700/40"
+              >
+                {t.trips.permitContext}
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>

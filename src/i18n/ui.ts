@@ -2,7 +2,7 @@ export const SITE_NAME = 'Hiking East Asia';
 
 export const ui = {
   en: {
-    nav: { home: 'Home', malaysia: 'Malaysia', singapore: 'Singapore', moreCountries: 'More countries', safety: 'Safety & permits', language: 'Language' },
+    nav: { home: 'Home', malaysia: 'Malaysia', singapore: 'Singapore', moreCountries: 'More countries', trips: 'Trips', safety: 'Safety & permits', language: 'Language' },
     common: {
       difficulty: 'Difficulty', easy: 'Easy', moderate: 'Moderate', hard: 'Hard', expert: 'Expert',
       duration: 'Duration', elevation: 'Summit elevation', bestMonths: 'Best months', avoidMonths: 'Avoid',
@@ -11,6 +11,30 @@ export const ui = {
       gettingThere: 'Getting there', highlights: 'Highlights', safetyTips: 'Safety tips', whatToBring: 'What to bring',
       readMore: 'Read more', comingSoon: 'Coming soon', viewArea: 'View area', exploreTrails: 'Explore trails',
       photoCredit: 'Illustrative image, not a photograph', backTo: 'Back to',
+    },
+    trips: {
+      title: 'Upcoming club trips',
+      intro: 'Trips organised directly by this site’s editors, not third parties. Each one links to the relevant park’s official permit page so you can double-check everything yourself before you commit.',
+      empty: 'No trips scheduled right now. Check back soon, or see the safety guide for how to vet any trip you find elsewhere.',
+      organisedBy: 'Organised by',
+      register: 'Get in touch to join',
+      permitContext: 'Permit and park details',
+    },
+    verify: {
+      title: 'Verify before you pay',
+      intro: 'Work through this list before you send money for any hike, even one that looks fully legitimate.',
+      item1: 'I found the trip’s permit reference number, or confirmed directly with the park authority that the trip needs none.',
+      item2: 'I checked the guide’s registration or licence number with the park office, not just with the organiser.',
+      item3: 'I’m paying into a business account or an official booking platform, not a personal bank account.',
+      item4: 'The organiser answered a direct question about the permit without deflecting.',
+      item5: 'I can find this organiser through an official channel (the park’s own partner list, a registered company, a long-standing club), not just a single social media post.',
+      item6: 'If this trip disappeared tomorrow, I know how I’d get my money back.',
+      reset: 'Reset checklist',
+      allDone: 'All checked. That’s a good sign, though it’s never a guarantee. Trust your judgement too.',
+    },
+    channels: {
+      title: 'Official booking channels',
+      intro: 'Skip the middleman where you can. These are the government departments and park corporations that actually issue every permit on this site. Book or verify directly with them.',
     },
     home: {
       heroEyebrow: 'Malaysia · Singapore · East Asia',
@@ -30,8 +54,10 @@ export const ui = {
     },
     footer: {
       builtFor: 'Built for',
+      countries: 'Countries',
       rights: 'All trail information is provided for planning purposes only. Always confirm current conditions, fees and permit requirements with the official authority before you travel.',
       languages: 'Available in',
+      copyright: 'All rights reserved.',
     },
     safety: {
       title: 'Safety & permits',
@@ -48,10 +74,11 @@ export const ui = {
       tip5Body: 'Share your route, your group size and your expected return time with someone who is not on the hike. For remote multi-day treks, register with the park office as required and carry a means of calling for help.',
       reportTitle: 'If something looks wrong',
       reportBody: 'If a trip organiser cannot produce a valid permit number or refuses to say which authority issued it, do not pay. You can verify a park permit directly with the issuing office using the contact details on that park’s page on this site.',
+      reportButton: 'Email the site editors',
     },
   },
   ms: {
-    nav: { home: 'Laman Utama', malaysia: 'Malaysia', singapore: 'Singapura', moreCountries: 'Negara lain', safety: 'Keselamatan & permit', language: 'Bahasa' },
+    nav: { home: 'Laman Utama', malaysia: 'Malaysia', singapore: 'Singapura', moreCountries: 'Negara lain', trips: 'Perjalanan', safety: 'Keselamatan & permit', language: 'Bahasa' },
     common: {
       difficulty: 'Tahap kesukaran', easy: 'Mudah', moderate: 'Sederhana', hard: 'Sukar', expert: 'Pakar',
       duration: 'Tempoh', elevation: 'Ketinggian puncak', bestMonths: 'Bulan terbaik', avoidMonths: 'Elakkan',
@@ -60,6 +87,30 @@ export const ui = {
       gettingThere: 'Cara ke sana', highlights: 'Perkara menarik', safetyTips: 'Petua keselamatan', whatToBring: 'Apa yang perlu dibawa',
       readMore: 'Baca lanjut', comingSoon: 'Akan datang', viewArea: 'Lihat kawasan', exploreTrails: 'Terokai laluan',
       photoCredit: 'Imej ilustrasi, bukan gambar sebenar', backTo: 'Kembali ke',
+    },
+    trips: {
+      title: 'Perjalanan kelab akan datang',
+      intro: 'Perjalanan yang dianjurkan terus oleh penyunting laman ini, bukan pihak ketiga. Setiap satu memaut ke halaman permit rasmi taman berkenaan supaya anda boleh menyemak sendiri semuanya sebelum komited.',
+      empty: 'Tiada perjalanan dijadualkan buat masa ini. Semak semula tidak lama lagi, atau lihat panduan keselamatan untuk cara menyemak sebarang perjalanan yang anda jumpai di tempat lain.',
+      organisedBy: 'Dianjurkan oleh',
+      register: 'Hubungi kami untuk menyertai',
+      permitContext: 'Butiran permit dan taman',
+    },
+    verify: {
+      title: 'Sahkan sebelum membayar',
+      intro: 'Semak senarai ini sebelum menghantar wang untuk sebarang pendakian, walaupun yang kelihatan sah sepenuhnya.',
+      item1: 'Saya menjumpai nombor rujukan permit perjalanan, atau mengesahkan terus dengan pihak berkuasa taman bahawa perjalanan itu tidak memerlukan permit.',
+      item2: 'Saya menyemak nombor pendaftaran atau lesen pemandu dengan pejabat taman, bukan hanya dengan penganjur.',
+      item3: 'Saya membayar ke akaun perniagaan atau platform tempahan rasmi, bukan akaun bank peribadi.',
+      item4: 'Penganjur menjawab soalan langsung tentang permit tanpa mengelak.',
+      item5: 'Saya dapat mengesan penganjur ini melalui saluran rasmi (senarai rakan kongsi taman itu sendiri, syarikat berdaftar, kelab lama), bukan hanya satu hantaran media sosial.',
+      item6: 'Jika perjalanan ini hilang esok, saya tahu bagaimana untuk mendapatkan semula wang saya.',
+      reset: 'Set semula senarai semak',
+      allDone: 'Semua disemak. Itu tanda baik, walaupun ia bukan jaminan. Percayai pertimbangan anda juga.',
+    },
+    channels: {
+      title: 'Saluran tempahan rasmi',
+      intro: 'Langkau orang tengah jika boleh. Ini adalah jabatan kerajaan dan perbadanan taman yang sebenarnya mengeluarkan setiap permit di laman ini. Tempah atau sahkan terus dengan mereka.',
     },
     home: {
       heroEyebrow: 'Malaysia · Singapura · Asia Timur',
@@ -79,8 +130,10 @@ export const ui = {
     },
     footer: {
       builtFor: 'Dibina untuk',
+      countries: 'Negara',
       rights: 'Semua maklumat laluan disediakan untuk tujuan perancangan sahaja. Sentiasa sahkan keadaan semasa, bayaran dan keperluan permit dengan pihak berkuasa rasmi sebelum anda bermusafir.',
       languages: 'Tersedia dalam',
+      copyright: 'Hak cipta terpelihara.',
     },
     safety: {
       title: 'Keselamatan & permit',
@@ -97,10 +150,11 @@ export const ui = {
       tip5Body: 'Kongsikan laluan, saiz kumpulan dan jangkaan masa pulang anda dengan seseorang yang tidak turut mendaki. Untuk pendakian jauh berbilang hari, daftar dengan pejabat taman seperti yang dikehendaki dan bawa alat untuk memanggil bantuan.',
       reportTitle: 'Jika sesuatu kelihatan tidak kena',
       reportBody: 'Jika penganjur perjalanan tidak dapat mengemukakan nombor permit yang sah atau enggan menyatakan pihak berkuasa yang mengeluarkannya, jangan bayar. Anda boleh mengesahkan permit taman terus dengan pejabat pengeluar menggunakan butiran hubungan pada halaman taman berkenaan di laman ini.',
+      reportButton: 'E-mel penyunting laman',
     },
   },
   'zh-cn': {
-    nav: { home: '首页', malaysia: '马来西亚', singapore: '新加坡', moreCountries: '更多国家', safety: '安全与许可证', language: '语言' },
+    nav: { home: '首页', malaysia: '马来西亚', singapore: '新加坡', moreCountries: '更多国家', trips: '行程', safety: '安全与许可证', language: '语言' },
     common: {
       difficulty: '难度', easy: '简单', moderate: '中等', hard: '困难', expert: '专家级',
       duration: '所需时间', elevation: '峰顶海拔', bestMonths: '最佳月份', avoidMonths: '避开月份',
@@ -109,6 +163,30 @@ export const ui = {
       gettingThere: '交通方式', highlights: '亮点', safetyTips: '安全提示', whatToBring: '需携带物品',
       readMore: '阅读更多', comingSoon: '即将推出', viewArea: '查看该地区', exploreTrails: '探索路线',
       photoCredit: '示意图，非实景照片', backTo: '返回',
+    },
+    trips: {
+      title: '即将举行的会员行程',
+      intro: '这些行程由本站编辑直接组织，并非第三方安排。每个行程都链接到相关公园的官方许可证页面，方便你在报名前自行核实所有信息。',
+      empty: '目前没有排定的行程。请稍后再来查看，或参阅安全指南，了解如何核实你在其他地方找到的行程。',
+      organisedBy: '主办方',
+      register: '联系我们以报名',
+      permitContext: '许可证与公园详情',
+    },
+    verify: {
+      title: '付款前先核实',
+      intro: '在为任何徒步行程付款前，先完成这份清单，即使这个行程看起来完全没问题。',
+      item1: '我已直接向公园管理机构确认行程的许可证编号，或确认该行程无需许可证。',
+      item2: '我已向公园办事处（而非仅仅是组织者）核实向导的注册或执照编号。',
+      item3: '我付款到的是商业账户或官方预订平台，而不是个人银行账户。',
+      item4: '组织者能直接回答关于许可证的问题，而不是回避。',
+      item5: '我能通过官方渠道（公园自身的合作伙伴名单、注册公司、历史悠久的社团）找到这位组织者，而不仅仅是一则社交媒体帖子。',
+      item6: '如果这个行程明天突然消失，我知道该如何拿回我的钱。',
+      reset: '重置清单',
+      allDone: '已全部核对完毕。这是个好迹象，但并非绝对保证，请同时相信自己的判断。',
+    },
+    channels: {
+      title: '官方预订渠道',
+      intro: '尽量跳过中间人。以下是本站每一张许可证实际签发机构的政府部门与公园管理机构，请直接向它们预订或核实。',
     },
     home: {
       heroEyebrow: '马来西亚 · 新加坡 · 东亚',
@@ -128,8 +206,10 @@ export const ui = {
     },
     footer: {
       builtFor: '为以下网站打造',
+      countries: '国家',
       rights: '本站所有路线信息仅供规划参考。出发前请务必向官方机构确认最新状况、费用及许可证要求。',
       languages: '提供语言',
+      copyright: '版权所有。',
     },
     safety: {
       title: '安全与许可证',
@@ -146,10 +226,11 @@ export const ui = {
       tip5Body: '把路线、队伍人数和预计返回时间告知没有同行的人。对于多日的偏远行程，请按规定向公园办事处登记，并携带可用于求助的通讯工具。',
       reportTitle: '如果情况看起来不对劲',
       reportBody: '如果行程组织者无法出示有效的许可证编号，或拒绝说明是哪个机构签发的，请不要付款。你可以使用本站相应公园页面上的联络方式，直接向签发机构核实许可证。',
+      reportButton: '给网站编辑发邮件',
     },
   },
   'zh-hk': {
-    nav: { home: '主頁', malaysia: '馬來西亞', singapore: '新加坡', moreCountries: '更多國家', safety: '安全與許可證', language: '語言' },
+    nav: { home: '主頁', malaysia: '馬來西亞', singapore: '新加坡', moreCountries: '更多國家', trips: '行程', safety: '安全與許可證', language: '語言' },
     common: {
       difficulty: '難度', easy: '容易', moderate: '中等', hard: '困難', expert: '專家級',
       duration: '所需時間', elevation: '山頂海拔', bestMonths: '最佳月份', avoidMonths: '避免月份',
@@ -158,6 +239,30 @@ export const ui = {
       gettingThere: '前往方法', highlights: '行程亮點', safetyTips: '安全貼士', whatToBring: '需要攜帶物品',
       readMore: '閱讀更多', comingSoon: '即將推出', viewArea: '查看地區', exploreTrails: '探索路線',
       photoCredit: '示意圖，並非實景照片', backTo: '返回',
+    },
+    trips: {
+      title: '即將舉行嘅會員行程',
+      intro: '呢啲行程由呢個網站嘅編輯直接組織，唔係第三方安排。每個行程都連結到相關公園嘅官方許可證頁面，方便你報名之前自己核實晒所有資訊。',
+      empty: '而家未有排定嘅行程。請遲啲再嚟睇下，或者參閱安全指南，了解點樣核實你喺其他地方搵到嘅行程。',
+      organisedBy: '主辦方',
+      register: '聯絡我哋報名',
+      permitContext: '許可證同公園詳情',
+    },
+    verify: {
+      title: '俾錢之前先核實',
+      intro: '喺為任何行山行程俾錢之前，先做埋呢張清單，就算呢個行程睇落完全冇問題。',
+      item1: '我已經直接向公園管理機構確認行程嘅許可證編號，或者確認呢個行程唔使許可證。',
+      item2: '我已經向公園辦事處（而唔淨係組織者）核實嚮導嘅註冊或者牌照編號。',
+      item3: '我畀錢去嘅係商業戶口或者官方訂位平台，而唔係個人銀行戶口。',
+      item4: '組織者可以直接答到有關許可證嘅問題，而唔係避重就輕。',
+      item5: '我可以透過官方渠道（公園自己嘅合作夥伴名單、註冊公司、老牌會社）搵到呢位組織者，而唔淨係一個社交媒體帖文。',
+      item6: '如果呢個行程聽日突然消失，我知道點樣攞返我啲錢。',
+      reset: '重設清單',
+      allDone: '已經全部核對完畢。呢個係好跡象，但唔係絕對保證，都要相信自己嘅判斷。',
+    },
+    channels: {
+      title: '官方訂位渠道',
+      intro: '盡量跳過中間人。以下係呢個網站入面每張許可證真正簽發機構嘅政府部門同公園管理機構，請直接向佢哋訂或者核實。',
     },
     home: {
       heroEyebrow: '馬來西亞 · 新加坡 · 東亞',
@@ -177,8 +282,10 @@ export const ui = {
     },
     footer: {
       builtFor: '為以下網站打造',
+      countries: '國家',
       rights: '網站入面所有路線資訊只供計劃行程參考之用。出發前請務必向官方機構確認最新狀況、費用同許可證要求。',
       languages: '提供語言',
+      copyright: '版權所有。',
     },
     safety: {
       title: '安全與許可證',
@@ -195,10 +302,11 @@ export const ui = {
       tip5Body: '將路線、隊伍人數同預計返回時間，話俾冇同行嘅人知。如果係多日嘅偏遠行程，請按規定向公園辦事處登記，並攜帶可以求助嘅通訊工具。',
       reportTitle: '如果覺得有啲唔對路',
       reportBody: '如果組織者攞唔出有效嘅許可證編號，或者唔肯講清楚係邊個機構簽發，就唔好俾錢。你可以用網站入面對應公園頁面嘅聯絡方法，直接向簽發機構核實許可證。',
+      reportButton: '俾網站編輯發電郵',
     },
   },
   ta: {
-    nav: { home: 'முகப்பு', malaysia: 'மலேசியா', singapore: 'சிங்கப்பூர்', moreCountries: 'மேலும் நாடுகள்', safety: 'பாதுகாப்பு & அனுமதிகள்', language: 'மொழி' },
+    nav: { home: 'முகப்பு', malaysia: 'மலேசியா', singapore: 'சிங்கப்பூர்', moreCountries: 'மேலும் நாடுகள்', trips: 'பயணங்கள்', safety: 'பாதுகாப்பு & அனுமதிகள்', language: 'மொழி' },
     common: {
       difficulty: 'சிரம நிலை', easy: 'எளிது', moderate: 'நடுத்தரம்', hard: 'கடினம்', expert: 'நிபுணர் நிலை',
       duration: 'காலஅளவு', elevation: 'சிகர உயரம்', bestMonths: 'சிறந்த மாதங்கள்', avoidMonths: 'தவிர்க்க வேண்டிய மாதங்கள்',
@@ -207,6 +315,30 @@ export const ui = {
       gettingThere: 'எப்படி செல்வது', highlights: 'சிறப்பம்சங்கள்', safetyTips: 'பாதுகாப்பு குறிப்புகள்', whatToBring: 'என்ன கொண்டு செல்ல வேண்டும்',
       readMore: 'மேலும் படிக்க', comingSoon: 'விரைவில் வருகிறது', viewArea: 'பகுதியைப் பார்க்க', exploreTrails: 'பாதைகளை ஆராயுங்கள்',
       photoCredit: 'இது ஒரு விளக்கப் படம், உண்மையான புகைப்படம் அல்ல', backTo: 'திரும்பிச் செல்ல',
+    },
+    trips: {
+      title: 'வரவிருக்கும் கிளப் பயணங்கள்',
+      intro: 'இந்த பயணங்கள் மூன்றாம் தரப்பினரால் அல்ல, இந்த தளத்தின் ஆசிரியர்களால் நேரடியாக ஏற்பாடு செய்யப்படுகின்றன. ஒவ்வொன்றும் தொடர்புடைய பூங்காவின் அதிகாரப்பூர்வ அனுமதிப் பக்கத்துடன் இணைக்கப்பட்டுள்ளது, எனவே உறுதிசெய்வதற்கு முன் அனைத்தையும் நீங்களே சரிபார்க்கலாம்.',
+      empty: 'தற்போது எந்தப் பயணமும் திட்டமிடப்படவில்லை. விரைவில் மீண்டும் பாருங்கள், அல்லது வேறு எங்காவது நீங்கள் கண்டறியும் பயணத்தை எப்படி சரிபார்ப்பது என்பதற்கு பாதுகாப்பு வழிகாட்டியைப் பாருங்கள்.',
+      organisedBy: 'ஏற்பாடு செய்தவர்',
+      register: 'சேர தொடர்பு கொள்ளுங்கள்',
+      permitContext: 'அனுமதி மற்றும் பூங்கா விவரங்கள்',
+    },
+    verify: {
+      title: 'பணம் செலுத்தும் முன் சரிபார்க்கவும்',
+      intro: 'எந்த மலையேற்றத்திற்கும் பணம் அனுப்பும் முன் இந்த பட்டியலை முடிக்கவும், அது முற்றிலும் நம்பகமானதாகத் தோன்றினாலும் கூட.',
+      item1: 'பயணத்தின் அனுமதி குறிப்பு எண்ணை நான் கண்டறிந்தேன், அல்லது பயணத்திற்கு அனுமதி தேவையில்லை என்பதை பூங்கா அதிகாரத்துடன் நேரடியாக உறுதிசெய்தேன்.',
+      item2: 'வழிகாட்டியின் பதிவு அல்லது உரிம எண்ணை, ஏற்பாட்டாளரிடம் மட்டும் அல்லாமல் பூங்கா அலுவலகத்திடம் சரிபார்த்தேன்.',
+      item3: 'நான் தனிநபர் வங்கிக் கணக்கிற்கு அல்ல, வணிகக் கணக்கு அல்லது அதிகாரப்பூர்வ முன்பதிவு தளத்திற்கு பணம் செலுத்துகிறேன்.',
+      item4: 'அனுமதி பற்றிய நேரடி கேள்விக்கு ஏற்பாட்டாளர் தவிர்க்காமல் பதிலளித்தார்.',
+      item5: 'இந்த ஏற்பாட்டாளரை ஒரு சமூக ஊடகப் பதிவு மூலம் மட்டும் அல்லாமல், ஒரு அதிகாரப்பூர்வ வழி மூலம் (பூங்காவின் சொந்த பங்காளர் பட்டியல், பதிவுசெய்யப்பட்ட நிறுவனம், நீண்டகால கிளப்) என்னால் கண்டறிய முடிகிறது.',
+      item6: 'இந்த பயணம் நாளை மறைந்துவிட்டால், என் பணத்தை எப்படி திரும்பப் பெறுவது என்று எனக்குத் தெரியும்.',
+      reset: 'பட்டியலை மீட்டமை',
+      allDone: 'அனைத்தும் சரிபார்க்கப்பட்டது. இது ஒரு நல்ல அறிகுறி, ஆனால் இது ஒருபோதும் உத்தரவாதம் அல்ல. உங்கள் சொந்த தீர்மானத்தையும் நம்புங்கள்.',
+    },
+    channels: {
+      title: 'அதிகாரப்பூர்வ முன்பதிவு வழிகள்',
+      intro: 'முடிந்தவரை இடைத்தரகரைத் தவிர்க்கவும். இவை இந்த தளத்தில் உள்ள ஒவ்வொரு அனுமதியையும் உண்மையில் வழங்கும் அரசு துறைகளும் பூங்கா நிறுவனங்களும். நேரடியாக இவர்களிடம் முன்பதிவு செய்யவும் அல்லது சரிபார்க்கவும்.',
     },
     home: {
       heroEyebrow: 'மலேசியா · சிங்கப்பூர் · கிழக்கு ஆசியா',
@@ -226,8 +358,10 @@ export const ui = {
     },
     footer: {
       builtFor: 'இதற்காக உருவாக்கப்பட்டது',
+      countries: 'நாடுகள்',
       rights: 'இந்த வலைத்தளத்தில் உள்ள அனைத்து பாதைத் தகவல்களும் திட்டமிடல் நோக்கத்திற்காக மட்டுமே வழங்கப்படுகின்றன. பயணம் செய்வதற்கு முன், தற்போதைய நிலைமைகள், கட்டணங்கள் மற்றும் அனுமதி தேவைகளை அதிகாரப்பூர்வ அமைப்புடன் எப்போதும் உறுதிப்படுத்திக் கொள்ளுங்கள்.',
       languages: 'இந்த மொழிகளில் கிடைக்கிறது',
+      copyright: 'அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
     },
     safety: {
       title: 'பாதுகாப்பு & அனுமதிகள்',
@@ -244,10 +378,11 @@ export const ui = {
       tip5Body: 'உங்கள் பாதை, குழு அளவு மற்றும் எதிர்பார்க்கப்படும் திரும்பும் நேரத்தை, பயணத்தில் இல்லாத ஒருவருடன் பகிருங்கள். பல நாள் தொலைதூரப் பயணங்களுக்கு, தேவைப்படும் பட்சத்தில் பூங்கா அலுவலகத்தில் பதிவு செய்யுங்கள், மேலும் உதவி கோருவதற்கான ஒரு வழியை உடன் எடுத்துச் செல்லுங்கள்.',
       reportTitle: 'ஏதோ தவறாகத் தெரிந்தால்',
       reportBody: 'ஒரு பயண ஏற்பாட்டாளர் செல்லுபடியாகும் அனுமதி எண்ணைக் காட்ட முடியாவிட்டால், அல்லது எந்த அமைப்பு அதை வழங்கியது என்று சொல்ல மறுத்தால், பணம் செலுத்த வேண்டாம். இந்த வலைத்தளத்தில் அந்தந்தப் பூங்காவின் பக்கத்தில் உள்ள தொடர்பு விவரங்களைப் பயன்படுத்தி, பூங்கா அனுமதியை நேரடியாக வழங்கும் அலுவலகத்துடன் சரிபார்க்கலாம்.',
+      reportButton: 'தள ஆசிரியர்களுக்கு மின்னஞ்சல் அனுப்பவும்',
     },
   },
   ar: {
-    nav: { home: 'الرئيسية', malaysia: 'ماليزيا', singapore: 'سنغافورة', moreCountries: 'دول أخرى', safety: 'السلامة والتصاريح', language: 'اللغة' },
+    nav: { home: 'الرئيسية', malaysia: 'ماليزيا', singapore: 'سنغافورة', moreCountries: 'دول أخرى', trips: 'الرحلات', safety: 'السلامة والتصاريح', language: 'اللغة' },
     common: {
       difficulty: 'درجة الصعوبة', easy: 'سهلة', moderate: 'متوسطة', hard: 'صعبة', expert: 'للخبراء',
       duration: 'المدة', elevation: 'ارتفاع القمة', bestMonths: 'أفضل الأشهر', avoidMonths: 'أشهر يُفضَّل تجنّبها',
@@ -256,6 +391,30 @@ export const ui = {
       gettingThere: 'كيفية الوصول', highlights: 'أبرز المعالم', safetyTips: 'إرشادات السلامة', whatToBring: 'ما يجب إحضاره',
       readMore: 'اقرأ المزيد', comingSoon: 'قريبًا', viewArea: 'عرض المنطقة', exploreTrails: 'استكشف المسارات',
       photoCredit: 'صورة توضيحية وليست صورة فوتوغرافية فعلية', backTo: 'العودة إلى',
+    },
+    trips: {
+      title: 'رحلات النادي القادمة',
+      intro: 'تُنظَّم هذه الرحلات مباشرة من قِبل محرري هذا الموقع، لا من جهات خارجية. يرتبط كل منها بصفحة التصريح الرسمية للحديقة المعنية، لتتمكن من التحقق من كل شيء بنفسك قبل الالتزام.',
+      empty: 'لا توجد رحلات مقررة حاليًا. تفقّد الصفحة لاحقًا، أو راجع دليل السلامة لمعرفة كيفية التحقق من أي رحلة تجدها في مكان آخر.',
+      organisedBy: 'تنظيم',
+      register: 'تواصل معنا للانضمام',
+      permitContext: 'تفاصيل التصريح والحديقة',
+    },
+    verify: {
+      title: 'تحقق قبل الدفع',
+      intro: 'أكمل هذه القائمة قبل إرسال أي مبلغ لأي رحلة تنزّه، حتى لو بدت شرعية تمامًا.',
+      item1: 'وجدتُ رقم التصريح المرجعي للرحلة، أو تأكدت مباشرة من الجهة المعنية بالحديقة أن الرحلة لا تتطلب تصريحًا.',
+      item2: 'تحققتُ من رقم تسجيل أو ترخيص المرشد لدى مكتب الحديقة، لا من المنظِّم فقط.',
+      item3: 'أدفع إلى حساب تجاري أو منصة حجز رسمية، لا إلى حساب بنكي شخصي.',
+      item4: 'أجاب المنظِّم عن سؤال مباشر بشأن التصريح دون مراوغة.',
+      item5: 'يمكنني العثور على هذا المنظِّم عبر قناة رسمية (قائمة شركاء الحديقة نفسها، شركة مسجَّلة، نادٍ قائم منذ فترة طويلة)، لا عبر منشور واحد على وسائل التواصل الاجتماعي فقط.',
+      item6: 'لو اختفت هذه الرحلة غدًا، أعرف كيف أسترد أموالي.',
+      reset: 'إعادة تعيين القائمة',
+      allDone: 'تم التحقق من كل شيء. هذه علامة جيدة، لكنها ليست ضمانًا مطلقًا أبدًا. ثق بحكمك أيضًا.',
+    },
+    channels: {
+      title: 'قنوات الحجز الرسمية',
+      intro: 'تجاوز الوسيط كلما أمكن. هذه هي الإدارات الحكومية وهيئات الحدائق التي تُصدر فعليًا كل تصريح في هذا الموقع، فاحجز أو تحقق مباشرة معها.',
     },
     home: {
       heroEyebrow: 'ماليزيا · سنغافورة · شرق آسيا',
@@ -275,8 +434,10 @@ export const ui = {
     },
     footer: {
       builtFor: 'صُمم من أجل',
+      countries: 'الدول',
       rights: 'جميع معلومات المسارات في هذا الموقع مُقدَّمة لأغراض التخطيط فقط. يُرجى دائمًا التأكد من الأوضاع الحالية والرسوم ومتطلبات التصاريح لدى الجهة الرسمية قبل السفر.',
       languages: 'متوفر باللغات',
+      copyright: 'جميع الحقوق محفوظة.',
     },
     safety: {
       title: 'السلامة والتصاريح',
@@ -293,6 +454,7 @@ export const ui = {
       tip5Body: 'شارك مسارك وعدد أفراد مجموعتك والوقت المتوقع لعودتك مع شخص لا يرافقك في الرحلة. بالنسبة للرحلات النائية متعددة الأيام، سجّل لدى مكتب الحديقة إن تطلّب الأمر ذلك، واحمل معك وسيلة لطلب المساعدة.',
       reportTitle: 'إذا بدا لك أن هناك خطأ ما',
       reportBody: 'إذا لم تتمكن الجهة المنظِّمة للرحلة من تقديم رقم تصريح صالح، أو رفضت تحديد الجهة التي أصدرته، فلا تدفع. يمكنك التحقق من تصريح الحديقة مباشرة لدى الجهة المُصدِرة باستخدام بيانات التواصل الموجودة في صفحة تلك الحديقة على هذا الموقع.',
+      reportButton: 'راسل محرري الموقع عبر البريد الإلكتروني',
     },
   },
 } as const;

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TerrainArt from '../../../components/TerrainArt.astro';
-import { getUi } from '../../../i18n/utils';
+import { getUi, url } from '../../../i18n/utils';
 import { locales, type Locale } from '../../../i18n/locales';
 import { getComingSoonCountries } from '../../../data/countries';
 
@@ -23,7 +23,7 @@ const t = getUi(locale);
 
 <BaseLayout locale={locale} title={country.name[locale]} description={country.teaser[locale]}>
   <section class="relative flex min-h-[70vh] items-center overflow-hidden">
-    <TerrainArt gradient={country.heroGradient} class="absolute inset-0 -z-10 h-full w-full" animated>
+    <TerrainArt gradient={country.heroGradient} class="inset-0 h-full w-full" position="absolute" animated>
       <div class="absolute inset-0 bg-black/45"></div>
     </TerrainArt>
     <div class="relative z-10 mx-auto w-full max-w-3xl px-5 py-24 text-center text-white">
@@ -34,9 +34,9 @@ const t = getUi(locale);
         {t.common.comingSoon}
       </span>
       <p class="reveal reveal-delay-4 mt-10 text-sm text-white/70">
-        <a href={`/${locale}/malaysia/`} class="underline underline-offset-2 hover:text-white">{t.nav.malaysia}</a>
+        <a href={url(`/${locale}/malaysia/`)} class="underline underline-offset-2 hover:text-white">{t.nav.malaysia}</a>
         <span class="mx-2">·</span>
-        <a href={`/${locale}/singapore/`} class="underline underline-offset-2 hover:text-white">{t.nav.singapore}</a>
+        <a href={url(`/${locale}/singapore/`)} class="underline underline-offset-2 hover:text-white">{t.nav.singapore}</a>
       </p>
     </div>
   </section>
