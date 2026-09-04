@@ -163,7 +163,7 @@ export const countries: CountryMeta[] = [
   },
   {
     slug: 'hong-kong',
-    status: 'coming-soon',
+    status: 'live',
     region: 'east-asia',
     flagEmoji: '🇭🇰',
     heroGradient: 'from-red-900 via-rose-700 to-orange-400',
