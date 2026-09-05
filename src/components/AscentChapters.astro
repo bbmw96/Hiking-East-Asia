@@ -1,0 +1,107 @@
+---
+export interface Chapter {
+  label: string;
+  altitude: number;
+  title: string;
+  body: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+interface Props {
+  chapters: Chapter[];
+  altitudeLabel: string;
+}
+
+const { chapters, altitudeLabel } = Astro.props;
+---
+
+{/* Sticky-stack: each chapter pins and the next peels over it. This is native
+    position: sticky, so the pinning itself costs no JavaScript. Under reduced
+    motion or on narrow screens the sticky is dropped and the chapters simply
+    stack as ordinary sections. */}
+<div class="chapters">
+  {chapters.map((c, i) => (
+    <Fragment>
+    <section class="chapter" style={`--i: ${i}; --tint: ${i / Math.max(chapters.length - 1, 1)}`}>
+      <div class="chapter-sky" aria-hidden="true"></div>
+      <div class="chapter-ridge" aria-hidden="true">
+        <svg viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice">
+          <path
+            d="M0 210 L180 150 L360 200 L540 130 L720 194 L900 128 L1080 196 L1260 146 L1440 200 L1440 300 L0 300 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+
+      <div class="chapter-inner">
+        <p class="chapter-meta">
+          <span class="chapter-label">{c.label}</span>
+          <span class="chapter-alt">
+            <span class="sr-only">{altitudeLabel}&nbsp;</span>{c.altitude.toLocaleString('en-GB')}&nbsp;m
+          </span>
+        </p>
+        <h2 class="chapter-title">{c.title}</h2>
+        <p class="chapter-body">{c.body}</p>
+        {c.ctaLabel && c.ctaHref && (
+          <a href={c.ctaHref} data-magnetic class="chapter-cta">{c.ctaLabel}</a>
+        )}
+      </div>
+    </section>
+    {i < chapters.length - 1 && <div class="chapter-dwell" aria-hidden="true"></div>}
+    </Fragment>
+  ))}
+</div>
+
+<script>
+  /* Writes --vis and --shift on each chapter once per frame. The outgoing
+     chapter's content clears before the incoming chapter's edge reaches it,
+     which is what stops the peel slicing a line of body copy in half. */
+  const chapters = Array.from(document.querySelectorAll<HTMLElement>('.chapter'));
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wide = window.matchMedia('(min-width: 768px)');
+
+  if (chapters.length && !reduce) {
+    // Smoothstep, so the fade eases rather than ramping linearly.
+    const ease = (edge0: number, edge1: number, x: number) => {
+      const t = Math.min(Math.max((x - edge0) / (edge1 - edge0), 0), 1);
+      return t * t * (3 - 2 * t);
+    };
+
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight || 1;
+      for (const ch of chapters) {
+        if (!wide.matches) {
+          ch.style.removeProperty('--vis');
+          ch.style.removeProperty('--shift');
+          continue;
+        }
+        const r = ch.getBoundingClientRect();
+        // Rising into view before it pins.
+        const entering = ease(0.95, 0.55, r.top / vh);
+        /* Coverage is measured from the NEXT chapter's leading edge, not this
+           one's own box: sticky siblings share a parent, so a pinned chapter
+           keeps top:0 and its own bottom never moves. */
+        const next = chapters[chapters.indexOf(ch) + 1] ?? null;
+        const covered = next
+          ? 1 - Math.min(Math.max(next.getBoundingClientRect().top / vh, 0), 1)
+          : 0;
+        /* The incoming edge travels bottom-to-top and reaches the centred text
+           at roughly 45% coverage, so the fade must be finished before that. */
+        const leaving = 1 - ease(0.04, 0.30, covered);
+        const vis = Math.min(entering, leaving);
+        ch.style.setProperty('--vis', vis.toFixed(3));
+        ch.style.setProperty('--shift', `${(-46 * covered).toFixed(1)}px`);
+      }
+    };
+
+    addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    addEventListener('resize', update, { passive: true });
+    wide.addEventListener('change', update);
+    update();
+  }
+</script>

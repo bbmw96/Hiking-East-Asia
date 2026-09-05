@@ -7,15 +7,17 @@ import type { Locale } from '../i18n/locales';
 interface Props {
   locale: Locale;
   country: CountryMeta;
+  /** The one lit lead cell in the bento grid: taller art, larger type. */
+  lead?: boolean;
 }
 
-const { locale, country } = Astro.props;
+const { locale, country, lead = false } = Astro.props;
 const t = getUi(locale);
-const href = country.status === 'live' ? `/${locale}/${country.slug}/` : `/${locale}/${country.slug}/`;
+const href = `/${locale}/${country.slug}/`;
 ---
 
-<a href={href} class="reveal group block overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-  <TerrainArt gradient={country.heroGradient} class="h-40 w-full">
+<a href={href} class:list={['reveal group flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg', lead && 'lg:rounded-3xl']}>
+  <TerrainArt gradient={country.heroGradient} class:list={['w-full', lead ? 'h-56 lg:h-[19rem]' : 'h-40']}>
     <span class="absolute left-3 top-3 text-2xl drop-shadow">{country.flagEmoji}</span>
     {country.status === 'coming-soon' && (
       <span class="absolute right-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-ink-900">
@@ -23,8 +25,8 @@ const href = country.status === 'live' ? `/${locale}/${country.slug}/` : `/${loc
       </span>
     )}
   </TerrainArt>
-  <div class="p-5">
-    <h3 class="font-display text-lg font-semibold text-ink-950">{country.name[locale]}</h3>
-    <p class="mt-1.5 text-sm leading-relaxed text-ink-900/70">{country.teaser[locale]}</p>
+  <div class:list={[lead ? 'p-7' : 'p-5']}>
+    <h3 class:list={['font-display font-semibold text-ink-950', lead ? 'text-2xl lg:text-3xl' : 'text-lg']}>{country.name[locale]}</h3>
+    <p class:list={['mt-1.5 leading-relaxed text-ink-900/70', lead ? 'text-base' : 'text-sm']}>{country.teaser[locale]}</p>
   </div>
 </a>
