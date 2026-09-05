@@ -14,6 +14,26 @@ interface Props {
 
 const { locale, title, description } = Astro.props;
 const meta = localeMeta[locale];
+
+/* Only fetch the scripts this page can actually render. Loading every Noto
+   family on every page meant an English page downloaded the Chinese, Tamil
+   and Arabic fonts (megabytes each) that it would never draw a glyph from. */
+const SCRIPT_FONTS: Record<Locale, string[]> = {
+  en: [],
+  ms: [],
+  'zh-cn': ['Noto+Sans+SC:wght@400;500;700'],
+  'zh-hk': ['Noto+Sans+TC:wght@400;500;700'],
+  ta: ['Noto+Sans+Tamil:wght@400;500;700'],
+  ar: ['Noto+Sans+Arabic:wght@400;500;700', 'Noto+Naskh+Arabic:wght@500;700'],
+};
+const fontFamilies = [
+  'Fraunces:opsz,wght@9..144,400;9..144,600',
+  'Inter:wght@400;500;600;700',
+  ...SCRIPT_FONTS[locale],
+];
+const fontHref = `https://fonts.googleapis.com/css2?${fontFamilies
+  .map((f) => `family=${f}`)
+  .join('&')}&display=swap`;
 ---
 
 <html lang={meta.htmlLang} dir={meta.dir}>
@@ -25,10 +45,7 @@ const meta = localeMeta[locale];
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Tamil:wght@400;500;700&family=Noto+Sans+Arabic:wght@400;500;700&family=Noto+Naskh+Arabic:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href={fontHref} rel="stylesheet" />
     <noscript>
       <style>
         .reveal { opacity: 1 !important; animation: none !important; }
