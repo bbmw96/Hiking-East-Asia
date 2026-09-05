@@ -1,0 +1,180 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  ctaLabel: string;
+  ctaHref: string;
+  altitudeLabel: string;
+}
+
+const { eyebrow, title, subtitle, ctaLabel, ctaHref, altitudeLabel } = Astro.props;
+
+/* Words are already in the DOM and already laid out. The entrance is a pure CSS
+   animation rather than a JS-added class, so the headline is present and
+   readable even if scripting never runs. Scripts without spaces (Chinese)
+   simply fall back to one reveal unit for the whole line. */
+const words = title.split(' ').filter(Boolean);
+---
+
+<section class="ascent-hero" data-parallax-hero data-ascent-hero>
+  <!-- Always-present CSS sky. The WebGL canvas is layered over this and stays
+       transparent if the context, the shader or the device refuses, so there
+       is never a missing background. -->
+  <div class="ascent-sky" aria-hidden="true"></div>
+  <canvas class="ascent-mist" data-mist aria-hidden="true"></canvas>
+
+  <div class="hero-layers" aria-hidden="true">
+    <svg class="hero-layer" style="--depth-x: 5; --depth-y: 0.02;" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 300 L180 250 L340 292 L520 232 L700 288 L880 226 L1060 286 L1240 240 L1440 292 L1440 600 L0 600 Z" fill="rgb(120 170 155 / 0.16)" />
+    </svg>
+    <svg class="hero-layer" style="--depth-x: 9; --depth-y: 0.05;" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 380 L140 320 L300 366 L460 296 L640 356 L820 286 L1000 352 L1180 300 L1360 358 L1440 330 L1440 600 L0 600 Z" fill="rgb(24 58 48 / 0.42)" />
+    </svg>
+    <svg class="hero-layer" style="--depth-x: 15; --depth-y: 0.09;" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 452 L160 372 L320 430 L480 336 L640 424 L800 348 L960 432 L1120 366 L1280 442 L1440 392 L1440 600 L0 600 Z" fill="rgb(16 42 34 / 0.66)" />
+    </svg>
+    <svg class="hero-layer" style="--depth-x: 23; --depth-y: 0.15;" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 520 L200 424 L380 500 L560 404 L760 492 L960 416 L1160 500 L1360 446 L1440 486 L1440 600 L0 600 Z" fill="rgb(10 28 23 / 0.86)" />
+    </svg>
+    <svg class="hero-layer" style="--depth-x: 34; --depth-y: 0.22;" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 574 L240 500 L440 560 L660 486 L880 556 L1100 496 L1320 562 L1440 528 L1440 600 L0 600 Z" fill="rgb(6 18 15 / 0.96)" />
+    </svg>
+  </div>
+
+  <div class="ascent-scrim" aria-hidden="true"></div>
+
+  <div class="ascent-content">
+    <p class="ascent-eyebrow">{eyebrow}</p>
+    <h1 class="ascent-title">
+      {words.map((word, i) => (
+        <span class="split-line"><span style={`--i: ${i}`}>{word}</span></span>
+      ))}
+    </h1>
+    <p class="ascent-sub">{subtitle}</p>
+    <a href={ctaHref} data-magnetic class="ascent-cta">
+      {ctaLabel}
+      <span aria-hidden="true" class="drift-slow">→</span>
+    </a>
+  </div>
+
+  <!-- Real figure in the markup, so a script failure leaves a true number. -->
+  <p class="ascent-readout" aria-hidden="true">
+    <span class="ascent-readout-label">{altitudeLabel}</span>
+    <span class="ascent-readout-value" data-altitude>0</span><span class="ascent-readout-unit">m</span>
+  </p>
+
+  <div class="ascent-cue" aria-hidden="true">
+    <span class="drift-slow"></span>
+  </div>
+</section>
+
+<script>
+  /* Living mist: domain-warped fbm in a fragment shader. Vanilla WebGL, no
+     library. Strictly an enhancement — every failure path leaves the CSS sky
+     visible underneath. */
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-mist]');
+  const hero = document.querySelector<HTMLElement>('[data-ascent-hero]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (canvas && hero && !reduce) {
+    const gl = canvas.getContext('webgl', { alpha: true, antialias: false, premultipliedAlpha: false });
+    if (gl) {
+      const VERT = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }`;
+      const FRAG = `
+        precision mediump float;
+        uniform vec2 u_res; uniform float u_t;
+        float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+        float noise(vec2 p){
+          vec2 i = floor(p), f = fract(p);
+          vec2 u = f * f * (3.0 - 2.0 * f);
+          return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
+                     mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+        }
+        float fbm(vec2 p){
+          float v = 0.0, a = 0.5;
+          for (int i = 0; i < 5; i++) { v += a * noise(p); p *= 2.02; a *= 0.5; }
+          return v;
+        }
+        void main(){
+          vec2 uv = gl_FragCoord.xy / u_res.xy;
+          vec2 q = vec2(fbm(uv * 3.0 + u_t * 0.02), fbm(uv * 3.0 + vec2(5.2, 1.3) - u_t * 0.015));
+          float f = fbm(uv * 4.0 + q * 1.9 + vec2(u_t * 0.01, 0.0));
+          /* Mist sits in the upper two thirds and clears where the text lives. */
+          float band = smoothstep(0.05, 0.62, uv.y);
+          float a = smoothstep(0.42, 0.86, f) * band * 0.5;
+          gl_FragColor = vec4(vec3(0.80, 0.90, 0.87), a);
+        }`;
+      const sh = (type: number, src: string) => {
+        const s = gl.createShader(type)!;
+        gl.shaderSource(s, src); gl.compileShader(s);
+        return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
+      };
+      const vs = sh(gl.VERTEX_SHADER, VERT);
+      const fs = sh(gl.FRAGMENT_SHADER, FRAG);
+      if (vs && fs) {
+        const prog = gl.createProgram()!;
+        gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+        if (gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+          gl.useProgram(prog);
+          const buf = gl.createBuffer();
+          gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+          gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+          const loc = gl.getAttribLocation(prog, 'p');
+          gl.enableVertexAttribArray(loc);
+          gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+          gl.enable(gl.BLEND);
+          gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+          const uRes = gl.getUniformLocation(prog, 'u_res');
+          const uT = gl.getUniformLocation(prog, 'u_t');
+
+          // Cap the pixel ratio so a retina panel does not quadruple fill cost.
+          const resize = () => {
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+            canvas.width = Math.floor(canvas.clientWidth * dpr);
+            canvas.height = Math.floor(canvas.clientHeight * dpr);
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            gl.uniform2f(uRes, canvas.width, canvas.height);
+          };
+          resize();
+          addEventListener('resize', resize, { passive: true });
+          canvas.style.opacity = '1';
+
+          // Costs nothing once scrolled past or when the tab is hidden.
+          let onScreen = true, running = false;
+          const frame = (ms: number) => {
+            if (!onScreen || document.hidden) { running = false; return; }
+            gl.uniform1f(uT, ms * 0.001);
+            gl.drawArrays(gl.TRIANGLES, 0, 3);
+            requestAnimationFrame(frame);
+          };
+          const start = () => { if (!running) { running = true; requestAnimationFrame(frame); } };
+          if ('IntersectionObserver' in window) {
+            new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) start(); })
+              .observe(hero);
+          }
+          document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
+          start();
+        }
+      }
+    }
+  }
+
+  /* Altitude readout climbs with scroll depth through the hero. Reads scroll
+     once per frame inside a rAF, writes text only. */
+  const readout = document.querySelector<HTMLElement>('[data-altitude]');
+  if (readout && hero) {
+    const PEAK = 4095;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const h = hero.offsetHeight || 1;
+      const p = Math.min(Math.max(window.scrollY / h, 0), 1);
+      readout.textContent = String(Math.round(p * PEAK));
+    };
+    addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+</script>
