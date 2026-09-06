@@ -1,0 +1,15 @@
+name = "hiking-failover"
+main = "src/worker.ts"
+compatibility_date = "2026-01-01"
+
+# The worker answers for the public hostname. DNS points hiking.bbmw0.com at
+# Cloudflare; Cloudflare runs this; this chooses an origin.
+routes = [
+  { pattern = "hiking.bbmw0.com/*", zone_name = "bbmw0.com" }
+]
+
+[vars]
+PRIMARY_ORIGIN = "https://hiking-east-asia.vercel.app"
+MIRROR_ORIGIN = "https://bbmw96.github.io"
+MIRROR_BASE = "/Hiking-East-Asia"
+PRIMARY_TIMEOUT_MS = "4000"
