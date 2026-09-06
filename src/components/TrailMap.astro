@@ -1,0 +1,261 @@
+---
+import { getUi, url } from '../i18n/utils.ts';
+import type { Locale } from '../i18n/locales.ts';
+
+export interface MapPoint {
+  lat: number;
+  lng: number;
+  label: string;
+  href?: string;
+  /** Shown under the label in the marker popup. */
+  detail?: string;
+}
+
+interface Props {
+  locale: Locale;
+  points: MapPoint[];
+  /** 'area' zooms to one trailhead; 'region' frames the whole set. */
+  mode?: 'area' | 'region';
+  class?: string;
+}
+
+const { locale, points, mode = 'region', class: klass = '' } = Astro.props;
+const t = getUi(locale);
+
+/* ---- Static locator, drawn at build time -------------------------------
+   Web Mercator, the same projection the tiles use, so the dots sit exactly
+   where the interactive map will put them. This is deliberately a projected
+   point diagram and not a drawn coastline: inventing a coastline on a site
+   whose whole premise is verified data would be inventing data. */
+const R = Math.PI / 180;
+const merc = (lat: number, lng: number) => ({
+  x: (lng + 180) / 360,
+  y: (1 - Math.log(Math.tan(lat * R) + 1 / Math.cos(lat * R)) / Math.PI) / 2,
+});
+
+const projected = points.map((p) => ({ ...p, ...merc(p.lat, p.lng) }));
+const xs = projected.map((p) => p.x);
+const ys = projected.map((p) => p.y);
+
+/* Padding is proportional to the spread of the points, not a fixed number of
+   Mercator units. A fixed pad that suits the whole region swamps a single
+   country: six Malaysian trailheads span about a tenth of what twelve
+   countries do, and an absolute margin left them as specks in an empty box. */
+const rawX = Math.max(...xs) - Math.min(...xs);
+const rawY = Math.max(...ys) - Math.min(...ys);
+const extent = Math.max(rawX, rawY);
+const pad = mode === 'area' ? 0.008 : Math.max(extent * 0.18, 0.004);
+
+let minX = Math.min(...xs) - pad;
+let maxX = Math.max(...xs) + pad;
+let minY = Math.min(...ys) - pad;
+let maxY = Math.max(...ys) + pad;
+
+/* Force a designed frame. Mercator x and y are already in the same units, so
+   growing the deficient axis about its centre keeps the geography undistorted
+   while giving every map on the site the same shape. */
+const ASPECT = mode === 'area' ? 16 / 9 : 16 / 10;
+let spanX = maxX - minX;
+let spanY = maxY - minY;
+if (spanX / spanY > ASPECT) {
+  const want = spanX / ASPECT;
+  const mid = (minY + maxY) / 2;
+  minY = mid - want / 2;
+  maxY = mid + want / 2;
+} else {
+  const want = spanY * ASPECT;
+  const mid = (minX + maxX) / 2;
+  minX = mid - want / 2;
+  maxX = mid + want / 2;
+}
+spanX = maxX - minX;
+spanY = maxY - minY;
+
+const W = 800;
+const H = Math.round(W / ASPECT);
+const sx = (x: number) => ((x - minX) / spanX) * W;
+const sy = (y: number) => ((y - minY) / spanY) * H;
+
+/* Greedy label de-collision. Labels sit to the right of their dot by default;
+   where two would overlap the later one is nudged down, and if it would then
+   run off the right edge it flips to the left of its dot. Without this,
+   Cameron Highlands and Taman Negara printed on top of one another. */
+const LABEL_H = 19;
+const CHAR_W = 7.2;
+const placed: { x1: number; x2: number; y: number }[] = [];
+const dots = projected
+  .map((p) => ({ ...p, cx: sx(p.x), cy: sy(p.y) }))
+  .sort((a, b) => a.cy - b.cy)
+  .map((d) => {
+    const w = d.label.length * CHAR_W;
+    let anchor: 'start' | 'end' = 'start';
+    let lx = d.cx + 12;
+    let ly = d.cy + 4;
+    for (let guard = 0; guard < 24; guard++) {
+      const x1 = anchor === 'start' ? lx : lx - w;
+      const x2 = x1 + w;
+      const hit = placed.some((q) => Math.abs(q.y - ly) < LABEL_H && x1 < q.x2 && x2 > q.x1);
+      if (!hit && x2 <= W - 4 && x1 >= 4) { placed.push({ x1, x2, y: ly }); break; }
+      if (x2 > W - 4 && anchor === 'start') { anchor = 'end'; lx = d.cx - 12; continue; }
+      ly += LABEL_H;
+    }
+    return { ...d, lx, ly, anchor };
+  });
+
+/* Whole-degree graticule across the visible window, so the diagram carries a
+   real scale rather than floating dots. The step adapts to the zoom. */
+const invMercLat = (y: number) => (Math.atan(Math.sinh(Math.PI * (1 - 2 * y))) * 180) / Math.PI;
+const lngAt = (x: number) => x * 360 - 180;
+const degSpan = lngAt(maxX) - lngAt(minX);
+const step = degSpan > 40 ? 10 : degSpan > 12 ? 5 : degSpan > 4 ? 1 : 0.25;
+const meridians: { x: number; deg: number }[] = [];
+for (let d = Math.ceil(lngAt(minX) / step) * step; d <= lngAt(maxX); d += step) {
+  meridians.push({ x: sx((d + 180) / 360), deg: Number(d.toFixed(2)) });
+}
+const parallels: { y: number; deg: number }[] = [];
+for (let d = Math.ceil(invMercLat(maxY) / step) * step; d <= invMercLat(minY); d += step) {
+  parallels.push({ y: sy(merc(d, 0).y), deg: Number(d.toFixed(2)) });
+}
+
+const centre = points.length === 1 ? points[0] : null;
+const bounds = [minY, minX, maxY, maxX];
+const mapId = `map-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<figure class:list={['trail-map', klass]} data-map-mode={mode}>
+  <div class="trail-map-frame">
+    {/* Always rendered. It is the whole map when tiles are not loaded, and the
+        placeholder that prevents layout shift when they are. */}
+    <svg
+      class="trail-map-static"
+      viewBox={`0 0 ${W} ${H}`}
+      role="img"
+      aria-label={points.length === 1 ? points[0].label : t.map.staticAlt}
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <rect x="0" y="0" width={W} height={H} fill="var(--map-ground)" />
+      <g class="grat">
+        {meridians.map((m) => (
+          <>
+            <line x1={m.x} y1="0" x2={m.x} y2={H} />
+            <text x={m.x + 4} y="14">{Math.abs(m.deg)}°{m.deg < 0 ? 'W' : 'E'}</text>
+          </>
+        ))}
+        {parallels.map((p) => (
+          <>
+            <line x1="0" y1={p.y} x2={W} y2={p.y} />
+            <text x="4" y={p.y - 5}>{Math.abs(p.deg)}°{p.deg < 0 ? 'S' : 'N'}</text>
+          </>
+        ))}
+      </g>
+      {dots.map((d) => (
+        <g class="pin">
+          <circle cx={d.cx} cy={d.cy} r="9" class="pin-halo" />
+          <circle cx={d.cx} cy={d.cy} r="4" class="pin-dot" />
+          {mode === 'region' && (
+            <>
+              {(d.ly !== d.cy + 4 || d.anchor === 'end') && (
+                <line class="pin-leader" x1={d.cx} y1={d.cy} x2={d.anchor === 'start' ? d.lx - 3 : d.lx + 3} y2={d.ly - 4} />
+              )}
+              <text x={d.lx} y={d.ly} text-anchor={d.anchor}>{d.label}</text>
+            </>
+          )}
+        </g>
+      ))}
+    </svg>
+
+    <div class="trail-map-live" id={mapId} data-bounds={JSON.stringify(bounds)} data-points={JSON.stringify(points)} data-mode={mode} hidden></div>
+
+    <button type="button" class="trail-map-load" data-map-load={mapId}>
+      {t.map.load}
+    </button>
+  </div>
+
+  <figcaption class="trail-map-caption">
+    {centre ? (
+      <span class="ltr-only">{centre.lat.toFixed(4)}, {centre.lng.toFixed(4)}</span>
+    ) : (
+      <span>{t.map.pointCount.replace('{n}', String(points.length))}</span>
+    )}
+    <span class="trail-map-note">{t.map.privacyNote}</span>
+  </figcaption>
+</figure>
+
+<script>
+  /* Tiles load only when the visitor asks.
+
+     Three reasons this is click-to-load rather than automatic:
+       1. Speed. A slippy map that boots on every area page is exactly the kind
+          of weight that made this site feel slow before.
+       2. Privacy. A tile request hands the visitor's IP address to a third
+          party. Nobody should be opted into that by opening a trail page.
+       3. Resilience. If the tile host is unreachable, the static locator is
+          still the map rather than an empty grey box.
+
+     Leaflet is imported dynamically and bundled from node_modules, so it is
+     served from this origin. script-src stays 'self' and no third-party
+     JavaScript ever runs here. */
+  const OSM = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+  const ATTRIB = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors';
+
+  type Pt = { lat: number; lng: number; label: string; href?: string; detail?: string };
+
+  async function boot(container: HTMLElement, button: HTMLButtonElement) {
+    button.disabled = true;
+    const [{ default: L }] = await Promise.all([
+      import('leaflet'),
+      import('leaflet/dist/leaflet.css'),
+    ]);
+
+    const points: Pt[] = JSON.parse(container.dataset.points ?? '[]');
+    const bounds: [number, number, number, number] = JSON.parse(container.dataset.bounds ?? '[]');
+    const single = container.dataset.mode === 'area' && points.length === 1;
+
+    container.hidden = false;
+    const map = L.map(container, { scrollWheelZoom: false, attributionControl: true });
+    L.tileLayer(OSM, { maxZoom: 17, attribution: ATTRIB }).addTo(map);
+
+    // A plain divIcon, so no marker image has to be fetched or hosted.
+    const icon = L.divIcon({ className: 'trail-pin', iconSize: [16, 16], iconAnchor: [8, 8] });
+    const group = L.featureGroup(
+      points.map((p) => {
+        const m = L.marker([p.lat, p.lng], { icon, title: p.label });
+        const safe = document.createElement('div');
+        const strong = document.createElement('strong');
+        strong.textContent = p.label;
+        safe.append(strong);
+        if (p.detail) {
+          const d = document.createElement('div');
+          d.textContent = p.detail;
+          safe.append(d);
+        }
+        if (p.href) {
+          const a = document.createElement('a');
+          a.href = p.href;
+          a.textContent = p.label;
+          strong.replaceWith(a);
+        }
+        // textContent throughout: label and detail are data, never markup.
+        m.bindPopup(safe);
+        return m;
+      })
+    ).addTo(map);
+
+    if (single) map.setView([points[0].lat, points[0].lng], 12);
+    else map.fitBounds(group.getBounds(), { padding: [28, 28] });
+
+    button.remove();
+    container.closest('.trail-map')?.setAttribute('data-live', 'true');
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-map-load]').forEach((button) => {
+    button.addEventListener(
+      'click',
+      () => {
+        const el = document.getElementById(button.dataset.mapLoad!);
+        if (el) boot(el, button).catch(() => { button.disabled = false; });
+      },
+      { once: true }
+    );
+  });
+</script>

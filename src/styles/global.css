@@ -705,3 +705,72 @@ header[data-stuck='true'] {
   text-align: end;
 }
 .area-photo-credit a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---- Trail maps ---- */
+.trail-map { margin: 0; }
+.trail-map-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgb(11 20 16 / 0.1);
+  background: var(--map-ground);
+  --map-ground: #dfe7dd;
+  --map-line: #0b1410;
+}
+.trail-map-static { display: block; width: 100%; height: auto; }
+.trail-map[data-live='true'] .trail-map-static { display: none; }
+
+.trail-map-static .grat line { stroke: color-mix(in oklab, var(--map-line), transparent 88%); stroke-width: 1; }
+.trail-map-static .grat text {
+  fill: color-mix(in oklab, var(--map-line), transparent 55%);
+  font-size: 11px; font-family: var(--font-sans); letter-spacing: 0.06em;
+}
+.trail-map-static .pin-halo { fill: var(--color-canopy-500); opacity: 0.22; }
+.trail-map-static .pin-dot { fill: var(--color-canopy-700); }
+.trail-map-static .pin text {
+  fill: var(--color-ink-950); font-size: 13px; font-weight: 600;
+  font-family: var(--font-sans); paint-order: stroke;
+  stroke: var(--map-ground); stroke-width: 3px; stroke-linejoin: round;
+}
+
+.trail-map-live { width: 100%; aspect-ratio: 16 / 10; }
+.trail-map[data-map-mode='area'] .trail-map-live { aspect-ratio: 16 / 9; }
+.trail-map-live:not([hidden]) { display: block; }
+
+.trail-map-load {
+  position: absolute;
+  inset-block-end: 0.75rem;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid rgb(11 20 16 / 0.12);
+  background: rgb(255 255 255 / 0.94);
+  backdrop-filter: blur(6px);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-ink-950);
+  cursor: pointer;
+}
+[dir='rtl'] .trail-map-load { transform: translateX(50%); }
+.trail-map-load:hover { background: #fff; }
+.trail-map-load:disabled { opacity: 0.6; cursor: progress; }
+
+.trail-map-caption {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1rem;
+  margin-top: 0.6rem; font-size: 0.8125rem; color: rgb(16 29 22 / 0.6);
+}
+.trail-map-note { font-size: 0.75rem; }
+
+/* Leaflet's own marker images are never fetched: the pin is drawn in CSS. */
+.trail-pin {
+  width: 16px; height: 16px; border-radius: 999px;
+  background: var(--color-canopy-700);
+  box-shadow: 0 0 0 4px rgb(47 143 87 / 0.3), 0 1px 3px rgb(0 0 0 / 0.4);
+}
+@media (prefers-reduced-motion: reduce) { .leaflet-fade-anim .leaflet-tile { transition: none !important; } }
+.trail-map-static .pin-leader {
+  stroke: color-mix(in oklab, var(--color-canopy-700), transparent 45%);
+  stroke-width: 1;
+}

@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TerrainArt from '../../../components/TerrainArt.astro';
 import PermitBox from '../../../components/PermitBox.astro';
 import SeasonBox from '../../../components/SeasonBox.astro';
+import TrailMap from '../../../components/TrailMap.astro';
 import { getUi, url } from '../../../i18n/utils';
 import { locales, type Locale } from '../../../i18n/locales';
 import { chinaAreas } from '../../../data/china';
@@ -86,6 +87,15 @@ const t = getUi(locale);
       <aside class="space-y-6">
         <PermitBox locale={locale} area={area} />
         <SeasonBox locale={locale} area={area} />
+        <div class="reveal reveal-delay-1">
+          <h2 class="font-display text-base font-semibold text-ink-950">{t.map.coordinates}</h2>
+          <TrailMap
+            locale={locale}
+            mode="area"
+            class="mt-3"
+            points={[{ lat: area.coordinates.lat, lng: area.coordinates.lng, label: area.name[locale], detail: area.region }]}
+          />
+        </div>
         {area.officialLinks.length > 0 && (
           <div class="reveal reveal-delay-2 rounded-2xl border border-black/10 p-6">
             <h2 class="font-display text-base font-semibold text-ink-950">{t.common.officialSource}</h2>

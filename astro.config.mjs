@@ -85,7 +85,9 @@ function cspMetaTags() {
             // execute code, so this is the accepted residual.
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
-            "img-src 'self' data:",
+            // The only third-party origin the site contacts, images only, and
+            // only after the visitor presses the button on a map.
+            "img-src 'self' data: https://tile.openstreetmap.org",
             "connect-src 'self'",
             "object-src 'none'",
             "base-uri 'self'",
