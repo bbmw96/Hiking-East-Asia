@@ -10,6 +10,9 @@ routes = [
 
 [vars]
 PRIMARY_ORIGIN = "https://hiking-east-asia.vercel.app"
-MIRROR_ORIGIN = "https://bbmw96.github.io"
-MIRROR_BASE = "/Hiking-East-Asia"
+# Once mirror.bbmw0.com is live the mirror serves at its own root, so
+# MIRROR_BASE is empty and no path rewriting happens. Until then, point at the
+# github.io URL and set MIRROR_BASE = "/Hiking-East-Asia".
+MIRROR_ORIGIN = "https://mirror.bbmw0.com"
+MIRROR_BASE = ""
 PRIMARY_TIMEOUT_MS = "4000"

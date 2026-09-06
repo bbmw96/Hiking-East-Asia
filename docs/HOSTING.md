@@ -15,13 +15,56 @@ It also means the redundancy is currently **manual**. If Vercel has an outage,
 `hiking.bbmw0.com` goes down with it, and the mirror only helps the people who
 know the other URL.
 
+## Put the mirror on your own domain first (Squarespace only, no Cloudflare)
+
+Before any of the failover options below, there is a change worth making on its
+own merits, and it is entirely a Squarespace DNS job.
+
+**A GitHub Pages project site with a custom domain serves at the root of that
+domain, not at `/<repo>/`.** So `mirror.bbmw0.com` gives the mirror the same
+path layout as the primary, which means:
+
+- the mirror stops being a second-class `github.io` URL and becomes a real
+  address on your own domain, worth sharing during an outage;
+- every path matches the primary exactly, so any failover added later needs no
+  path rewriting at all.
+
+Three steps, in this order. The order matters: claiming a domain before its DNS
+exists makes GitHub fail its check and takes the mirror offline.
+
+1. **Squarespace DNS**, add a CNAME record: host `mirror`, value
+   `bbmw96.github.io`. Wait for it to resolve.
+2. **GitHub**, Settings, Secrets and variables, Actions, Variables tab: add
+   `PAGES_CUSTOM_DOMAIN` = `mirror.bbmw0.com`. The Pages workflow writes the
+   `CNAME` file only when that variable is set, which is why nothing changes
+   until you are ready.
+3. **GitHub**, Settings, Pages, Custom domain: `mirror.bbmw0.com`, then wait
+   for the DNS check to pass and tick Enforce HTTPS.
+
+`hiking.bbmw0.com` is untouched throughout and keeps pointing at Vercel.
+
+## Can Squarespace do all of the DNS?
+
+Yes, and it already does. Everything above happens in the Squarespace panel.
+
+What Squarespace cannot do, and what no registrar's basic DNS can do, is
+**health-checked failover**. DNS serves fixed records; it has no way to say "if
+this origin returns a 500, use the other one". A handful of specialist DNS
+providers offer health-checked records, but even those would not fix this case
+on their own, because the decision has to be made per request and the two hosts
+have to be checked live. That is a proxy's job, not a name server's.
+
 ## The three ways to actually get failover
 
 ### 1. Manual switchover (what is in place today)
 
-Vercel serves the domain. Pages serves the mirror. During a Vercel outage you
-either share the mirror URL or repoint the CNAME at `bbmw96.github.io` and wait
-for DNS to propagate.
+Vercel serves `hiking.bbmw0.com`. Pages serves the mirror. During a Vercel
+outage you either share the mirror URL or repoint the `hiking` CNAME at
+`bbmw96.github.io` and wait for DNS to propagate.
+
+With the mirror on `mirror.bbmw0.com` this option gets meaningfully better: the
+fallback address is on your own domain and its paths match, so a link to a
+trail page on the primary works unchanged on the mirror.
 
 - Costs nothing, adds no moving parts.
 - Recovery is measured in minutes to hours and needs a person.
