@@ -2,6 +2,7 @@ import { test, before } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { createHash } from 'node:crypto';
 
 /* These run against dist/, so they check what visitors actually receive
    rather than what the source intends. Skipped with a clear message when the
@@ -123,4 +124,75 @@ test('the freshness marker is emitted', opts, () => {
   assert.ok(existsSync('dist/version.json'), 'version.json missing from the build');
   const v = JSON.parse(readFileSync('dist/version.json', 'utf8'));
   assert.ok(!Number.isNaN(Date.parse(v.builtAt)), 'version.json has no valid builtAt');
+});
+
+/* ---- Content Security Policy ------------------------------------------
+   The meta policy is what protects the GitHub Pages mirror, which cannot
+   send response headers at all. These assertions stop it regressing to the
+   permissive header policy it replaced. */
+
+const metaCsp = (html: string): string | null =>
+  html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/)?.[1] ?? null;
+
+test('every page carries a CSP meta tag', opts, () => {
+  const missing = pages.filter((f) => !metaCsp(readFileSync(f, 'utf8')));
+  assert.deepEqual(missing.slice(0, 5), [], `${missing.length} page(s) have no CSP meta tag`);
+});
+
+test("script-src never allows unsafe-inline or unsafe-eval", opts, () => {
+  for (const f of pages) {
+    const csp = metaCsp(readFileSync(f, 'utf8'))!;
+    const scriptSrc = csp.split(';').find((d) => d.trim().startsWith('script-src')) ?? '';
+    assert.ok(!scriptSrc.includes("'unsafe-inline'"), `${f} allows unsafe-inline scripts`);
+    assert.ok(!scriptSrc.includes("'unsafe-eval'"), `${f} allows unsafe-eval`);
+    assert.ok(!scriptSrc.includes('*'), `${f} has a wildcard in script-src`);
+  }
+});
+
+test('every inline script on a page is covered by a hash in that page policy', opts, () => {
+  for (const f of pages) {
+    const html = readFileSync(f, 'utf8');
+    const csp = metaCsp(html)!;
+    for (const m of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)) {
+      if (m[1].length === 0) continue;
+      const hash = `'sha256-${createHash('sha256').update(m[1], 'utf8').digest('base64')}'`;
+      assert.ok(csp.includes(hash),
+        `${f} has an inline script with no matching hash in its policy. ` +
+        'A script that is not hashed will be blocked at runtime.');
+    }
+  }
+});
+
+test('the policy locks down the dangerous fetch directives', opts, () => {
+  for (const f of pages.slice(0, 40)) {
+    const csp = metaCsp(readFileSync(f, 'utf8'))!;
+    for (const directive of [
+      "default-src 'self'", "object-src 'none'", "base-uri 'self'",
+      "form-action 'self'", "frame-src 'none'", "connect-src 'self'",
+    ]) {
+      assert.ok(csp.includes(directive), `${f} policy is missing ${directive}`);
+    }
+  }
+});
+
+test('the response headers add the cross-origin isolation set', () => {
+  const v = JSON.parse(readFileSync('vercel.json', 'utf8'));
+  const headers: { key: string; value: string }[] = v.headers.flatMap((h: any) => h.headers);
+  const get = (k: string) => headers.find((h) => h.key.toLowerCase() === k)?.value;
+  assert.equal(get('cross-origin-resource-policy'), 'same-origin');
+  assert.equal(get('x-permitted-cross-domain-policies'), 'none');
+  assert.ok((get('cross-origin-opener-policy') ?? '').includes('same-origin'));
+  // A permissions policy that grants nothing it does not need.
+  const pp = get('permissions-policy') ?? '';
+  for (const feature of ['camera=()', 'microphone=()', 'geolocation=()', 'payment=()', 'usb=()']) {
+    assert.ok(pp.includes(feature), `Permissions-Policy does not disable ${feature}`);
+  }
+});
+
+test('a security contact is published', () => {
+  const txt = readFileSync('public/.well-known/security.txt', 'utf8');
+  assert.match(txt, /^Contact: /m, 'security.txt has no Contact line');
+  assert.match(txt, /^Expires: /m, 'security.txt has no Expires line (RFC 9116 requires it)');
+  const expires = txt.match(/^Expires: (.+)$/m)![1];
+  assert.ok(new Date(expires) > new Date(), 'the security.txt Expires date is in the past');
 });
