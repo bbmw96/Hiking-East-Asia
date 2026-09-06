@@ -69,6 +69,14 @@ export const ui = {
       languages: 'Available in',
       copyright: 'All rights reserved.',
     },
+    map: {
+      load: 'Show the interactive map',
+      staticAlt: 'Locator map showing each trail area at its verified coordinates',
+      pointCount: '{n} trail areas, at their verified coordinates',
+      privacyNote: 'Map tiles load from OpenStreetMap only once you choose to show them.',
+      openIn: 'Open these coordinates in a map app',
+      coordinates: 'Coordinates',
+    },
     safety: {
       title: 'Safety & permits',
       intro: 'A short, practical guide to hiking safely and legally in this region.',
@@ -191,6 +199,14 @@ export const ui = {
       rights: 'Semua maklumat laluan disediakan untuk tujuan perancangan sahaja. Sentiasa sahkan keadaan semasa, bayaran dan keperluan permit dengan pihak berkuasa rasmi sebelum anda bermusafir.',
       languages: 'Tersedia dalam',
       copyright: 'Hak cipta terpelihara.',
+    },
+    map: {
+      load: 'Tunjukkan peta interaktif',
+      staticAlt: 'Peta lokasi menunjukkan setiap kawasan laluan pada koordinat yang disahkan',
+      pointCount: '{n} kawasan laluan, pada koordinat yang disahkan',
+      privacyNote: 'Jubin peta dimuatkan daripada OpenStreetMap hanya setelah anda memilih untuk menunjukkannya.',
+      openIn: 'Buka koordinat ini dalam aplikasi peta',
+      coordinates: 'Koordinat',
     },
     safety: {
       title: 'Keselamatan & permit',
@@ -315,6 +331,14 @@ export const ui = {
       languages: '提供语言',
       copyright: '版权所有。',
     },
+    map: {
+      load: '显示互动地图',
+      staticAlt: '定位图，标示各路线地区的已核实坐标',
+      pointCount: '{n} 个路线地区，均标于已核实坐标',
+      privacyNote: '地图图块仅在你选择显示后，才会向 OpenStreetMap 载入。',
+      openIn: '在地图应用中打开这组坐标',
+      coordinates: '坐标',
+    },
     safety: {
       title: '安全与许可证',
       intro: '一份简明实用的指南，教你如何在本地区安全合法地徒步。',
@@ -437,6 +461,14 @@ export const ui = {
       rights: '網站入面所有路線資訊只供計劃行程參考之用。出發前請務必向官方機構確認最新狀況、費用同許可證要求。',
       languages: '提供語言',
       copyright: '版權所有。',
+    },
+    map: {
+      load: '顯示互動地圖',
+      staticAlt: '定位圖，標示各路線地區嘅已核實坐標',
+      pointCount: '{n} 個路線地區，全部標於已核實坐標',
+      privacyNote: '地圖圖塊淨係喺你揀咗顯示之後，先至會向 OpenStreetMap 載入。',
+      openIn: '喺地圖應用程式打開呢組坐標',
+      coordinates: '坐標',
     },
     safety: {
       title: '安全與許可證',
@@ -561,6 +593,14 @@ export const ui = {
       languages: 'இந்த மொழிகளில் கிடைக்கிறது',
       copyright: 'அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
     },
+    map: {
+      load: 'ஊடாடும் வரைபடத்தைக் காட்டு',
+      staticAlt: 'ஒவ்வொரு பாதைப் பகுதியையும் சரிபார்க்கப்பட்ட ஆயத்தொலைவுகளில் காட்டும் இருப்பிட வரைபடம்',
+      pointCount: '{n} பாதைப் பகுதிகள், சரிபார்க்கப்பட்ட ஆயத்தொலைவுகளில்',
+      privacyNote: 'நீங்கள் காட்டத் தேர்ந்தெடுத்த பிறகுதான் வரைபடத் துண்டுகள் OpenStreetMap இலிருந்து ஏற்றப்படும்.',
+      openIn: 'இந்த ஆயத்தொலைவுகளை வரைபட செயலியில் திற',
+      coordinates: 'ஆயத்தொலைவுகள்',
+    },
     safety: {
       title: 'பாதுகாப்பு & அனுமதிகள்',
       intro: 'இப்பகுதியில் பாதுகாப்பாகவும் சட்டப்பூர்வமாகவும் மலையேறுவது எப்படி என்பதற்கான ஒரு சுருக்கமான, நடைமுறை வழிகாட்டி.',
@@ -683,6 +723,14 @@ export const ui = {
       rights: 'جميع معلومات المسارات في هذا الموقع مُقدَّمة لأغراض التخطيط فقط. يُرجى دائمًا التأكد من الأوضاع الحالية والرسوم ومتطلبات التصاريح لدى الجهة الرسمية قبل السفر.',
       languages: 'متوفر باللغات',
       copyright: 'جميع الحقوق محفوظة.',
+    },
+    map: {
+      load: 'إظهار الخريطة التفاعلية',
+      staticAlt: 'خريطة تحديد مواقع تعرض كل منطقة مسارات عند إحداثياتها المتحقَّق منها',
+      pointCount: '{n} منطقة مسارات، عند إحداثياتها المتحقَّق منها',
+      privacyNote: 'لا تُحمّل مربّعات الخريطة من OpenStreetMap إلا بعد أن تختار إظهارها.',
+      openIn: 'افتح هذه الإحداثيات في تطبيق خرائط',
+      coordinates: 'الإحداثيات',
     },
     safety: {
       title: 'السلامة والتصاريح',

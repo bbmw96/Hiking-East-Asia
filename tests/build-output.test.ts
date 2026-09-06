@@ -196,3 +196,57 @@ test('a security contact is published', () => {
   const expires = txt.match(/^Expires: (.+)$/m)![1];
   assert.ok(new Date(expires) > new Date(), 'the security.txt Expires date is in the past');
 });
+
+/* ---- Maps -------------------------------------------------------------- */
+
+test('every area page carries a map pinned to its own coordinates', opts, () => {
+  const areaPages = pages.filter((f) => /dist\/en\/[a-z-]+\/[a-z0-9-]+\/index\.html$/.test(f));
+  assert.ok(areaPages.length >= 50, `expected 50+ area pages, found ${areaPages.length}`);
+  for (const f of areaPages) {
+    const html = readFileSync(f, 'utf8');
+    const data = html.match(/class="trail-map-live"[^>]*data-points="([^"]+)"/)?.[1];
+    assert.ok(data, `${f} has no map`);
+    const points = JSON.parse(data!.replace(/&quot;/g, '"').replace(/&#34;/g, '"'));
+    assert.equal(points.length, 1, `${f} should pin exactly one coordinate`);
+    assert.ok(Number.isFinite(points[0].lat) && Number.isFinite(points[0].lng), `${f} pin has no coordinates`);
+  }
+});
+
+test('a map never loads tiles until the visitor asks', opts, () => {
+  for (const f of pages.filter((p) => readFileSync(p, 'utf8').includes('trail-map'))) {
+    const html = readFileSync(f, 'utf8');
+    assert.ok(!/<img[^>]+tile\.openstreetmap/.test(html),
+      `${f} embeds a tile image in the markup, which defeats click-to-load`);
+    assert.match(html, /class="trail-map-load"/, `${f} has a map with no load control`);
+    assert.match(html, /class="trail-map-live"[^>]*hidden/, `${f} map container is not hidden until asked`);
+  }
+});
+
+test('the static locator is real markup, not a placeholder box', opts, () => {
+  const f = pages.find((p) => readFileSync(p, 'utf8').includes('trail-map-static'))!;
+  const html = readFileSync(f, 'utf8');
+  assert.match(html, /class="trail-map-static"[^>]*viewBox/, 'the locator has no viewBox');
+  assert.ok((html.match(/class="pin-dot"/g) ?? []).length > 0, 'the locator draws no pins');
+  assert.ok((html.match(/class="grat"/g) ?? []).length > 0, 'the locator draws no graticule');
+});
+
+test('the map adds exactly one external origin, for images only', opts, () => {
+  const html = readFileSync(pages[0], 'utf8');
+  const csp = metaCsp(html)!;
+  const imgSrc = csp.split(';').find((d) => d.trim().startsWith('img-src'))!;
+  assert.ok(imgSrc.includes('https://tile.openstreetmap.org'), 'tiles are not allowed by the policy');
+  // Everything else must still be first-party. A map must not become a hole.
+  for (const d of ['script-src', 'connect-src', 'default-src', 'frame-src']) {
+    const directive = csp.split(';').find((x) => x.trim().startsWith(d)) ?? '';
+    assert.ok(!directive.includes('openstreetmap') && !directive.includes('http'),
+      `${d} was widened for the map: ${directive}`);
+  }
+});
+
+test('no map library is loaded from a CDN', opts, () => {
+  for (const f of pages) {
+    const html = readFileSync(f, 'utf8');
+    assert.ok(!/src="https?:\/\/[^"]*(leaflet|mapbox|maplibre)/i.test(html),
+      `${f} loads a map library from a third party rather than this origin`);
+  }
+});

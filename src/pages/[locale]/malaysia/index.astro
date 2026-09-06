@@ -2,7 +2,8 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TerrainArt from '../../../components/TerrainArt.astro';
 import AreaCard from '../../../components/AreaCard.astro';
-import { getUi } from '../../../i18n/utils';
+import TrailMap from '../../../components/TrailMap.astro';
+import { getUi, url } from '../../../i18n/utils';
 import { locales, type Locale } from '../../../i18n/locales';
 import { getCountry } from '../../../data/countries';
 import { malaysiaAreas } from '../../../data/malaysia';
@@ -30,6 +31,20 @@ const country = getCountry('malaysia')!;
       <h1 class="reveal reveal-delay-1 mt-3 font-display text-4xl font-semibold sm:text-5xl">{country.name[locale]}</h1>
       <p class="reveal reveal-delay-2 mt-4 max-w-xl text-lg text-white/85">{country.teaser[locale]}</p>
     </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 pt-14">
+    <TrailMap
+      locale={locale}
+      mode="region"
+      points={malaysiaAreas.map((a) => ({
+        lat: a.coordinates.lat,
+        lng: a.coordinates.lng,
+        label: a.name[locale],
+        detail: a.region,
+        href: url(`/${locale}/${a.country}/${a.slug}/`),
+      }))}
+    />
   </section>
 
   <section class="mx-auto max-w-6xl px-5 py-16">
