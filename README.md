@@ -82,8 +82,13 @@ chosen anyway, is set out in [`docs/REPOSITORY-POLICY.md`](docs/REPOSITORY-POLIC
 
 ## Hosting
 
-Two hosts serve the same build, so an outage at either leaves the site up:
+Two hosts serve the same build:
 
 - **Vercel** serves `hiking.bbmw0.com` from `main` on every push.
-- **GitHub Pages** publishes the same build via `.github/workflows/deploy-pages.yml`.
-  Enable it once at Settings -> Pages -> Source: GitHub Actions.
+- **GitHub Pages** serves the mirror at `https://bbmw96.github.io/Hiking-East-Asia/`,
+  published by `.github/workflows/deploy-pages.yml`.
+
+One hostname resolves to one target, so the two cannot both answer
+`hiking.bbmw0.com`, and failover between them is manual today. An edge worker
+that makes it automatic is in `infra/failover-worker/`, with the DNS
+trade-off it requires written out in [`docs/HOSTING.md`](docs/HOSTING.md).
