@@ -1,6 +1,6 @@
-import { allAreas } from './all-areas';
-import type { Locale } from '../i18n/locales';
-import type { CountrySlug, LocalizedString } from './types';
+import { allAreas } from './all-areas.ts';
+import type { Locale } from '../i18n/locales.ts';
+import type { CountrySlug, LocalizedString } from './types.ts';
 
 export interface OfficialChannel {
   authorityName: string;

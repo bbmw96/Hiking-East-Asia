@@ -1,0 +1,20 @@
+# Weekly dependency and action updates. Grouped so a week's patches arrive as
+# one reviewable pull request rather than six.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      all-dependencies:
+        patterns: ['*']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      all-actions:
+        patterns: ['*']

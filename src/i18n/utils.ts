@@ -1,5 +1,5 @@
-import { ui } from './ui';
-import { defaultLocale, type Locale } from './locales';
+import { ui } from './ui.ts';
+import { defaultLocale, type Locale } from './locales.ts';
 
 /** Astro's configured base path with any trailing slash removed, so it is '' at a
  *  domain root and '/Some-Subpath' when the site is served from a subdirectory. */
