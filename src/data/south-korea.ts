@@ -46,6 +46,8 @@ export const southKoreaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [9, 10, 4, 5],
+      monthsAvoid: [12, 1, 2],
       bestMonths: {
         en: 'September to October for autumn foliage, and April to May for spring blossom',
         ms: 'September hingga Oktober untuk warna musim luruh, dan April hingga Mei untuk kembangan musim bunga',
@@ -243,6 +245,8 @@ export const southKoreaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [4, 5, 9, 10],
+      monthsAvoid: [7, 8],
       bestMonths: {
         en: 'April to May for spring azaleas, and September to October for autumn colour',
         ms: 'April hingga Mei untuk azalea musim bunga, dan September hingga Oktober untuk warna musim luruh',
@@ -440,6 +444,8 @@ export const southKoreaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [4, 5, 10, 11],
+      monthsAvoid: [12, 1, 2],
       bestMonths: {
         en: 'April to May and October to November, for mild temperatures and clearer views',
         ms: 'April hingga Mei dan Oktober hingga November, untuk suhu sederhana dan pandangan lebih jelas',
@@ -637,6 +643,8 @@ export const southKoreaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [4, 5, 10, 11],
+      monthsAvoid: [12, 1, 2],
       bestMonths: {
         en: 'April to May for the Jindallaebat azalea bloom, and October to November for autumn colour',
         ms: 'April hingga Mei untuk kembangan azalea Jindallaebat, dan Oktober hingga November untuk warna musim luruh',

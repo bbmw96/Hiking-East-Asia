@@ -46,6 +46,8 @@ export const vietnamAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [9, 10, 11, 2, 3, 4],
+      monthsAvoid: [6, 7, 8, 12, 1],
       bestMonths: {
         en: 'September to November and February to April',
         ms: 'September hingga November dan Februari hingga April',
@@ -243,6 +245,8 @@ export const vietnamAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 3, 4, 5],
+      monthsAvoid: [6, 7, 8, 9],
       bestMonths: {
         en: 'October to December and March to May',
         ms: 'Oktober hingga Disember dan Mac hingga Mei',
@@ -439,6 +443,8 @@ export const vietnamAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [5, 6, 9, 10],
+      monthsAvoid: [7, 8],
       bestMonths: {
         en: 'May to June and September to October, for the golden rice terraces',
         ms: 'Mei hingga Jun dan September hingga Oktober, untuk teres padi keemasan',
@@ -636,6 +642,8 @@ export const vietnamAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 1, 2, 3, 4],
+      monthsAvoid: [6, 7, 8],
       bestMonths: {
         en: 'October to April, the cooler, drier months',
         ms: 'Oktober hingga April, bulan lebih sejuk dan kering',

@@ -46,6 +46,8 @@ export const chinaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [4, 5, 6, 9, 10, 11, 12, 1, 2],
+      monthsAvoid: [7, 8],
       bestMonths: {
         en: 'April to June and September to November, plus clear winter days from December to February for snow-dusted pines',
         ms: 'April hingga Jun dan September hingga November, ditambah hari musim sejuk yang cerah dari Disember hingga Februari untuk pain berselaput salji',
@@ -243,6 +245,8 @@ export const chinaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [4, 5, 6, 9, 10, 11],
+      monthsAvoid: [7, 8],
       bestMonths: {
         en: 'April to June and September to November',
         ms: 'April hingga Jun dan September hingga November',
@@ -440,6 +444,8 @@ export const chinaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [9, 10, 11, 12, 1, 2],
+      monthsAvoid: [6, 7, 8],
       bestMonths: {
         en: 'September to November and December to February for the best odds of the sea of clouds and a clear sunrise from the Golden Summit',
         ms: 'September hingga November dan Disember hingga Februari untuk peluang terbaik lautan awan dan matahari terbit cerah dari Puncak Emas',
@@ -637,6 +643,8 @@ export const chinaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 1, 2, 3, 4, 5],
+      monthsAvoid: [6, 7, 8, 9],
       bestMonths: {
         en: 'October to May, especially mid-October to mid-November for clear views of Kawagarbo and autumn colour on the lower slopes',
         ms: 'Oktober hingga Mei, terutamanya pertengahan Oktober hingga pertengahan November untuk pemandangan jelas Kawagarbo dan warna musim luruh di lereng bawah',

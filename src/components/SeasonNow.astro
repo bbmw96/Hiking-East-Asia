@@ -1,0 +1,105 @@
+---
+import { getUi } from '../i18n/utils.ts';
+import type { Locale } from '../i18n/locales.ts';
+import type { Area } from '../data/types.ts';
+
+interface Props {
+  locale: Locale;
+  area: Area;
+}
+
+const { locale, area } = Astro.props;
+const t = getUi(locale);
+
+/* The twelve cells are rendered at build time, so the strip is complete and
+   readable with no JavaScript at all. Only the "you are here" marker and the
+   sentence need the visitor's clock, and those are added on the client. */
+const state = (m: number): 'best' | 'avoid' | 'neutral' =>
+  area.season.monthsBest.includes(m) ? 'best' : area.season.monthsAvoid.includes(m) ? 'avoid' : 'neutral';
+
+/* Month names in the reader's own language, from the platform rather than a
+   translated list, so a new locale needs no new month table. */
+const short = new Intl.DateTimeFormat(locale === 'zh-hk' ? 'zh-HK' : locale, { month: 'narrow' });
+const long = new Intl.DateTimeFormat(locale === 'zh-hk' ? 'zh-HK' : locale, { month: 'long' });
+const months = Array.from({ length: 12 }, (_, i) => {
+  const d = new Date(Date.UTC(2026, i, 1));
+  return { n: i + 1, short: short.format(d), long: long.format(d), state: state(i + 1) };
+});
+
+const SYMBOL = { best: '+', avoid: '×', neutral: '·' } as const;
+const LABEL = { best: t.seasonNow.legendBest, avoid: t.seasonNow.legendAvoid, neutral: t.seasonNow.legendNeutral };
+---
+
+<section class="season-now reveal" data-season-now
+  data-best={area.season.monthsBest.join(',')}
+  data-avoid={area.season.monthsAvoid.join(',')}
+  data-in-best={t.seasonNow.inBest}
+  data-in-avoid={t.seasonNow.inAvoid}
+  data-neutral={t.seasonNow.neutral}
+  data-next-best={t.seasonNow.nextBest}
+  data-months={months.map((m) => m.long).join('|')}
+>
+  <h2 class="season-now-title">{t.seasonNow.title}</h2>
+
+  {/* Kept left to right in every locale: a twelve month strip reads as a
+      calendar, and January belongs on the left even on an RTL page. */}
+  <ol class="season-strip ltr-only" aria-label={t.seasonNow.title}>
+    {months.map((m) => (
+      <li class="season-cell" data-state={m.state} data-month={m.n}>
+        <span class="season-cell-mark" aria-hidden="true">{SYMBOL[m.state]}</span>
+        <span class="season-cell-label" aria-hidden="true">{m.short}</span>
+        <span class="sr-only">{m.long}: {LABEL[m.state]}</span>
+      </li>
+    ))}
+  </ol>
+
+  <p class="season-verdict" data-season-verdict hidden></p>
+
+  <ul class="season-legend">
+    <li><span class="season-key" data-state="best" aria-hidden="true">+</span>{t.seasonNow.legendBest}</li>
+    <li><span class="season-key" data-state="avoid" aria-hidden="true">×</span>{t.seasonNow.legendAvoid}</li>
+    <li><span class="season-key" data-state="neutral" aria-hidden="true">·</span>{t.seasonNow.legendNeutral}</li>
+  </ul>
+
+  <p class="season-basis">{t.seasonNow.basis}</p>
+</section>
+
+<script>
+  /* Marks the current month and writes one sentence. Runs on the client
+     because the answer depends on the visitor's clock, not on build time: a
+     page built in March must still be right when read in September. */
+  for (const root of document.querySelectorAll<HTMLElement>('[data-season-now]')) {
+    const best = (root.dataset.best ?? '').split(',').filter(Boolean).map(Number);
+    const avoid = (root.dataset.avoid ?? '').split(',').filter(Boolean).map(Number);
+    const names = (root.dataset.months ?? '').split('|');
+    const now = new Date().getMonth() + 1;
+
+    const cell = root.querySelector<HTMLElement>(`.season-cell[data-month="${now}"]`);
+    cell?.setAttribute('data-now', 'true');
+
+    const state = best.includes(now) ? 'best' : avoid.includes(now) ? 'avoid' : 'neutral';
+    const template =
+      state === 'best' ? root.dataset.inBest : state === 'avoid' ? root.dataset.inAvoid : root.dataset.neutral;
+
+    let text = (template ?? '').replace('{month}', names[now - 1] ?? '');
+
+    /* When today is not a good month, say when the next one starts. Counting
+       forward with a wrap is what makes this work across a year boundary: in
+       December the next good month is often January. */
+    if (state !== 'best' && best.length) {
+      for (let step = 1; step <= 12; step++) {
+        const m = ((now - 1 + step) % 12) + 1;
+        if (best.includes(m)) {
+          text += ' ' + (root.dataset.nextBest ?? '').replace('{month}', names[m - 1] ?? '');
+          break;
+        }
+      }
+    }
+
+    const verdict = root.querySelector<HTMLElement>('[data-season-verdict]');
+    if (verdict) {
+      verdict.textContent = text;
+      verdict.hidden = false;
+    }
+  }
+</script>

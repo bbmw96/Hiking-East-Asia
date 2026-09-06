@@ -774,3 +774,78 @@ header[data-stuck='true'] {
   stroke: color-mix(in oklab, var(--color-canopy-700), transparent 45%);
   stroke-width: 1;
 }
+
+/* ---- Season position strip ---- */
+.season-now { margin-top: 1.5rem; }
+.season-now-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink-950);
+}
+.season-strip {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3px;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.season-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0.45rem 0 0.4rem;
+  border-radius: 0.4rem;
+  font-size: 0.6875rem;
+  line-height: 1;
+  background: rgb(11 20 16 / 0.05);
+  color: rgb(16 29 22 / 0.55);
+}
+.season-cell[data-state='best'] { background: var(--color-canopy-100); color: var(--color-canopy-900); }
+.season-cell[data-state='avoid'] { background: rgb(232 176 75 / 0.24); color: #6b4a05; }
+.season-cell-mark { font-weight: 700; }
+.season-cell-label { font-weight: 600; }
+/* The current month is marked by a ring as well as by position, so it does not
+   rely on colour alone. */
+.season-cell[data-now='true'] {
+  outline: 2px solid var(--color-ink-950);
+  outline-offset: 1px;
+  font-weight: 700;
+}
+.season-verdict {
+  margin-top: 0.85rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-ink-950);
+}
+.season-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  color: rgb(16 29 22 / 0.6);
+}
+.season-legend li { display: flex; align-items: center; gap: 0.35rem; }
+.season-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 0.3rem;
+  font-weight: 700;
+  background: rgb(11 20 16 / 0.05);
+}
+.season-key[data-state='best'] { background: var(--color-canopy-100); color: var(--color-canopy-900); }
+.season-key[data-state='avoid'] { background: rgb(232 176 75 / 0.24); color: #6b4a05; }
+.season-basis {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgb(16 29 22 / 0.5);
+}

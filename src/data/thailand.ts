@@ -39,6 +39,8 @@ export const thailandAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [11, 12, 1, 2],
+      monthsAvoid: [3, 4, 5, 6, 7, 8, 9, 10],
       bestMonths: { en: 'November to February, the cool season', ms: 'November hingga Februari, musim sejuk', 'zh-cn': '11月至次年2月，凉季', 'zh-hk': '11月到嚟年2月，涼季', ta: 'நவம்பர் முதல் பிப்ரவரி வரை, குளிர் பருவம்', ar: 'من نوفمبر إلى فبراير، الموسم البارد' },
       avoidMonths: { en: 'March to May, the hot season, and June to October, the rainy season', ms: 'Mac hingga Mei, musim panas, dan Jun hingga Oktober, musim hujan', 'zh-cn': '3月至5月的热季，以及6月至10月的雨季', 'zh-hk': '3月到5月嘅熱季，同埋6月到10月嘅雨季', ta: 'மார்ச் முதல் மே வரை வெப்பப் பருவம், மற்றும் ஜூன் முதல் அக்டோபர் வரை மழைப் பருவம்', ar: 'من مارس إلى مايو، الموسم الحار، ومن يونيو إلى أكتوبر، موسم الأمطار' },
       notes: {
@@ -148,6 +150,8 @@ export const thailandAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [11, 12, 1, 2],
+      monthsAvoid: [6, 7, 8, 9, 10],
       bestMonths: { en: 'November to February', ms: 'November hingga Februari', 'zh-cn': '11月至次年2月', 'zh-hk': '11月到嚟年2月', ta: 'நவம்பர் முதல் பிப்ரவரி வரை', ar: 'من نوفمبر إلى فبراير' },
       avoidMonths: { en: 'June to October, the wettest months', ms: 'Jun hingga Oktober, bulan paling basah', 'zh-cn': '6月至10月，降雨最多的月份', 'zh-hk': '6月到10月，落雨最多嘅月份', ta: 'ஜூன் முதல் அக்டோபர் வரை, அதிக மழை பெய்யும் மாதங்கள்', ar: 'من يونيو إلى أكتوبر، أكثر الأشهر مطرًا' },
       notes: {
@@ -256,6 +260,8 @@ export const thailandAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [12, 1, 2, 3, 4],
+      monthsAvoid: [9, 10],
       bestMonths: { en: 'December to April, the dry season', ms: 'Disember hingga April, musim kering', 'zh-cn': '12月至次年4月，旱季', 'zh-hk': '12月到嚟年4月，旱季', ta: 'டிசம்பர் முதல் ஏப்ரல் வரை, வறண்ட பருவம்', ar: 'من ديسمبر إلى أبريل، الموسم الجاف' },
       avoidMonths: { en: 'September to October, the wettest months', ms: 'September hingga Oktober, bulan paling basah', 'zh-cn': '9月至10月，降雨最多的月份', 'zh-hk': '9月到10月，落雨最多嘅月份', ta: 'செப்டம்பர் முதல் அக்டோபர் வரை, அதிக மழை பெய்யும் மாதங்கள்', ar: 'من سبتمبر إلى أكتوبر، أكثر الأشهر مطرًا' },
       notes: {
@@ -359,6 +365,8 @@ export const thailandAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [11, 12, 1, 2],
+      monthsAvoid: [3, 4, 6, 7, 8, 9, 10],
       bestMonths: { en: 'November to February', ms: 'November hingga Februari', 'zh-cn': '11月至次年2月', 'zh-hk': '11月到嚟年2月', ta: 'நவம்பர் முதல் பிப்ரவரி வரை', ar: 'من نوفمبر إلى فبراير' },
       avoidMonths: { en: 'March to April, burning season haze, and June to October rains', ms: 'Mac hingga April, jerebu musim pembakaran, dan hujan Jun hingga Oktober', 'zh-cn': '3月至4月的烧芭季节雾霾，以及6月至10月的雨季', 'zh-hk': '3月到4月嘅燒芭季節霧霾，同埋6月到10月嘅雨季', ta: 'மார்ச் முதல் ஏப்ரல் வரை எரிப்பு பருவ புகைமூட்டம், மற்றும் ஜூன் முதல் அக்டோபர் வரை மழை', ar: 'من مارس إلى أبريل، ضباب موسم الحرق، ومن يونيو إلى أكتوبر، الأمطار' },
       notes: {
@@ -462,6 +470,8 @@ export const thailandAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [11, 12, 1, 2],
+      monthsAvoid: [3, 4, 5],
       bestMonths: { en: 'November to February', ms: 'November hingga Februari', 'zh-cn': '11月至次年2月', 'zh-hk': '11月到嚟年2月', ta: 'நவம்பர் முதல் பிப்ரவரி வரை', ar: 'من نوفمبر إلى فبراير' },
       avoidMonths: { en: 'March to May, when some upper pools can run low', ms: 'Mac hingga Mei, apabila sesetengah kolam atas boleh menjadi cetek', 'zh-cn': '3月至5月，部分上层水潭可能水位较低', 'zh-hk': '3月到5月，部分上層水潭可能水位比較低', ta: 'மார்ச் முதல் மே வரை, சில மேல் குளங்கள் குறைவாக இருக்கலாம்', ar: 'من مارس إلى مايو، حين قد ينخفض منسوب بعض البرك العلوية' },
       notes: {
