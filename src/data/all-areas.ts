@@ -1,16 +1,16 @@
-import { malaysiaAreas } from './malaysia';
-import { singaporeAreas } from './singapore';
-import { thailandAreas } from './thailand';
-import { indonesiaAreas } from './indonesia';
-import { vietnamAreas } from './vietnam';
-import { philippinesAreas } from './philippines';
-import { bruneiAreas } from './brunei';
-import { japanAreas } from './japan';
-import { southKoreaAreas } from './south-korea';
-import { taiwanAreas } from './taiwan';
-import { hongKongAreas } from './hong-kong';
-import { chinaAreas } from './china';
-import type { Area, CountrySlug } from './types';
+import { malaysiaAreas } from './malaysia.ts';
+import { singaporeAreas } from './singapore.ts';
+import { thailandAreas } from './thailand.ts';
+import { indonesiaAreas } from './indonesia.ts';
+import { vietnamAreas } from './vietnam.ts';
+import { philippinesAreas } from './philippines.ts';
+import { bruneiAreas } from './brunei.ts';
+import { japanAreas } from './japan.ts';
+import { southKoreaAreas } from './south-korea.ts';
+import { taiwanAreas } from './taiwan.ts';
+import { hongKongAreas } from './hong-kong.ts';
+import { chinaAreas } from './china.ts';
+import type { Area, CountrySlug } from './types.ts';
 
 /** Every trail area on the site, in the order the countries are presented.
  *  Anything that needs to reason across countries (the official channel

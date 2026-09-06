@@ -1,4 +1,4 @@
-import type { Area } from './types';
+import type { Area } from './types.ts';
 
 export const southKoreaAreas: Area[] = [
   {

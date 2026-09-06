@@ -1,0 +1,62 @@
+name: CI
+
+# Runs on every push and every pull request. A red run here means the site is
+# not in a shippable state, so this is the gate, not the Pages deploy.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    # A fork may run this, since it only reads. It must not run the deploy.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # `npm ci` installs exactly the lockfile, so a dependency cannot change
+      # underneath a build without the lockfile changing in a reviewable diff.
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npx astro check
+
+      - name: Build
+        run: npx astro build
+
+      # The build-output suite reads dist/, so it has to follow the build.
+      - name: Test
+        run: npm test
+
+      # Fails the run on a known high or critical advisory in the dependency
+      # tree. Moderate and below are reported without blocking, because a
+      # static site cannot be exploited through most of them.
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+  codeql:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+      - uses: github/codeql-action/analyze@v3
