@@ -53,6 +53,20 @@ jobs:
         env:
           SITE_BASE: ${{ steps.pages.outputs.base_path }}
 
+      # A project Pages site with a custom domain serves at the ROOT of that
+      # domain rather than at /<repo>/, so the mirror ends up with exactly the
+      # same paths as the primary. That removes the need for any path
+      # rewriting between the two hosts.
+      #
+      # Opt-in on purpose. Writing a CNAME before the DNS record exists makes
+      # GitHub fail its domain check and takes the mirror offline, so this
+      # only fires once the repository variable is set. Set it at
+      # Settings -> Secrets and variables -> Actions -> Variables:
+      #   PAGES_CUSTOM_DOMAIN = mirror.bbmw0.com
+      - name: Claim the custom domain, if one is configured
+        if: vars.PAGES_CUSTOM_DOMAIN != ''
+        run: echo "${{ vars.PAGES_CUSTOM_DOMAIN }}" > dist/CNAME
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
