@@ -1,17 +1,12 @@
 name: Deploy to GitHub Pages
 
-# Manual-only. GitHub Pages cannot be enabled on this repository as it
-# stands: Pages on a *private* repo requires a paid plan, and repository
-# Settings -> Pages currently reads "Upgrade or make this repository public
-# to enable Pages". Until the repo is made public or the plan upgraded, the
-# configure-pages step below fails with "Resource not accessible by
-# integration", so running this on every push would only produce noise.
-# Vercel serves the site in the meantime.
-#
-# Once Pages is available, add the push triggers back to publish on merge:
-#   push:
-#     branches: [main]
+# The repository is public, so Pages is available on the free plan and this
+# publishes on every push to main. GitHub Pages is the second host: Vercel
+# serves hiking.bbmw0.com, and this serves the same build from GitHub, so an
+# outage at either one leaves the site reachable at the other.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -26,6 +21,12 @@ concurrency:
 
 jobs:
   build:
+    # Fork guard. Forking a public repository cannot be blocked, but a fork
+    # must not run this workflow: it would publish someone else's copy of the
+    # site from their account and burn their Actions minutes doing it. The
+    # condition is false in every fork, because github.repository is the
+    # fork's own full name.
+    if: github.repository == 'bbmw96/Hiking-East-Asia'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -58,6 +59,7 @@ jobs:
 
   deploy:
     needs: build
+    if: github.repository == 'bbmw96/Hiking-East-Asia'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
