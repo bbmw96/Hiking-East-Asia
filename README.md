@@ -68,3 +68,22 @@ npm run preview
 ```
 
 `dist/` is a static site: deploy it to whatever host serves the rest of bbmw0.com (Netlify, Vercel, Cloudflare Pages, S3+CDN, etc.) under the `hiking` subdomain.
+
+## Licence and reuse
+
+Proprietary, all rights reserved. See [`LICENSE`](LICENSE). The repository is
+public so the site can be served from GitHub Pages as a second host alongside
+Vercel, not so the work can be reused. Photographs under `public/photos/` are
+each used under their own licence, recorded in `src/data/photo-credits.json`.
+
+Forking cannot be disabled on a public GitHub repository, and no file in a
+repository can prevent it. What is and is not enforceable, and why public was
+chosen anyway, is set out in [`docs/REPOSITORY-POLICY.md`](docs/REPOSITORY-POLICY.md).
+
+## Hosting
+
+Two hosts serve the same build, so an outage at either leaves the site up:
+
+- **Vercel** serves `hiking.bbmw0.com` from `main` on every push.
+- **GitHub Pages** publishes the same build via `.github/workflows/deploy-pages.yml`.
+  Enable it once at Settings -> Pages -> Source: GitHub Actions.
