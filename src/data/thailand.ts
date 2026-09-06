@@ -4,6 +4,7 @@ export const thailandAreas: Area[] = [
   {
     slug: 'doi-inthanon',
     country: 'thailand',
+    divisions: ['Chiang Mai'],
     region: 'Chiang Mai',
     coordinates: { lat: 18.5883, lng: 98.4867 },
     difficulty: 'easy',
@@ -115,6 +116,7 @@ export const thailandAreas: Area[] = [
   {
     slug: 'khao-yai',
     country: 'thailand',
+    divisions: ['Nakhon Ratchasima'],
     region: 'Nakhon Ratchasima',
     coordinates: { lat: 14.4381, lng: 101.3728 },
     difficulty: 'moderate',
@@ -226,6 +228,7 @@ export const thailandAreas: Area[] = [
   {
     slug: 'khao-sok',
     country: 'thailand',
+    divisions: ['Surat Thani'],
     region: 'Surat Thani',
     coordinates: { lat: 8.9247, lng: 98.5245 },
     difficulty: 'moderate',
@@ -336,6 +339,7 @@ export const thailandAreas: Area[] = [
   {
     slug: 'doi-suthep-pui',
     country: 'thailand',
+    divisions: ['Chiang Mai'],
     region: 'Chiang Mai',
     coordinates: { lat: 18.8047, lng: 98.9219 },
     difficulty: 'easy',
@@ -441,6 +445,7 @@ export const thailandAreas: Area[] = [
   {
     slug: 'erawan',
     country: 'thailand',
+    divisions: ['Kanchanaburi'],
     region: 'Kanchanaburi',
     coordinates: { lat: 14.3687, lng: 99.1416 },
     difficulty: 'easy',

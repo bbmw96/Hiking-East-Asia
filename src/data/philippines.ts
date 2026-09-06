@@ -4,6 +4,8 @@ export const philippinesAreas: Area[] = [
   {
     slug: 'mount-pulag',
     country: 'philippines',
+    divisions: ['Benguet', 'Ifugao'],
+    locality: 'Luzon',
     region: 'Benguet / Ifugao, Luzon',
     coordinates: { lat: 16.5989, lng: 120.8994 },
     difficulty: 'moderate',
@@ -203,6 +205,7 @@ export const philippinesAreas: Area[] = [
   {
     slug: 'mount-pinatubo',
     country: 'philippines',
+    divisions: ['Tarlac', 'Zambales'],
     region: 'Tarlac / Zambales',
     coordinates: { lat: 15.1429, lng: 120.3496 },
     difficulty: 'easy',
@@ -402,6 +405,8 @@ export const philippinesAreas: Area[] = [
   {
     slug: 'mount-apo',
     country: 'philippines',
+    divisions: ['Davao', 'North Cotabato'],
+    locality: 'Mindanao',
     region: 'Davao / North Cotabato, Mindanao',
     coordinates: { lat: 6.9873, lng: 125.2727 },
     difficulty: 'expert',
@@ -601,6 +606,8 @@ export const philippinesAreas: Area[] = [
   {
     slug: 'mount-batulao',
     country: 'philippines',
+    divisions: ['Batangas'],
+    locality: 'Nasugbu',
     region: 'Nasugbu, Batangas',
     coordinates: { lat: 14.0492, lng: 120.7967 },
     difficulty: 'moderate',

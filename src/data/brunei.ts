@@ -4,6 +4,7 @@ export const bruneiAreas: Area[] = [
   {
     slug: 'ulu-temburong',
     country: 'brunei',
+    divisions: ['Temburong District'],
     region: 'Temburong District',
     coordinates: { lat: 4.5333, lng: 115.15 },
     difficulty: 'moderate',
@@ -202,6 +203,7 @@ export const bruneiAreas: Area[] = [
   {
     slug: 'bukit-patoi',
     country: 'brunei',
+    divisions: ['Temburong District'],
     region: 'Temburong District',
     coordinates: { lat: 4.6608, lng: 115.1206 },
     difficulty: 'moderate',
@@ -401,6 +403,7 @@ export const bruneiAreas: Area[] = [
   {
     slug: 'bukit-shahbandar',
     country: 'brunei',
+    divisions: ['Brunei-Muara District'],
     region: 'Brunei-Muara District',
     coordinates: { lat: 4.9667, lng: 114.7333 },
     difficulty: 'easy',

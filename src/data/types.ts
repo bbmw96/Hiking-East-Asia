@@ -27,7 +27,17 @@ export type CountrySlug =
 export interface Area {
   slug: string;
   country: CountrySlug;
+  /* Free-text region, kept as written for display. */
   region: string;
+  /* The same place, structured. Every value here was read out of the region
+     string above rather than added from memory, so the hierarchy cannot claim
+     something the researched text did not already say. One area can sit in
+     more than one division, which is why this is a list: Taman Negara spans
+     three states and Mount Fuji two prefectures. */
+  divisions: string[];
+  /* The district, town or park named inside the region string, where it names
+     one. Absent is normal and means the region string gave only a division. */
+  locality?: string;
   coordinates: { lat: number; lng: number };
   difficulty: Difficulty;
   duration: LocalizedString;

@@ -21,6 +21,8 @@ export const malaysiaClubAreas: Area[] = [
   {
     slug: 'gua-tempurung',
     country: 'malaysia',
+    divisions: ['Perak'],
+    locality: 'Gopeng',
     region: 'Gopeng, Perak',
     coordinates: { lat: 4.4136, lng: 101.1836 },
     difficulty: 'moderate',
@@ -113,6 +115,8 @@ export const malaysiaClubAreas: Area[] = [
   {
     slug: 'gua-batu-maloi',
     country: 'malaysia',
+    divisions: ['Negeri Sembilan'],
+    locality: 'Johol, Kuala Pilah',
     region: 'Johol, Kuala Pilah, Negeri Sembilan',
     coordinates: { lat: 2.4547, lng: 102.2242 },
     difficulty: 'hard',
@@ -204,6 +208,8 @@ export const malaysiaClubAreas: Area[] = [
   {
     slug: 'gunung-angsi',
     country: 'malaysia',
+    divisions: ['Negeri Sembilan'],
+    locality: 'Ulu Bendul, Kuala Pilah',
     region: 'Ulu Bendul, Kuala Pilah, Negeri Sembilan',
     coordinates: { lat: 2.6547, lng: 102.0031 },
     difficulty: 'moderate',
@@ -297,6 +303,8 @@ export const malaysiaClubAreas: Area[] = [
   {
     slug: 'upper-baram',
     country: 'malaysia',
+    divisions: ['Sarawak'],
+    locality: 'Ulu Baram, Miri Division',
     region: 'Ulu Baram, Miri Division, Sarawak',
     coordinates: { lat: 3.42, lng: 115.15 },
     difficulty: 'hard',

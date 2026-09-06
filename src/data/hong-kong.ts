@@ -4,6 +4,8 @@ export const hongKongAreas: Area[] = [
   {
     slug: 'maclehose-trail',
     country: 'hong-kong',
+    divisions: ['New Territories'],
+    locality: 'Sai Kung',
     region: 'Sai Kung, New Territories',
     coordinates: { lat: 22.3667, lng: 114.3583 },
     difficulty: 'moderate',
@@ -203,6 +205,8 @@ export const hongKongAreas: Area[] = [
   {
     slug: 'dragons-back',
     country: 'hong-kong',
+    divisions: ['Hong Kong Island'],
+    locality: 'Shek O Country Park',
     region: 'Shek O Country Park, Hong Kong Island',
     coordinates: { lat: 22.2394, lng: 114.2378 },
     difficulty: 'moderate',
@@ -402,6 +406,8 @@ export const hongKongAreas: Area[] = [
   {
     slug: 'lion-rock',
     country: 'hong-kong',
+    divisions: ['Kowloon'],
+    locality: 'Lion Rock Country Park',
     region: 'Lion Rock Country Park, Kowloon',
     coordinates: { lat: 22.3517, lng: 114.1822 },
     difficulty: 'moderate',
@@ -601,6 +607,8 @@ export const hongKongAreas: Area[] = [
   {
     slug: 'tai-mo-shan',
     country: 'hong-kong',
+    divisions: ['New Territories'],
+    locality: 'Tai Mo Shan Country Park',
     region: 'Tai Mo Shan Country Park, New Territories',
     coordinates: { lat: 22.4103, lng: 114.1247 },
     difficulty: 'moderate',
