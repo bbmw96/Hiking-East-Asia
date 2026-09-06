@@ -83,7 +83,7 @@ export const ui = {
     regions: {
       title: 'By region',
       intro: 'Every area on this page, grouped by the state, province or district it sits in. An area that spans more than one appears under each.',
-      areaCount: '{n} area',
+      areaCount: 'One area',
       areaCountPlural: '{n} areas',
     },
     seasonNow: {
@@ -243,7 +243,7 @@ export const ui = {
     regions: {
       title: 'Mengikut wilayah',
       intro: 'Setiap kawasan di halaman ini, dikumpulkan mengikut negeri, wilayah atau daerah tempat ia berada. Kawasan yang merentangi lebih daripada satu akan muncul di bawah setiap satu.',
-      areaCount: '{n} kawasan',
+      areaCount: 'Satu kawasan',
       areaCountPlural: '{n} kawasan',
     },
     seasonNow: {
@@ -403,7 +403,7 @@ export const ui = {
     regions: {
       title: '按地区划分',
       intro: '本页所有地区，按其所属的州、省或县分组。横跨多个行政区的地区会在每一个之下出现。',
-      areaCount: '{n} 个地区',
+      areaCount: '1 个地区',
       areaCountPlural: '{n} 个地区',
     },
     seasonNow: {
@@ -563,7 +563,7 @@ export const ui = {
     regions: {
       title: '按地區劃分',
       intro: '本頁所有地區，按佢哋所屬嘅州、省或者縣分組。橫跨多個行政區嘅地區會喺每一個下面出現。',
-      areaCount: '{n} 個地區',
+      areaCount: '1 個地區',
       areaCountPlural: '{n} 個地區',
     },
     seasonNow: {
@@ -723,7 +723,7 @@ export const ui = {
     regions: {
       title: 'மண்டலம் வாரியாக',
       intro: 'இந்தப் பக்கத்தில் உள்ள ஒவ்வொரு பகுதியும், அது அமைந்துள்ள மாநிலம், மாகாணம் அல்லது மாவட்டத்தின்படி தொகுக்கப்பட்டுள்ளது. ஒன்றுக்கு மேற்பட்டவற்றில் பரவியுள்ள பகுதி ஒவ்வொன்றின் கீழும் தோன்றும்.',
-      areaCount: '{n} பகுதி',
+      areaCount: 'ஒரு பகுதி',
       areaCountPlural: '{n} பகுதிகள்',
     },
     seasonNow: {
