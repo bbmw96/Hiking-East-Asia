@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { ui } from '../src/i18n/ui.ts';
-import { LOCALES, keyPaths } from './helpers.ts';
+import { LOCALES, keyPaths, allCountryAreas } from './helpers.ts';
 
 function walk(dir: string, out: string[] = []): string[] {
   for (const entry of readdirSync(dir)) {
@@ -85,4 +85,37 @@ test('no secret-shaped string is committed', () => {
       assert.ok(!re.test(text), `possible ${what} committed in ${f}`);
     }
   }
+});
+
+test('English function words do not leak into non-Latin translations', () => {
+  /* Written after exactly this bug: a Chinese highlight shipped reading
+     "水深自腰至胸，never 间断". Romanised place names and codes like RM5 or
+     MaTEx are legitimate in these locales, so this checks only for common
+     English function words, which never are. */
+  const LEAKS = /(^|[\s，。、（(])(the|and|with|from|never|always|which|that|this|there|because)([\s，。、）)]|$)/i;
+  const offenders: string[] = [];
+
+  const walk = (node: unknown, path: string) => {
+    if (typeof node === 'string') {
+      const loc = path.split('.').pop() ?? '';
+      /* Romanised proper nouns are conventionally parenthesised in these
+         locales, e.g. 双龙寺（Wat Phra That Doi Suthep）, and 'That' there is
+         part of a Thai temple name rather than an English word. Strip
+         bracketed spans before matching so a real name cannot be mistaken
+         for untranslated copy. */
+      const outsideBrackets = node.replace(/[（(][^）)]*[）)]/g, ' ');
+      if (['zh-cn', 'zh-hk', 'ta', 'ar'].includes(loc) && LEAKS.test(outsideBrackets)) {
+        offenders.push(`${path}: ${node.slice(0, 60)}`);
+      }
+      return;
+    }
+    if (Array.isArray(node)) return node.forEach((v, i) => walk(v, `${path}[${i}]`));
+    if (node && typeof node === 'object') {
+      for (const [k, v] of Object.entries(node)) walk(v, path ? `${path}.${k}` : k);
+    }
+  };
+
+  walk(ui, 'ui');
+  for (const a of allCountryAreas) walk(a, `${a.country}/${a.slug}`);
+  assert.deepEqual(offenders.slice(0, 5), [], `${offenders.length} untranslated English fragment(s):\n` + offenders.slice(0,5).join('\n'));
 });

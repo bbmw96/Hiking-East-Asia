@@ -1,0 +1,291 @@
+import type { Area } from './types.ts';
+
+/**
+ * Trail areas that came out of the hiking club's own conversations rather than
+ * from the general research pass, then checked the same way everything else on
+ * this site is checked: against the office that actually controls access.
+ *
+ * The check earned its keep. One area arrived attributed to Sarawak Forestry.
+ * Gua Batu Maloi is in Negeri Sembilan, roughly 900 km away, inside the Gunung
+ * Tampin Forest Reserve. Publishing the original attribution would have sent
+ * people to the wrong state's forestry department.
+ *
+ * Peninsular forest reserves work in two layers: JPSM keeps the national
+ * register of approved hiking locations, and each state department implements
+ * it. For these areas that state department is Jabatan Perhutanan Negeri
+ * Sembilan, whose standard recreation permit is RM5 for Malaysians and RM20
+ * for visitors. Upper Baram is the exception and is documented as one: access
+ * there is granted by the Penan communities themselves, not by a state permit.
+ */
+export const malaysiaClubAreas: Area[] = [
+  {
+    slug: 'gua-tempurung',
+    country: 'malaysia',
+    region: 'Gopeng, Perak',
+    coordinates: { lat: 4.4136, lng: 101.1836 },
+    difficulty: 'moderate',
+    elevationM: 120,
+    duration: { en: '40 minutes to 3.5 hours, depending on the tour', ms: '40 minit hingga 3.5 jam, bergantung pada lawatan', 'zh-cn': '视路线而定，40 分钟至 3.5 小时', 'zh-hk': '視乎路線，40 分鐘至 3.5 個鐘', ta: 'சுற்றுலாவைப் பொறுத்து 40 நிமிடங்கள் முதல் 3.5 மணி நேரம் வரை', ar: 'من 40 دقيقة إلى 3.5 ساعة، حسب الجولة' },
+    permit: {
+      required: true,
+      authorityName: 'Pusat Pelancongan Gua Tempurung (Tourism Perak Malaysia)',
+      url: 'https://www.tourismperakmalaysia.com/gua-tempurung/',
+      fee: { en: 'RM6 to RM50 depending on which of the four tours you take', ms: 'RM6 hingga RM50 bergantung pada yang mana satu daripada empat lawatan anda pilih', 'zh-cn': '视所选四条路线而定，RM6 至 RM50', 'zh-hk': '視乎揀邊條路線，RM6 至 RM50', ta: 'நான்கு சுற்றுலாக்களில் எதைத் தேர்வு செய்கிறீர்கள் என்பதைப் பொறுத்து RM6 முதல் RM50 வரை', ar: 'من 6 إلى 50 رينغيت حسب الجولة المختارة من الأربع' },
+      advanceNotice: { en: 'Walk-in for the short tours; book ahead for the wet adventure tours', ms: 'Masuk terus untuk lawatan pendek; tempah awal untuk lawatan pengembaraan basah', 'zh-cn': '短程路线可直接购票；涉水探险路线需预约', 'zh-hk': '短程路線可以即場買飛；涉水探險路線要預約', ta: 'குறுகிய சுற்றுலாக்களுக்கு நேரடியாக வரலாம்; ஈர சாகச சுற்றுலாக்களுக்கு முன்பதிவு செய்யவும்', ar: 'الدخول المباشر للجولات القصيرة؛ احجز مسبقًا لجولات المغامرة المائية' },
+      howToApply: {
+        en: 'Tickets are bought at the tourism centre counter at the cave entrance, which opens daily from 09:00 to 16:00. The two longer tours go through water and are run with a guide, so ring ahead rather than turning up and hoping.',
+        ms: 'Tiket dibeli di kaunter pusat pelancongan di pintu masuk gua, yang dibuka setiap hari dari 09:00 hingga 16:00. Dua lawatan yang lebih panjang melalui air dan dikendalikan bersama pemandu, jadi telefon dahulu dan jangan sekadar datang berharap.',
+        'zh-cn': '门票于洞口的旅游中心柜台购买，每日 09:00 至 16:00 开放。两条较长路线需涉水并由向导带领，请先致电，不要贸然前往碰运气。',
+        'zh-hk': '門票喺洞口嘅旅遊中心櫃檯買，每日 09:00 至 16:00 開放。兩條較長路線要涉水，而且由嚮導帶隊，所以請先打電話，唔好貿然去碰運氣。',
+        ta: 'குகை நுழைவாயிலில் உள்ள சுற்றுலா மைய கவுண்டரில் டிக்கெட்டுகள் வாங்கப்படுகின்றன, தினமும் 09:00 முதல் 16:00 வரை திறந்திருக்கும். நீளமான இரண்டு சுற்றுலாக்கள் தண்ணீர் வழியாகச் செல்கின்றன, வழிகாட்டியுடன் நடத்தப்படுகின்றன, எனவே வெறுமனே சென்று நம்புவதை விட முன்பே தொலைபேசியில் தொடர்பு கொள்ளுங்கள்.',
+        ar: 'تُشترى التذاكر من مكتب مركز السياحة عند مدخل الكهف، ويفتح يوميًا من 09:00 إلى 16:00. تمرّ الجولتان الأطول عبر الماء وتُدار مع مرشد، لذا اتصل مسبقًا بدل الحضور على أمل التوفيق.',
+      },
+    },
+    season: {
+      bestMonths: { en: 'June to August, the driest months in Perak', ms: 'Jun hingga Ogos, bulan paling kering di Perak', 'zh-cn': '6 月至 8 月，霹雳州最干燥的月份', 'zh-hk': '6 月至 8 月，霹靂州最乾燥嘅月份', ta: 'ஜூன் முதல் ஆகஸ்ட் வரை, பேராக்கின் மிக வறண்ட மாதங்கள்', ar: 'من يونيو إلى أغسطس، أكثر أشهر بيراك جفافًا' },
+      avoidMonths: { en: 'October to December, when heavy rain closes the river sections', ms: 'Oktober hingga Disember, apabila hujan lebat menutup bahagian sungai', 'zh-cn': '10 月至 12 月，暴雨会导致河道段关闭', 'zh-hk': '10 月至 12 月，暴雨會令河道段封閉', ta: 'அக்டோபர் முதல் டிசம்பர் வரை, கனமழை ஆற்றுப் பகுதிகளை மூடும்போது', ar: 'من أكتوبر إلى ديسمبر، حين تُغلق الأمطار الغزيرة المقاطع النهرية' },
+      notes: {
+        en: 'The dry upper galleries stay open in almost any weather. The wet tours follow an underground river and are the first thing cancelled when it rains hard, so check on the morning rather than assuming.',
+        ms: 'Galeri atas yang kering kekal terbuka dalam hampir apa-apa cuaca. Lawatan basah mengikuti sungai bawah tanah dan merupakan perkara pertama yang dibatalkan apabila hujan lebat, jadi semak pada waktu pagi dan jangan andaikan.',
+        'zh-cn': '干燥的上层洞厅几乎在任何天气下都开放。涉水路线沿地下河而行，一旦下大雨便最先取消，因此请当天早上查询，切勿想当然。',
+        'zh-hk': '乾燥嘅上層洞廳幾乎任何天氣都開放。涉水路線沿地下河行，一落大雨就最先取消，所以請當日朝早查詢，唔好想當然。',
+        ta: 'உலர்ந்த மேல் மண்டபங்கள் கிட்டத்தட்ட எந்த வானிலையிலும் திறந்திருக்கும். ஈர சுற்றுலாக்கள் நிலத்தடி ஆற்றைப் பின்தொடர்கின்றன, கடுமையான மழை பெய்யும்போது முதலில் ரத்து செய்யப்படுபவை, எனவே ஊகிப்பதற்குப் பதிலாக காலையில் சரிபார்க்கவும்.',
+        ar: 'تظل الأروقة العليا الجافة مفتوحة في أي طقس تقريبًا. أما الجولات المائية فتتبع نهرًا جوفيًا وهي أول ما يُلغى عند هطول مطر غزير، لذا تحقق صباح اليوم نفسه بدل الافتراض.',
+      },
+    },
+    name: { en: 'Gua Tempurung', ms: 'Gua Tempurung', 'zh-cn': '椰壳洞（Gua Tempurung）', 'zh-hk': '椰殼洞（Gua Tempurung）', ta: 'குவா டெம்புருங்', ar: 'كهف غوا تيمبورونج' },
+    tagline: {
+      en: 'A limestone cave system with an underground river, in the adventure country around Gopeng',
+      ms: 'Sistem gua batu kapur dengan sungai bawah tanah, di kawasan pengembaraan sekitar Gopeng',
+      'zh-cn': '位于甲板一带探险地区的石灰岩洞穴系统，内有地下河',
+      'zh-hk': '喺甲板一帶探險地區嘅石灰岩洞穴系統，入面有地下河',
+      ta: 'கோபெங்கைச் சுற்றியுள்ள சாகசப் பகுதியில், நிலத்தடி ஆற்றுடன் கூடிய சுண்ணாம்புக் குகை அமைப்பு',
+      ar: 'منظومة كهوف جيرية بنهر جوفي، في منطقة المغامرات حول جوبينج',
+    },
+    overview: {
+      en: 'Gua Tempurung runs for about 1.9 km through a limestone hill and is one of the longest cave systems in Peninsular Malaysia. Four tours of increasing commitment are sold at the entrance: the shortest is a lit walkway through the upper chambers, the longest crawls and wades the length of the underground river. Gopeng, four kilometres away, is the base town for the whole area and for its white water.',
+      ms: 'Gua Tempurung membentang kira-kira 1.9 km menerusi bukit batu kapur dan merupakan salah satu sistem gua terpanjang di Semenanjung Malaysia. Empat lawatan dengan tahap komitmen meningkat dijual di pintu masuk: yang terpendek ialah laluan bercahaya melalui dewan atas, yang terpanjang merangkak dan meredah sepanjang sungai bawah tanah. Gopeng, empat kilometer jauhnya, ialah bandar pangkalan untuk seluruh kawasan dan untuk arung jeramnya.',
+      'zh-cn': '椰壳洞在石灰岩山体中延伸约 1.9 公里，是马来西亚半岛最长的洞穴系统之一。入口处出售四条难度递增的路线：最短的是穿越上层洞厅的照明步道，最长的则需匍匐涉水，走完整条地下河。四公里外的甲板镇是整个区域及其激流泛舟的大本营。',
+      'zh-hk': '椰殼洞喺石灰岩山體入面延伸約 1.9 公里，係馬來西亞半島最長嘅洞穴系統之一。入口處賣四條難度遞增嘅路線：最短嗰條係穿越上層洞廳嘅照明步道，最長嗰條就要匍匐涉水，行完成條地下河。四公里外嘅甲板鎮係成個區域同佢激流漂流嘅大本營。',
+      ta: 'குவா டெம்புருங் சுண்ணாம்பு மலை வழியாக சுமார் 1.9 கி.மீ. நீளும், மேற்கு மலேசியாவின் மிக நீளமான குகை அமைப்புகளில் ஒன்றாகும். நுழைவாயிலில் அதிகரிக்கும் கடினத்தன்மை கொண்ட நான்கு சுற்றுலாக்கள் விற்கப்படுகின்றன: மிகக் குறுகியது மேல் அறைகள் வழியாகச் செல்லும் விளக்கேற்றப்பட்ட நடைபாதை, மிக நீளமானது நிலத்தடி ஆற்றின் நீளம் முழுவதும் தவழ்ந்து நீரில் நடப்பது. நான்கு கிலோமீட்டர் தொலைவில் உள்ள கோபெங், முழுப் பகுதிக்கும் அதன் வெண்ணீர் விளையாட்டுக்கும் தளமாக உள்ளது.',
+      ar: 'يمتد كهف غوا تيمبورونج نحو 1.9 كم داخل تل جيري، وهو من أطول منظومات الكهوف في شبه الجزيرة الماليزية. تُباع عند المدخل أربع جولات متدرّجة الصعوبة: أقصرها ممشى مضاء عبر القاعات العليا، وأطولها زحف وخوض على طول النهر الجوفي. وجوبينج، على بعد أربعة كيلومترات، هي بلدة الانطلاق للمنطقة كلها ولرياضة المياه البيضاء فيها.',
+    },
+    highlights: {
+      en: ['The Golden Flowstone and Battlefield chambers on the dry route', 'Wading the underground river on the two long tours', 'Five domed chambers, each with its own limestone formations', 'Gopeng as a base for rafting and caving in the same trip'],
+      ms: ['Dewan Golden Flowstone dan Battlefield di laluan kering', 'Meredah sungai bawah tanah pada dua lawatan panjang', 'Lima dewan berkubah, setiap satu dengan formasi batu kapurnya sendiri', 'Gopeng sebagai pangkalan untuk arung jeram dan caving dalam perjalanan yang sama'],
+      'zh-cn': ['干燥路线上的黄金流石厅与战场厅', '两条长线路中涉水穿越地下河', '五座穹顶洞厅，各有独特的石灰岩造型', '以甲板为基地，一趟行程兼顾泛舟与探洞'],
+      'zh-hk': ['乾燥路線上嘅黃金流石廳同戰場廳', '兩條長線路要涉水穿越地下河', '五座穹頂洞廳，各有獨特嘅石灰岩造型', '以甲板做基地，一次行程可以夾埋漂流同探洞'],
+      ta: ['உலர்ந்த பாதையில் கோல்டன் ஃப்ளோஸ்டோன் மற்றும் பேட்டில்ஃபீல்ட் அறைகள்', 'இரண்டு நீண்ட சுற்றுலாக்களில் நிலத்தடி ஆற்றில் நடப்பது', 'ஐந்து குவிமாட அறைகள், ஒவ்வொன்றிலும் தனித்துவமான சுண்ணாம்பு அமைப்புகள்', 'ஒரே பயணத்தில் படகுச் சவாரி மற்றும் குகை ஆய்வுக்கான தளமாக கோபெங்'],
+      ar: ['قاعتا \"الحجر الذهبي المتدفق\" و\"ساحة المعركة\" على المسار الجاف', 'خوض النهر الجوفي في الجولتين الطويلتين', 'خمس قاعات مقبّبة، لكل منها تشكيلاتها الجيرية', 'جوبينج كقاعدة للتجديف واستكشاف الكهوف في رحلة واحدة'],
+    },
+    gettingThere: {
+      en: 'The cave is signposted off the North South Expressway at the Gopeng exit, about 25 km south of Ipoh and a two hour drive from Kuala Lumpur. There is no public transport to the entrance; most visitors drive or arrange a lift from a Gopeng guesthouse.',
+      ms: 'Gua ini mempunyai papan tanda dari Lebuhraya Utara Selatan di susur keluar Gopeng, kira-kira 25 km ke selatan Ipoh dan dua jam pemanduan dari Kuala Lumpur. Tiada pengangkutan awam ke pintu masuk; kebanyakan pengunjung memandu atau mengatur tumpangan dari rumah tamu Gopeng.',
+      'zh-cn': '洞穴自南北大道甲板出口起设有指示牌，位于怡保以南约 25 公里，自吉隆坡驾车约两小时。入口没有公共交通；多数访客自驾或请甲板的民宿安排接送。',
+      'zh-hk': '洞穴由南北大道甲板出口開始有指示牌，喺怡保以南約 25 公里，由吉隆坡揸車約兩個鐘。入口冇公共交通；多數訪客自駕，或者請甲板嘅民宿安排接送。',
+      ta: 'இபோவிலிருந்து தெற்கே சுமார் 25 கி.மீ. தொலைவில், கோலாலம்பூரிலிருந்து இரண்டு மணி நேர பயணத்தில், வடக்கு-தெற்கு நெடுஞ்சாலையின் கோபெங் வெளியேறும் வழியில் குகைக்கு வழிகாட்டி பலகைகள் உள்ளன. நுழைவாயிலுக்கு பொதுப் போக்குவரத்து இல்லை; பெரும்பாலான பார்வையாளர்கள் வாகனத்தில் செல்கிறார்கள் அல்லது கோபெங் விடுதியிலிருந்து வாகனம் ஏற்பாடு செய்கிறார்கள்.',
+      ar: 'الكهف مُعلَّم عليه من الطريق السريع شمال جنوب عند مخرج جوبينج، على بعد نحو 25 كم جنوب إيبوه وساعتين بالسيارة من كوالالمبور. لا توجد مواصلات عامة إلى المدخل؛ ويصل معظم الزوار بسياراتهم أو بترتيب توصيلة من نُزل في جوبينج.',
+    },
+    safety: {
+      en: 'The two long tours involve crawling through low passages and wading a river inside the cave, and they are not suitable for anyone uneasy in confined or dark spaces. Water levels inside rise quickly after heavy rain, which is why those tours are cancelled rather than shortened. Take the guide seriously when they turn a group back.',
+      ms: 'Dua lawatan panjang melibatkan merangkak melalui laluan rendah dan meredah sungai di dalam gua, dan ia tidak sesuai untuk sesiapa yang tidak selesa dalam ruang sempit atau gelap. Paras air di dalam naik dengan cepat selepas hujan lebat, sebab itulah lawatan tersebut dibatalkan dan bukan dipendekkan. Ambil serius apabila pemandu memulangkan kumpulan.',
+      'zh-cn': '两条长线路需要匍匐通过低矮通道并在洞内涉水，不适合对密闭或黑暗空间感到不安的人。暴雨后洞内水位上升极快，这正是这些路线被取消而非缩短的原因。当向导决定折返时，请认真对待。',
+      'zh-hk': '兩條長線路要匍匐爬過矮通道，仲要喺洞入面涉水，唔適合對密閉或者黑暗空間感到唔安嘅人。暴雨之後洞內水位升得好快，呢個就係嗰啲路線會取消而唔係縮短嘅原因。當嚮導決定折返嗰陣，請認真對待。',
+      ta: 'இரண்டு நீண்ட சுற்றுலாக்களில் தாழ்வான வழிகள் வழியாக தவழ்வதும் குகைக்குள் ஆற்றில் நடப்பதும் அடங்கும், அடைபட்ட அல்லது இருண்ட இடங்களில் அசௌகரியம் உள்ளவர்களுக்கு அவை ஏற்றவை அல்ல. கனமழைக்குப் பிறகு உள்ளே நீர்மட்டம் வேகமாக உயரும், அதனால்தான் அந்தச் சுற்றுலாக்கள் சுருக்கப்படாமல் ரத்து செய்யப்படுகின்றன. வழிகாட்டி ஒரு குழுவைத் திருப்பி அனுப்பும்போது அதை தீவிரமாக எடுத்துக் கொள்ளுங்கள்.',
+      ar: 'تتضمن الجولتان الطويلتان الزحف عبر ممرات منخفضة وخوض نهر داخل الكهف، وهما غير مناسبتين لمن يشعر بعدم الارتياح في الأماكن الضيقة أو المظلمة. ترتفع مناسيب المياه في الداخل بسرعة بعد المطر الغزير، ولهذا تُلغى تلك الجولات بدل اختصارها. خذ قرار المرشد بإعادة المجموعة على محمل الجد.',
+    },
+    whatToBring: {
+      en: ['Shoes with grip that you do not mind soaking', 'A head torch, even though the short route is lit', 'A full change of clothes for the wet tours', 'Water, and a dry bag for anything electronic'],
+      ms: ['Kasut bertapak cengkam yang anda tidak kisah basah', 'Lampu kepala, walaupun laluan pendek bercahaya', 'Pakaian ganti lengkap untuk lawatan basah', 'Air, dan beg kalis air untuk apa-apa barangan elektronik'],
+      'zh-cn': ['抓地力好、不怕湿透的鞋', '头灯，即使短程路线已有照明', '涉水路线需备整套换洗衣物', '饮水，以及装电子设备的防水袋'],
+      'zh-hk': ['抓地力好、唔怕濕透嘅鞋', '頭燈，就算短程路線有照明都要', '涉水路線要帶成套替換衫', '飲用水，同埋裝電子設備嘅防水袋'],
+      ta: ['நனைந்தாலும் கவலைப்படாத பிடிப்புள்ள காலணிகள்', 'குறுகிய பாதை விளக்கேற்றப்பட்டிருந்தாலும் தலை விளக்கு', 'ஈர சுற்றுலாக்களுக்கு முழு மாற்று உடைகள்', 'தண்ணீர், மற்றும் மின்னணு பொருட்களுக்கு உலர் பை'],
+      ar: ['حذاء بقبضة جيدة لا تمانع ابتلاله', 'كشاف رأس، حتى مع إضاءة المسار القصير', 'ملابس بديلة كاملة للجولات المائية', 'ماء، وحقيبة مقاومة للماء للأجهزة الإلكترونية'],
+    },
+    heroGradient: 'from-stone-800 via-amber-900 to-stone-700',
+    heroAlt: { en: 'Limestone chambers inside a cave system', ms: 'Dewan batu kapur di dalam sistem gua', 'zh-cn': '洞穴系统内的石灰岩洞厅', 'zh-hk': '洞穴系統入面嘅石灰岩洞廳', ta: 'குகை அமைப்பிற்குள் சுண்ணாம்பு அறைகள்', ar: 'قاعات جيرية داخل منظومة كهفية' },
+    officialLinks: [
+      { label: 'Tourism Perak Malaysia: Gua Tempurung', url: 'https://www.tourismperakmalaysia.com/gua-tempurung/' },
+    ],
+  },
+  {
+    slug: 'gua-batu-maloi',
+    country: 'malaysia',
+    region: 'Johol, Kuala Pilah, Negeri Sembilan',
+    coordinates: { lat: 2.4547, lng: 102.2242 },
+    difficulty: 'hard',
+    duration: { en: '3-4 hours underground, plus the walk in', ms: '3-4 jam di bawah tanah, tambah perjalanan masuk', 'zh-cn': '地下 3 至 4 小时，另加进出步行时间', 'zh-hk': '地下 3 至 4 個鐘，另加出入步行時間', ta: 'நிலத்தடியில் 3-4 மணி நேரம், மேலும் உள்ளே செல்லும் நடை', ar: 'من 3 إلى 4 ساعات تحت الأرض، إضافة إلى المشي للوصول' },
+    permit: {
+      required: true,
+      authorityName: 'Jabatan Perhutanan Negeri Sembilan (Pejabat Hutan Daerah Negeri Sembilan Timur)',
+      url: 'https://forestry.ns.gov.my/',
+      fee: { en: 'RM5 for Malaysians, RM20 for visitors, plus the operator fee', ms: 'RM5 untuk warga Malaysia, RM20 untuk pelawat, tambah bayaran pengendali', 'zh-cn': '马来西亚人 RM5，外国访客 RM20，另加营运商费用', 'zh-hk': '馬來西亞人 RM5，外國訪客 RM20，另加營運商費用', ta: 'மலேசியர்களுக்கு RM5, வெளிநாட்டவர்களுக்கு RM20, மேலும் இயக்குநர் கட்டணம்', ar: '5 رينغيت للماليزيين و20 للزوار، إضافة إلى رسوم المشغّل' },
+      advanceNotice: { en: 'Book with a certified operator well ahead; this is not a walk-in cave', ms: 'Tempah dengan pengendali bertauliah lebih awal; ini bukan gua masuk terus', 'zh-cn': '须提前向持证营运商预约；此洞不接受即到即入', 'zh-hk': '要提前向持證營運商預約；呢個洞唔接受即到即入', ta: 'சான்றளிக்கப்பட்ட இயக்குநருடன் நன்கு முன்கூட்டியே முன்பதிவு செய்யுங்கள்; இது நேரடியாக நுழையும் குகை அல்ல', ar: 'احجز مع مشغّل معتمد قبل وقت كافٍ؛ هذا ليس كهفًا يُدخل إليه بلا ترتيب' },
+      howToApply: {
+        en: 'Access is through a MaTEx-certified caving operator, who arranges the forest reserve permit with the district forest office at Kuala Pilah as part of the booking. Going in without a guide is not permitted and, given how the cave floods, not survivable advice.',
+        ms: 'Akses adalah melalui pengendali caving bertauliah MaTEx, yang menguruskan permit rizab hutan dengan pejabat hutan daerah di Kuala Pilah sebagai sebahagian daripada tempahan. Masuk tanpa pemandu tidak dibenarkan dan, memandangkan cara gua ini dilanda banjir, bukan nasihat yang boleh diselamati.',
+        'zh-cn': '须透过获 MaTEx 认证的洞穴探险营运商前往，营运商会在预订时一并向瓜拉庇朥县森林局办妥森林保护区许可。未经向导带领不得入洞；以此洞的涨水情形而言，那也不是能活着回来的建议。',
+        'zh-hk': '要透過攞咗 MaTEx 認證嘅洞穴探險營運商前往，營運商會喺預訂時一併同瓜拉庇朥縣森林局辦妥森林保護區許可。冇嚮導帶隊唔准入洞；以呢個洞漲水嘅情形嚟講，嗰個亦都唔係可以生還嘅建議。',
+        ta: 'MaTEx சான்றளிக்கப்பட்ட குகை ஆய்வு இயக்குநர் மூலம் அணுகல் கிடைக்கிறது, அவர் முன்பதிவின் ஒரு பகுதியாக குவாலா பிலாவில் உள்ள மாவட்ட வன அலுவலகத்துடன் வனப் பாதுகாப்பு அனுமதியை ஏற்பாடு செய்கிறார். வழிகாட்டி இல்லாமல் உள்ளே செல்வது அனுமதிக்கப்படவில்லை, குகை வெள்ளத்தில் மூழ்கும் விதத்தைக் கருதினால், உயிர் தப்பக்கூடிய அறிவுரையும் அல்ல.',
+        ar: 'الوصول عبر مشغّل استكشاف كهوف معتمد من MaTEx، وهو من يرتّب تصريح المحمية الحرجية مع مكتب الغابات في كوالا بيلاه ضمن الحجز. الدخول بلا مرشد ممنوع، وبالنظر إلى طريقة فيضان الكهف، فهو ليس نصيحة يُنجى منها.',
+      },
+    },
+    season: {
+      bestMonths: { en: 'June to August, the driest stretch of the year', ms: 'Jun hingga Ogos, tempoh paling kering dalam setahun', 'zh-cn': '6 月至 8 月，一年中最干燥的时段', 'zh-hk': '6 月至 8 月，一年之中最乾燥嘅時段', ta: 'ஜூன் முதல் ஆகஸ்ட் வரை, ஆண்டின் மிக வறண்ட காலம்', ar: 'من يونيو إلى أغسطس، أكثر فترات السنة جفافًا' },
+      avoidMonths: { en: 'November to January, and any day with rain forecast upstream', ms: 'November hingga Januari, dan mana-mana hari dengan ramalan hujan di hulu', 'zh-cn': '11 月至 1 月，以及上游有降雨预报的任何一天', 'zh-hk': '11 月至 1 月，以及上游有落雨預報嘅任何一日', ta: 'நவம்பர் முதல் ஜனவரி வரை, மேல்நோக்கிய பகுதியில் மழை முன்னறிவிப்பு உள்ள எந்த நாளும்', ar: 'من نوفمبر إلى يناير، وأي يوم يُتوقع فيه مطر في أعالي المجرى' },
+      notes: {
+        en: 'This is a river cave, so the weather that matters is the weather upstream rather than the weather at the entrance. Water inside can rise from waist to chest in minutes after a downpour, and people have been trapped by exactly that.',
+        ms: 'Ini gua sungai, jadi cuaca yang penting ialah cuaca di hulu dan bukan cuaca di pintu masuk. Air di dalam boleh naik dari paras pinggang ke paras dada dalam beberapa minit selepas hujan lebat, dan orang pernah terperangkap disebabkan perkara itu.',
+        'zh-cn': '这是一处河流洞穴，因此关键天气是上游的天气，而非洞口的天气。暴雨后洞内水位可在数分钟内由腰部升至胸部，确实曾有人因此被困。',
+        'zh-hk': '呢個係河流洞穴，所以重要嘅係上游嘅天氣，而唔係洞口嘅天氣。暴雨之後洞內水位可以喺幾分鐘內由腰部升到胸部，真係試過有人因為咁被困。',
+        ta: 'இது ஒரு ஆற்றுக் குகை, எனவே முக்கியமான வானிலை நுழைவாயிலின் வானிலை அல்ல, மேல்நோக்கிய பகுதியின் வானிலையே. கனமழைக்குப் பிறகு உள்ளே தண்ணீர் இடுப்பிலிருந்து மார்பு வரை நிமிடங்களில் உயரும், சரியாக அதனாலேயே மக்கள் சிக்கிக் கொண்டுள்ளனர்.',
+        ar: 'هذا كهف نهري، فالطقس المهم هو طقس أعالي المجرى لا طقس المدخل. قد يرتفع الماء في الداخل من الخصر إلى الصدر خلال دقائق بعد وابل مطري، وقد عَلِق أشخاص لهذا السبب بالضبط.',
+      },
+    },
+    name: { en: 'Gua Batu Maloi', ms: 'Gua Batu Maloi', 'zh-cn': '峇都马洛依洞（Gua Batu Maloi）', 'zh-hk': '峇都馬洛依洞（Gua Batu Maloi）', ta: 'குவா பாத்து மலோய்', ar: 'كهف غوا باتو مالوي' },
+    tagline: {
+      en: 'A granite boulder cave you swim, squeeze and wade, inside the Gunung Tampin Forest Reserve',
+      ms: 'Gua batu granit yang anda renang, himpit dan redah, di dalam Hutan Simpan Gunung Tampin',
+      'zh-cn': '位于淡边山森林保护区内、需游泳挤爬涉水的花岗岩巨石洞',
+      'zh-hk': '喺淡邊山森林保護區入面、要游水擠爬涉水嘅花崗岩巨石洞',
+      ta: 'குனுங் தம்பின் வனப் பாதுகாப்புப் பகுதிக்குள், நீந்தி, நெருக்கி, நீரில் நடந்து செல்லும் கிரானைட் பாறைக் குகை',
+      ar: 'كهف صخور جرانيتية تسبح وتنسلّ وتخوض فيه، داخل محمية غونونج تامبين',
+    },
+    overview: {
+      en: 'Batu Maloi is not a limestone cave. It is the space beneath a jumble of granite boulders in a river bed, which means the route is a sequence of squeezes, climbs and swims rather than a walk through chambers. Water is around you for most of it, from waist to chest deep. The reserve straddles the Negeri Sembilan and Melaka boundary, and the trailhead sits roughly 35 km from Kuala Pilah.',
+      ms: 'Batu Maloi bukan gua batu kapur. Ia adalah ruang di bawah timbunan batu granit di dasar sungai, bermakna laluannya ialah rangkaian himpitan, panjatan dan renangan dan bukan berjalan melalui dewan. Air mengelilingi anda untuk kebanyakan laluan, dari paras pinggang ke paras dada. Rizab ini merentangi sempadan Negeri Sembilan dan Melaka, dan pangkalan laluan terletak kira-kira 35 km dari Kuala Pilah.',
+      'zh-cn': '峇都马洛依并非石灰岩洞，而是河床上一堆花岗岩巨石之下的空隙，因此路线是一连串挤身、攀爬与游泳，而非穿行洞厅。全程大半时间身处水中，水深自腰至胸。该保护区横跨森美兰与马六甲边界，登山口距瓜拉庇朥约 35 公里。',
+      'zh-hk': '峇都馬洛依唔係石灰岩洞，而係河床上一堆花崗岩巨石之下嘅空隙，所以路線係一連串擠身、攀爬同游水，而唔係行過洞廳。全程大半時間都喺水入面，水深由腰到胸。呢個保護區橫跨森美蘭同馬六甲邊界，登山口距離瓜拉庇朥約 35 公里。',
+      ta: 'பாத்து மலோய் ஒரு சுண்ணாம்புக் குகை அல்ல. இது ஆற்றுப் படுகையில் குவிந்துள்ள கிரானைட் பாறைகளுக்கு அடியில் உள்ள இடைவெளி, அதாவது பாதை என்பது அறைகள் வழியாக நடப்பதல்ல, நெருக்கங்கள், ஏற்றங்கள் மற்றும் நீச்சல்களின் தொடர். பெரும்பாலான நேரம் இடுப்பு முதல் மார்பு வரை தண்ணீர் உங்களைச் சூழ்ந்திருக்கும். இந்தக் காப்பகம் நெகிரி செம்பிலான் மற்றும் மலாக்கா எல்லையில் பரவியுள்ளது, பாதை தொடக்கம் குவாலா பிலாவிலிருந்து சுமார் 35 கி.மீ. தொலைவில் உள்ளது.',
+      ar: 'غوا باتو مالوي ليس كهفًا جيريًا، بل هو الفراغ تحت ركام من الصخور الجرانيتية في مجرى نهر، ما يعني أن المسار سلسلة من الانسلال والتسلق والسباحة لا تجوالًا بين قاعات. الماء يحيط بك في معظمه، من الخصر إلى الصدر. تمتد المحمية على حدود نيجري سمبيلان وملقا، ويقع مبدأ المسار على نحو 35 كم من كوالا بيلاه.',
+    },
+    highlights: {
+      en: ['A granite cave formed by tectonic movement, not by water dissolving rock', 'Continuous water from waist to chest deep for most of the route', 'Narrow squeezes that give the cave its reputation', 'Forest walk in through the Gunung Tampin reserve'],
+      ms: ['Gua granit yang terbentuk oleh pergerakan tektonik, bukan oleh air melarutkan batu', 'Air berterusan dari paras pinggang ke paras dada untuk kebanyakan laluan', 'Himpitan sempit yang memberikan gua ini reputasinya', 'Perjalanan hutan masuk melalui rizab Gunung Tampin'],
+      'zh-cn': ['由板块运动而非流水溶蚀形成的花岗岩洞', '全程大半路段水深自腰至胸，从不间断', '成就此洞名声的狭窄挤缝', '穿越淡边山保护区的入洞林道'],
+      'zh-hk': ['由板塊運動而唔係流水溶蝕形成嘅花崗岩洞', '全程大半路段水深由腰到胸，冇間斷', '成就呢個洞名聲嘅狹窄擠縫', '穿越淡邊山保護區嘅入洞林道'],
+      ta: ['நீர் பாறையைக் கரைப்பதால் அல்ல, நிலத்தட்டு அசைவால் உருவான கிரானைட் குகை', 'பெரும்பாலான பாதையில் இடுப்பு முதல் மார்பு வரை தொடர்ச்சியான நீர்', 'குகைக்கு அதன் புகழைத் தந்த குறுகிய நெருக்கங்கள்', 'குனுங் தம்பின் காப்பகம் வழியாக உள்ளே செல்லும் காட்டு நடை'],
+      ar: ['كهف جرانيتي تشكّل بالحركة التكتونية لا بذوبان الصخر في الماء', 'ماء متصل من الخصر إلى الصدر في معظم المسار', 'المضائق الضيقة التي أكسبت الكهف سمعته', 'مشي في الغابة للدخول عبر محمية غونونج تامبين'],
+    },
+    gettingThere: {
+      en: 'The reserve entrance is about 15 km from Tampin town and roughly 35 km from Kuala Pilah, reached on minor roads through Johol. Operators normally meet groups in Tampin and drive in together, which is the simplest way to find the trailhead.',
+      ms: 'Pintu masuk rizab kira-kira 15 km dari pekan Tampin dan lebih kurang 35 km dari Kuala Pilah, dicapai melalui jalan kecil menerusi Johol. Pengendali biasanya bertemu kumpulan di Tampin dan memandu masuk bersama, iaitu cara paling mudah untuk mencari pangkalan laluan.',
+      'zh-cn': '保护区入口距淡边镇约 15 公里，距瓜拉庇朥约 35 公里，须经柔河一带的乡道前往。营运商通常在淡边与团队会合后一同驱车进入，这是找到登山口最省事的方式。',
+      'zh-hk': '保護區入口距離淡邊鎮約 15 公里，距離瓜拉庇朥約 35 公里，要經柔河一帶嘅鄉道入去。營運商通常喺淡邊同隊伍會合，然後一齊揸車入去，呢個係搵到登山口最慳事嘅方法。',
+      ta: 'காப்பக நுழைவாயில் தம்பின் நகரிலிருந்து சுமார் 15 கி.மீ. மற்றும் குவாலா பிலாவிலிருந்து சுமார் 35 கி.மீ. தொலைவில், ஜோஹோல் வழியாகச் செல்லும் சிறு சாலைகளில் அமைந்துள்ளது. இயக்குநர்கள் பொதுவாக தம்பினில் குழுக்களைச் சந்தித்து ஒன்றாக வாகனத்தில் செல்கிறார்கள், பாதைத் தொடக்கத்தைக் கண்டுபிடிக்க இதுவே எளிய வழி.',
+      ar: 'مدخل المحمية على نحو 15 كم من بلدة تامبين ونحو 35 كم من كوالا بيلاه، ويُوصل إليه بطرق فرعية عبر جوهول. يلتقي المشغّلون عادةً بالمجموعات في تامبين ويدخلون معًا بالسيارات، وهي أبسط طريقة للعثور على مبدأ المسار.',
+    },
+    safety: {
+      en: 'Two things make this one of the more serious days out on this site. The passages are genuinely tight, so claustrophobia is a real reason not to go. And the cave floods: water levels have risen fast enough after heavy rain to trap people inside. A certified guide is required, and the reason is not paperwork.',
+      ms: 'Dua perkara menjadikan ini salah satu hari keluar yang lebih serius di laman ini. Laluannya benar-benar sempit, jadi klaustrofobia ialah sebab sebenar untuk tidak pergi. Dan gua ini dilanda banjir: paras air pernah naik cukup cepat selepas hujan lebat sehingga memerangkap orang di dalam. Pemandu bertauliah diwajibkan, dan sebabnya bukan urusan kertas kerja.',
+      'zh-cn': '有两点使这成为本站较为严肃的行程之一。通道确实狭窄，幽闭恐惧是不去的正当理由。此外洞穴会淹水：暴雨后水位曾上涨之快，足以把人困在里面。必须由持证向导带领，其原因并非文书程序。',
+      'zh-hk': '有兩點令呢個成為本站比較嚴肅嘅行程之一。通道真係好窄，幽閉恐懼係唔去嘅正當理由。另外個洞會浸水：暴雨之後水位試過升得快到將人困喺入面。必須由持證嚮導帶隊，原因唔係文書程序。',
+      ta: 'இரண்டு விஷயங்கள் இதை இந்தத் தளத்தின் மிகவும் தீவிரமான நாட்களில் ஒன்றாக ஆக்குகின்றன. வழிகள் உண்மையிலேயே இறுக்கமானவை, எனவே அடைபடும் பயம் செல்லாமல் இருப்பதற்கான உண்மையான காரணம். மேலும் குகை வெள்ளத்தில் மூழ்கும்: கனமழைக்குப் பிறகு நீர்மட்டம் மக்களை உள்ளே சிக்க வைக்கும் அளவுக்கு வேகமாக உயர்ந்துள்ளது. சான்றளிக்கப்பட்ட வழிகாட்டி கட்டாயம், அதற்கான காரணம் ஆவணப் பணி அல்ல.',
+      ar: 'أمران يجعلان هذا من أكثر أيام هذا الموقع جدية. الممرات ضيقة فعلًا، فرهاب الأماكن المغلقة سبب حقيقي للامتناع. والكهف يفيض: ارتفعت المناسيب بعد المطر الغزير بسرعة كافية لحبس أشخاص في الداخل. المرشد المعتمد إلزامي، والسبب ليس إجراءات ورقية.',
+    },
+    whatToBring: {
+      en: ['A helmet and head torch, normally supplied by the operator', 'Clothes and shoes you will be soaked in for hours', 'A full dry change left in the vehicle', 'Nothing in your pockets that water will ruin'],
+      ms: ['Topi keledar dan lampu kepala, biasanya dibekalkan oleh pengendali', 'Pakaian dan kasut yang anda akan basah kuyup selama berjam-jam', 'Pakaian kering lengkap ditinggalkan di dalam kenderaan', 'Tiada apa-apa di dalam poket yang akan rosak oleh air'],
+      'zh-cn': ['头盔与头灯，通常由营运商提供', '可以连续数小时湿透的衣物与鞋子', '留在车上的整套干爽换洗衣物', '口袋里不要放任何会被水毁掉的东西'],
+      'zh-hk': ['頭盔同頭燈，通常由營運商提供', '可以連續幾個鐘濕透嘅衫同鞋', '留喺車上嘅成套乾爽替換衫', '袋入面唔好放任何會俾水浸壞嘅嘢'],
+      ta: ['தலைக்கவசம் மற்றும் தலை விளக்கு, பொதுவாக இயக்குநரால் வழங்கப்படும்', 'மணிக்கணக்கில் நனைந்திருக்கக்கூடிய உடைகளும் காலணிகளும்', 'வாகனத்தில் விட்டுச் செல்லும் முழு உலர் மாற்று உடை', 'தண்ணீரால் சேதமடையும் எதையும் பையில் வைக்க வேண்டாம்'],
+      ar: ['خوذة وكشاف رأس، يوفّرهما المشغّل عادةً', 'ملابس وحذاء ستبقى مبتلة ساعات', 'طقم جاف كامل يُترك في السيارة', 'لا شيء في جيوبك يفسده الماء'],
+    },
+    heroGradient: 'from-slate-800 via-emerald-950 to-slate-700',
+    heroAlt: { en: 'Granite boulders over a forest stream', ms: 'Batu granit di atas anak sungai hutan', 'zh-cn': '林间溪流上方的花岗岩巨石', 'zh-hk': '林間溪流上面嘅花崗岩巨石', ta: 'காட்டு நீரோடையின் மேல் கிரானைட் பாறைகள்', ar: 'صخور جرانيتية فوق جدول في الغابة' },
+    officialLinks: [
+      { label: 'Jabatan Perhutanan Negeri Sembilan', url: 'https://forestry.ns.gov.my/' },
+    ],
+  },
+  {
+    slug: 'gunung-angsi',
+    country: 'malaysia',
+    region: 'Ulu Bendul, Kuala Pilah, Negeri Sembilan',
+    coordinates: { lat: 2.6547, lng: 102.0031 },
+    difficulty: 'moderate',
+    elevationM: 825,
+    duration: { en: '4-6 hours return', ms: '4-6 jam pergi balik', 'zh-cn': '往返 4 至 6 小时', 'zh-hk': '來回 4 至 6 個鐘', ta: 'சென்று திரும்ப 4-6 மணி நேரம்', ar: 'من 4 إلى 6 ساعات ذهابًا وإيابًا' },
+    permit: {
+      required: false,
+      authorityName: 'Jabatan Perhutanan Negeri Sembilan (Taman Eko-Rimba Ulu Bendul)',
+      url: 'https://www.forestry.gov.my/en/negeri-sembilan/taman-eko-rimba-ulu-bendul',
+      fee: { en: 'Free entry to the eco-park', ms: 'Kemasukan percuma ke taman eko', 'zh-cn': '生态林园免费入园', 'zh-hk': '生態林園免費入園', ta: 'சூழல் பூங்காவிற்கு இலவச நுழைவு', ar: 'الدخول إلى الحديقة البيئية مجاني' },
+      advanceNotice: { en: 'None for the day hike; register at the office on arrival', ms: 'Tiada untuk pendakian sehari; daftar di pejabat semasa tiba', 'zh-cn': '一日行程无需预约；抵达后至办事处登记', 'zh-hk': '一日行程唔使預約；到咗之後去辦事處登記', ta: 'நாள் மலையேற்றத்திற்கு எதுவும் இல்லை; வந்தவுடன் அலுவலகத்தில் பதிவு செய்யுங்கள்', ar: 'لا حاجة للتنزّه اليومي؛ سجّل في المكتب عند الوصول' },
+      howToApply: {
+        en: 'The eco-park is open daily from 08:00 to 17:00 and entry is free. Sign in at the forestry office at the trailhead so the district knows who is on the mountain; the office for this area is Pejabat Hutan Daerah Negeri Sembilan Timur at Kuala Pilah.',
+        ms: 'Taman eko dibuka setiap hari dari 08:00 hingga 17:00 dan kemasukan adalah percuma. Daftar masuk di pejabat perhutanan di pangkalan laluan supaya daerah tahu siapa yang berada di gunung; pejabat bagi kawasan ini ialah Pejabat Hutan Daerah Negeri Sembilan Timur di Kuala Pilah.',
+        'zh-cn': '生态林园每日 08:00 至 17:00 开放，免费入园。请在登山口的林业办事处签到，让县方掌握山上有哪些人；本区办事处为瓜拉庇朥的森美兰东区县森林局。',
+        'zh-hk': '生態林園每日 08:00 至 17:00 開放，免費入園。請喺登山口嘅林業辦事處簽到，等縣方知道山上有邊啲人；本區辦事處係瓜拉庇朥嘅森美蘭東區縣森林局。',
+        ta: 'சூழல் பூங்கா தினமும் 08:00 முதல் 17:00 வரை திறந்திருக்கும், நுழைவு இலவசம். மலையில் யார் இருக்கிறார்கள் என்பதை மாவட்டம் அறியும் வகையில் பாதைத் தொடக்கத்தில் உள்ள வன அலுவலகத்தில் கையொப்பமிடுங்கள்; இந்தப் பகுதிக்கான அலுவலகம் குவாலா பிலாவில் உள்ள நெகிரி செம்பிலான் திமூர் மாவட்ட வன அலுவலகம்.',
+        ar: 'الحديقة البيئية مفتوحة يوميًا من 08:00 إلى 17:00 والدخول مجاني. سجّل اسمك في مكتب الغابات عند مبدأ المسار ليعرف المكتب من على الجبل؛ ومكتب هذه المنطقة هو مكتب غابات مقاطعة نيجري سمبيلان الشرقية في كوالا بيلاه.',
+      },
+    },
+    season: {
+      bestMonths: { en: 'February to August, and always an early start', ms: 'Februari hingga Ogos, dan sentiasa mulakan awal', 'zh-cn': '2 月至 8 月，并且务必早出发', 'zh-hk': '2 月至 8 月，而且一定要早出發', ta: 'பிப்ரவரி முதல் ஆகஸ்ட் வரை, எப்போதும் அதிகாலைத் தொடக்கம்', ar: 'من فبراير إلى أغسطس، ودائمًا ببداية مبكرة' },
+      avoidMonths: { en: 'November to January, when the trail turns to mud and leeches', ms: 'November hingga Januari, apabila laluan bertukar menjadi lumpur dan pacat', 'zh-cn': '11 月至 1 月，此时步道满是泥泞与山蛭', 'zh-hk': '11 月至 1 月，嗰陣步道成地泥濘同山蛭', ta: 'நவம்பர் முதல் ஜனவரி வரை, பாதை சேறும் அட்டைகளுமாக மாறும்போது', ar: 'من نوفمبر إلى يناير، حين يتحول المسار إلى وحل وعَلَق' },
+      notes: {
+        en: 'Negeri Sembilan gets rain year round with a wetter spell towards the end of the year. Afternoon thunderstorms are common, which is the practical argument for starting at opening time rather than mid-morning.',
+        ms: 'Negeri Sembilan menerima hujan sepanjang tahun dengan tempoh lebih basah menjelang akhir tahun. Ribut petir petang adalah perkara biasa, itulah hujah praktikal untuk bermula pada waktu buka dan bukan pertengahan pagi.',
+        'zh-cn': '森美兰全年有雨，年末较为潮湿。午后雷雨常见，这正是应在开园时间出发而非上午过半才动身的实际理由。',
+        'zh-hk': '森美蘭全年都有雨，年尾比較潮濕。午後雷雨好常見，呢個就係應該喺開園時間出發，而唔係上晝過咗一半先郁身嘅實際理由。',
+        ta: 'நெகிரி செம்பிலானில் ஆண்டு முழுவதும் மழை பெய்யும், ஆண்டின் இறுதியில் அதிக ஈரப்பதம். மதியம் இடியுடன் கூடிய மழை பொதுவானது, காலை நடுப்பகுதிக்குப் பதிலாக திறக்கும் நேரத்தில் தொடங்குவதற்கான நடைமுறைக் காரணம் இதுவே.',
+        ar: 'تمطر في نيجري سمبيلان طوال العام مع فترة أكثر رطوبة قرب نهايته. العواصف الرعدية بعد الظهر شائعة، وهي الحجة العملية للانطلاق مع فتح البوابة لا في منتصف الصباح.',
+      },
+    },
+    name: { en: 'Gunung Angsi', ms: 'Gunung Angsi', 'zh-cn': '安西山（Gunung Angsi）', 'zh-hk': '安西山（Gunung Angsi）', ta: 'குனுங் அங்சி', ar: 'جبل أنجسي' },
+    tagline: {
+      en: 'The classic Negeri Sembilan training peak, from the Ulu Bendul forest eco-park',
+      ms: 'Puncak latihan klasik Negeri Sembilan, dari Taman Eko-Rimba Ulu Bendul',
+      'zh-cn': '森美兰的经典练兵峰，自乌鲁文都生态林园起登',
+      'zh-hk': '森美蘭嘅經典練兵峰，由烏魯文都生態林園起步',
+      ta: 'உலு பெண்டுல் சூழல் பூங்காவிலிருந்து தொடங்கும், நெகிரி செம்பிலானின் பாரம்பரியப் பயிற்சி சிகரம்',
+      ar: 'قمة التدريب الكلاسيكية في نيجري سمبيلان، انطلاقًا من حديقة أولو بندول البيئية',
+    },
+    overview: {
+      en: 'Gunung Angsi sits in the Angsi Forest Reserve and is the peak most Klang Valley clubs use to test whether a group is ready for something bigger. The Ulu Bendul route is the gentler of the two standard approaches, climbing through dipterocarp forest to a summit clearing. The eco-park at the foot has 290 camping pitches, which is why so many club weekends start here.',
+      ms: 'Gunung Angsi terletak di Hutan Simpan Angsi dan merupakan puncak yang digunakan kebanyakan kelab Lembah Klang untuk menguji sama ada sesuatu kumpulan bersedia untuk perkara yang lebih besar. Laluan Ulu Bendul adalah yang lebih lembut antara dua pendekatan standard, mendaki melalui hutan dipterokarp ke kawasan lapang puncak. Taman eko di kakinya mempunyai 290 petak perkhemahan, itulah sebabnya begitu banyak hujung minggu kelab bermula di sini.',
+      'zh-cn': '安西山位于安西森林保护区，是巴生谷多数登山会用来检验队伍是否已具备挑战更大目标能力的山峰。乌鲁文都路线是两条标准路线中较平缓的一条，穿越龙脑香林上抵峰顶空地。山脚生态林园设有 290 个营位，这正是众多会内周末活动在此起步的原因。',
+      'zh-hk': '安西山喺安西森林保護區，係巴生谷多數行山會用嚟試吓隊伍夠唔夠班挑戰更大目標嘅山。烏魯文都路線係兩條標準路線之中比較平緩嗰條，穿過龍腦香林上到峰頂空地。山腳生態林園有 290 個營位，呢個就係好多會內週末活動喺呢度起步嘅原因。',
+      ta: 'குனுங் அங்சி அங்சி வனப் பாதுகாப்புப் பகுதியில் அமைந்துள்ளது, ஒரு குழு பெரிய சவாலுக்குத் தயாரா என்பதைச் சோதிக்க கிள்ளான் பள்ளத்தாக்கு கழகங்கள் பயன்படுத்தும் சிகரம் இது. உலு பெண்டுல் பாதை இரண்டு நிலையான அணுகுமுறைகளில் மென்மையானது, டிப்டெரோகார்ப் காடு வழியாக உச்சி வெளிவெளிக்கு ஏறுகிறது. அடிவாரத்தில் உள்ள சூழல் பூங்காவில் 290 முகாம் இடங்கள் உள்ளன, அதனால்தான் பல கழக வார இறுதிகள் இங்கிருந்து தொடங்குகின்றன.',
+      ar: 'يقع جبل أنجسي في محمية أنجسي الحرجية، وهو القمة التي تستخدمها معظم أندية وادي كلانج لاختبار جاهزية المجموعة لما هو أكبر. مسار أولو بندول هو الألطف بين المسارين المعتادين، ويصعد عبر غابة ثنائيات الجناح إلى فسحة القمة. وفي الحديقة البيئية عند السفح 290 موقع تخييم، ولهذا تبدأ عطلات نهاية الأسبوع للأندية من هنا.',
+    },
+    highlights: {
+      en: ['A summit at 825 m reachable in a morning', 'Dipterocarp forest the whole way up', 'The Ulu Bendul eco-park and its river pools at the foot', '290 camping pitches, so the trailhead doubles as a base'],
+      ms: ['Puncak setinggi 825 m yang boleh dicapai dalam satu pagi', 'Hutan dipterokarp sepanjang perjalanan ke atas', 'Taman eko Ulu Bendul dan kolam sungainya di kaki gunung', '290 petak perkhemahan, jadi pangkalan laluan turut berfungsi sebagai pangkalan'],
+      'zh-cn': ['海拔 825 米，一个上午即可登顶', '全程行走于龙脑香林中', '山脚的乌鲁文都生态林园及其溪潭', '290 个营位，使登山口兼作大本营'],
+      'zh-hk': ['海拔 825 米，一個朝早就上到頂', '全程行喺龍腦香林入面', '山腳嘅烏魯文都生態林園同佢啲溪潭', '290 個營位，令登山口同時做到大本營'],
+      ta: ['ஒரு காலைப் பொழுதில் அடையக்கூடிய 825 மீ உச்சி', 'மேலே செல்லும் வழி முழுவதும் டிப்டெரோகார்ப் காடு', 'அடிவாரத்தில் உலு பெண்டுல் சூழல் பூங்காவும் அதன் ஆற்றுக் குளங்களும்', '290 முகாம் இடங்கள், எனவே பாதைத் தொடக்கம் தளமாகவும் செயல்படுகிறது'],
+      ar: ['قمة على ارتفاع 825 م يمكن بلوغها في صباح واحد', 'غابة ثنائيات الجناح طوال الصعود', 'حديقة أولو بندول البيئية وبِرَك نهرها عند السفح', '290 موقع تخييم، فيغدو مبدأ المسار قاعدة أيضًا'],
+    },
+    gettingThere: {
+      en: 'Ulu Bendul is on Route 51 between Seremban and Kuala Pilah, about 15.5 km from Senawang. Buses on the Seremban to Kuala Pilah route pass the entrance, and there is parking at the eco-park for those driving.',
+      ms: 'Ulu Bendul terletak di Laluan 51 antara Seremban dan Kuala Pilah, kira-kira 15.5 km dari Senawang. Bas laluan Seremban ke Kuala Pilah melalui pintu masuk, dan terdapat tempat letak kereta di taman eko untuk yang memandu.',
+      'zh-cn': '乌鲁文都位于芙蓉与瓜拉庇朥之间的 51 号公路上，距士拿旺约 15.5 公里。芙蓉往瓜拉庇朥的巴士经过入口，自驾者可在生态林园停车。',
+      'zh-hk': '烏魯文都喺芙蓉同瓜拉庇朥之間嘅 51 號公路上面，距離士拿旺約 15.5 公里。芙蓉去瓜拉庇朥嘅巴士會經過入口，自駕嘅可以喺生態林園泊車。',
+      ta: 'உலு பெண்டுல் செரம்பான் மற்றும் குவாலா பிலாவுக்கு இடையே 51-ஆம் சாலையில், செனாவாங்கிலிருந்து சுமார் 15.5 கி.மீ. தொலைவில் உள்ளது. செரம்பானிலிருந்து குவாலா பிலா செல்லும் பேருந்துகள் நுழைவாயிலைக் கடந்து செல்கின்றன, வாகனத்தில் வருபவர்களுக்கு சூழல் பூங்காவில் நிறுத்துமிடம் உள்ளது.',
+      ar: 'تقع أولو بندول على الطريق 51 بين سيرمبان وكوالا بيلاه، على نحو 15.5 كم من سيناوانج. تمرّ حافلات خط سيرمبان إلى كوالا بيلاه من أمام المدخل، ويتوفر موقف سيارات في الحديقة البيئية.',
+    },
+    safety: {
+      en: 'A straightforward mountain by the standards of this site, but the last section is steep and root-bound, and it becomes slick rather than merely muddy after rain. Leeches are usual in the wet months. Be down before the afternoon storms rather than caught on the steep ground during one.',
+      ms: 'Gunung yang mudah mengikut piawaian laman ini, tetapi bahagian terakhir curam dan penuh akar, dan ia menjadi licin dan bukan sekadar berlumpur selepas hujan. Pacat adalah perkara biasa pada bulan basah. Turun sebelum ribut petang dan bukannya terperangkap di tanah curam ketika ribut.',
+      'zh-cn': '以本站标准而言属平实的山，但最后一段陡峭且盘根交错，雨后不只是泥泞，而是变得湿滑。潮湿月份常有山蛭。请在午后雷雨之前下山，而非在陡坡上遭遇雷雨。',
+      'zh-hk': '以本站標準嚟講算係平實嘅山，但最後一段又斜又成地樹根，落雨之後唔止係泥濘，而係變得好滑。潮濕月份成日有山蛭。請喺午後雷雨之前落山，唔好喺斜坡上面撞正。',
+      ta: 'இந்தத் தளத்தின் தரப்படி எளிமையான மலை, ஆனால் கடைசிப் பகுதி செங்குத்தானது, வேர்கள் நிறைந்தது, மழைக்குப் பிறகு வெறும் சேறல்ல, வழுக்கக்கூடியதாகிறது. ஈரமான மாதங்களில் அட்டைகள் வழக்கம். மதிய புயலின் போது செங்குத்தான தரையில் சிக்குவதற்குப் பதிலாக அதற்கு முன் இறங்கிவிடுங்கள்.',
+      ar: 'جبل مباشر بمقاييس هذا الموقع، لكن المقطع الأخير شديد الانحدار ومتشابك الجذور، ويصبح زلقًا لا موحلًا فحسب بعد المطر. العَلَق معتاد في الأشهر الرطبة. انزل قبل عواصف بعد الظهر بدل أن تُفاجأ بها على الأرض المنحدرة.',
+    },
+    whatToBring: {
+      en: ['Two litres of water per person', 'Leech socks or salt in the wet months', 'Grippy shoes for the steep upper section', 'A light waterproof, since the storms arrive fast'],
+      ms: ['Dua liter air setiap orang', 'Stokin pacat atau garam pada bulan basah', 'Kasut bertapak cengkam untuk bahagian atas yang curam', 'Baju kalis hujan ringan, kerana ribut datang dengan cepat'],
+      'zh-cn': ['每人两公升饮水', '潮湿月份备防蛭袜或盐', '应对陡峭上段的抓地力鞋', '轻便雨衣，因为雷雨来得快'],
+      'zh-hk': ['每人兩公升飲用水', '潮濕月份帶防蛭襪或者鹽', '應付陡峭上段嘅抓地力鞋', '輕便雨衣，因為雷雨嚟得好快'],
+      ta: ['ஒருவருக்கு இரண்டு லிட்டர் தண்ணீர்', 'ஈரமான மாதங்களில் அட்டை காலுறைகள் அல்லது உப்பு', 'செங்குத்தான மேல் பகுதிக்கு பிடிப்புள்ள காலணிகள்', 'புயல்கள் விரைவாக வருவதால் இலகுவான மழைக்கோட்டு'],
+      ar: ['لتران من الماء لكل شخص', 'جوارب واقية من العَلَق أو ملح في الأشهر الرطبة', 'حذاء بقبضة جيدة للمقطع العلوي المنحدر', 'واقٍ خفيف من المطر، فالعواصف تصل سريعًا'],
+    },
+    heroGradient: 'from-emerald-900 via-green-800 to-lime-900',
+    heroAlt: { en: 'Forested ridge rising above lowland rainforest', ms: 'Rabung berhutan menjulang di atas hutan hujan tanah rendah', 'zh-cn': '高出低地雨林的林木山脊', 'zh-hk': '高出低地雨林嘅林木山脊', ta: 'தாழ்நில மழைக்காட்டிற்கு மேலே உயரும் காடுசூழ் மலைமுகடு', ar: 'حافة مكسوّة بالأشجار ترتفع فوق غابة مطيرة منخفضة' },
+    officialLinks: [
+      { label: 'Forestry Department: Ulu Bendul Forest Eco Park', url: 'https://www.forestry.gov.my/en/negeri-sembilan/taman-eko-rimba-ulu-bendul' },
+      { label: 'Jabatan Perhutanan Negeri Sembilan', url: 'https://forestry.ns.gov.my/' },
+    ],
+  },
+];
