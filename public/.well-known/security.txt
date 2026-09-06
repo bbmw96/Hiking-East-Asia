@@ -1,0 +1,11 @@
+# https://www.rfc-editor.org/rfc/rfc9116
+Contact: mailto:safety@bbmw0.com
+Preferred-Languages: en
+Canonical: https://hiking.bbmw0.com/.well-known/security.txt
+Expires: 2027-09-06T00:00:00.000Z
+Policy: https://github.com/bbmw96/Hiking-East-Asia/blob/main/docs/REPOSITORY-POLICY.md
+
+# This is a static site with no server-side code, no database and no user
+# accounts. The most useful reports are: a trail, permit, fee or emergency
+# number that is wrong or out of date; a link that now points somewhere it
+# should not; or a weakness in the published security headers.
