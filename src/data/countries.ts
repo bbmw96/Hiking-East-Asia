@@ -1,4 +1,4 @@
-import type { CountryMeta } from './types';
+import type { CountryMeta } from './types.ts';
 
 export const countries: CountryMeta[] = [
   {

@@ -8,15 +8,18 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "node --test --experimental-strip-types --no-warnings \"tests/*.test.ts\"",
+    "check": "astro check && npm run test"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.10",
-    "tailwindcss": "^4.3.3",
-    "@tailwindcss/vite": "^4.3.3"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@types/node": "^26.4.1",
     "typescript": "^5.7.3"
   }
 }

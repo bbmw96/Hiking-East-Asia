@@ -1,4 +1,4 @@
-import type { CountrySlug, LocalizedString } from './types';
+import type { CountrySlug, LocalizedString } from './types.ts';
 
 /** Emergency line kinds. The labels are translated once in the UI dictionary
  *  rather than repeated per country; the numbers themselves are not text. */
