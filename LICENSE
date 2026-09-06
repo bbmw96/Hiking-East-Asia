@@ -1,0 +1,40 @@
+Copyright (c) 2026 bbmw96. All rights reserved.
+
+This repository and everything in it, including the source code, the written
+trail, permit, season and safety content, the translations, the generated
+artwork and the site design, is proprietary. It is published publicly so the
+site can be served and inspected, not so it can be reused.
+
+No permission is granted to copy, modify, merge, publish, distribute,
+sublicense, sell, host, republish or create derivative works from any part of
+this repository, in whole or in part, for any purpose, commercial or
+non-commercial, without prior written permission from the copyright holder.
+
+Permitted without prior permission:
+
+  1. Viewing the repository and its history.
+  2. Cloning or forking it through GitHub's own interface, which GitHub's
+     Terms of Service grant to every user of a public repository. That
+     permission extends only to viewing and forking within GitHub; it does not
+     grant any right to publish, host, distribute or otherwise use this work
+     elsewhere.
+  3. Quoting short excerpts with attribution, where fair dealing or fair use
+     applies.
+
+Photographs stored under public/photos/ are NOT covered by this licence. Each
+is used under its own licence, recorded with its author, licence name and
+source in src/data/photo-credits.json, and remains the property of its
+photographer. Their terms govern them, not this file.
+
+Trail, permit, fee and authority information is compiled from the official
+sources cited on each page. The compilation, wording, structure and
+translations are the copyright holder's work. The underlying facts are not,
+and nothing here restricts anyone from consulting those sources directly.
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. TRAIL AND PERMIT
+INFORMATION IS PROVIDED FOR PLANNING PURPOSES ONLY AND MUST BE CONFIRMED WITH
+THE ISSUING AUTHORITY BEFORE TRAVEL. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM THE USE OF THIS
+WORK.
