@@ -4,6 +4,7 @@ export const japanAreas: Area[] = [
   {
     slug: 'mount-fuji',
     country: 'japan',
+    divisions: ['Yamanashi', 'Shizuoka'],
     region: 'Yamanashi / Shizuoka',
     coordinates: { lat: 35.3606, lng: 138.7274 },
     difficulty: 'expert',
@@ -203,6 +204,8 @@ export const japanAreas: Area[] = [
   {
     slug: 'kumano-kodo',
     country: 'japan',
+    divisions: ['Wakayama'],
+    locality: 'Kii Peninsula',
     region: 'Wakayama, Kii Peninsula',
     coordinates: { lat: 33.8375, lng: 135.7728 },
     difficulty: 'moderate',
@@ -401,6 +404,7 @@ export const japanAreas: Area[] = [
   {
     slug: 'mount-takao',
     country: 'japan',
+    divisions: ['Tokyo'],
     region: 'Tokyo',
     coordinates: { lat: 35.6255, lng: 139.2431 },
     difficulty: 'easy',
@@ -600,6 +604,7 @@ export const japanAreas: Area[] = [
   {
     slug: 'yakushima',
     country: 'japan',
+    divisions: ['Kagoshima'],
     region: 'Kagoshima',
     coordinates: { lat: 30.3494, lng: 130.5228 },
     difficulty: 'hard',

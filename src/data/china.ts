@@ -4,6 +4,7 @@ export const chinaAreas: Area[] = [
   {
     slug: 'huangshan',
     country: 'china',
+    divisions: ['Anhui'],
     region: 'Anhui',
     coordinates: { lat: 30.1339, lng: 118.1664 },
     difficulty: 'moderate',
@@ -203,6 +204,7 @@ export const chinaAreas: Area[] = [
   {
     slug: 'zhangjiajie',
     country: 'china',
+    divisions: ['Hunan'],
     region: 'Hunan',
     coordinates: { lat: 29.3167, lng: 110.4749 },
     difficulty: 'moderate',
@@ -402,6 +404,7 @@ export const chinaAreas: Area[] = [
   {
     slug: 'emeishan',
     country: 'china',
+    divisions: ['Sichuan'],
     region: 'Sichuan',
     coordinates: { lat: 29.5204, lng: 103.3346 },
     difficulty: 'hard',
@@ -601,6 +604,7 @@ export const chinaAreas: Area[] = [
   {
     slug: 'yubeng',
     country: 'china',
+    divisions: ['Yunnan'],
     region: 'Yunnan',
     coordinates: { lat: 28.3739, lng: 98.7286 },
     difficulty: 'hard',

@@ -80,6 +80,12 @@ export const ui = {
       languages: 'Available in',
       copyright: 'All rights reserved.',
     },
+    regions: {
+      title: 'By region',
+      intro: 'Every area on this page, grouped by the state, province or district it sits in. An area that spans more than one appears under each.',
+      areaCount: 'One area',
+      areaCountPlural: '{n} areas',
+    },
     seasonNow: {
       title: 'Where today sits in this season',
       inBest: '{month} is one of the better months here.',
@@ -233,6 +239,12 @@ export const ui = {
       rights: 'Semua maklumat laluan disediakan untuk tujuan perancangan sahaja. Sentiasa sahkan keadaan semasa, bayaran dan keperluan permit dengan pihak berkuasa rasmi sebelum anda bermusafir.',
       languages: 'Tersedia dalam',
       copyright: 'Hak cipta terpelihara.',
+    },
+    regions: {
+      title: 'Mengikut wilayah',
+      intro: 'Setiap kawasan di halaman ini, dikumpulkan mengikut negeri, wilayah atau daerah tempat ia berada. Kawasan yang merentangi lebih daripada satu akan muncul di bawah setiap satu.',
+      areaCount: 'Satu kawasan',
+      areaCountPlural: '{n} kawasan',
     },
     seasonNow: {
       title: 'Kedudukan hari ini dalam musim ini',
@@ -388,6 +400,12 @@ export const ui = {
       languages: '提供语言',
       copyright: '版权所有。',
     },
+    regions: {
+      title: '按地区划分',
+      intro: '本页所有地区，按其所属的州、省或县分组。横跨多个行政区的地区会在每一个之下出现。',
+      areaCount: '1 个地区',
+      areaCountPlural: '{n} 个地区',
+    },
     seasonNow: {
       title: '今天位于此地季节的哪一段',
       inBest: '{month}是此地较好的月份之一。',
@@ -541,6 +559,12 @@ export const ui = {
       rights: '網站入面所有路線資訊只供計劃行程參考之用。出發前請務必向官方機構確認最新狀況、費用同許可證要求。',
       languages: '提供語言',
       copyright: '版權所有。',
+    },
+    regions: {
+      title: '按地區劃分',
+      intro: '本頁所有地區，按佢哋所屬嘅州、省或者縣分組。橫跨多個行政區嘅地區會喺每一個下面出現。',
+      areaCount: '1 個地區',
+      areaCountPlural: '{n} 個地區',
     },
     seasonNow: {
       title: '今日喺呢個季節嘅邊一段',
@@ -696,6 +720,12 @@ export const ui = {
       languages: 'இந்த மொழிகளில் கிடைக்கிறது',
       copyright: 'அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
     },
+    regions: {
+      title: 'மண்டலம் வாரியாக',
+      intro: 'இந்தப் பக்கத்தில் உள்ள ஒவ்வொரு பகுதியும், அது அமைந்துள்ள மாநிலம், மாகாணம் அல்லது மாவட்டத்தின்படி தொகுக்கப்பட்டுள்ளது. ஒன்றுக்கு மேற்பட்டவற்றில் பரவியுள்ள பகுதி ஒவ்வொன்றின் கீழும் தோன்றும்.',
+      areaCount: 'ஒரு பகுதி',
+      areaCountPlural: '{n} பகுதிகள்',
+    },
     seasonNow: {
       title: 'இந்தப் பருவத்தில் இன்று எங்கே இருக்கிறது',
       inBest: '{month} இங்கு சிறந்த மாதங்களில் ஒன்று.',
@@ -849,6 +879,12 @@ export const ui = {
       rights: 'جميع معلومات المسارات في هذا الموقع مُقدَّمة لأغراض التخطيط فقط. يُرجى دائمًا التأكد من الأوضاع الحالية والرسوم ومتطلبات التصاريح لدى الجهة الرسمية قبل السفر.',
       languages: 'متوفر باللغات',
       copyright: 'جميع الحقوق محفوظة.',
+    },
+    regions: {
+      title: 'حسب المنطقة',
+      intro: 'كل منطقة في هذه الصفحة، مجمّعة بحسب الولاية أو المقاطعة أو المحافظة التي تقع فيها. والمنطقة الممتدة على أكثر من واحدة تظهر تحت كل منها.',
+      areaCount: 'منطقة واحدة',
+      areaCountPlural: '{n} مناطق',
     },
     seasonNow: {
       title: 'أين يقع اليوم من هذا الموسم',

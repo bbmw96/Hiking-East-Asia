@@ -4,6 +4,7 @@ export const taiwanAreas: Area[] = [
   {
     slug: 'yushan',
     country: 'taiwan',
+    divisions: ['Nantou', 'Chiayi'],
     region: 'Nantou / Chiayi',
     coordinates: { lat: 23.4707, lng: 120.9578 },
     difficulty: 'expert',
@@ -203,6 +204,7 @@ export const taiwanAreas: Area[] = [
   {
     slug: 'xueshan',
     country: 'taiwan',
+    divisions: ['Miaoli', 'Taichung'],
     region: 'Miaoli / Taichung',
     coordinates: { lat: 24.3831, lng: 121.2214 },
     difficulty: 'expert',
@@ -402,6 +404,7 @@ export const taiwanAreas: Area[] = [
   {
     slug: 'hehuanshan-east-peak',
     country: 'taiwan',
+    divisions: ['Nantou'],
     region: 'Nantou',
     coordinates: { lat: 24.1447, lng: 121.2789 },
     difficulty: 'easy',
@@ -601,6 +604,7 @@ export const taiwanAreas: Area[] = [
   {
     slug: 'alishan',
     country: 'taiwan',
+    divisions: ['Chiayi'],
     region: 'Chiayi',
     coordinates: { lat: 23.5122, lng: 120.8034 },
     difficulty: 'easy',

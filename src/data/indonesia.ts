@@ -4,6 +4,7 @@ export const indonesiaAreas: Area[] = [
   {
     slug: 'rinjani',
     country: 'indonesia',
+    divisions: ['Lombok'],
     region: 'Lombok',
     coordinates: { lat: -8.4108, lng: 116.4575 },
     difficulty: 'expert',
@@ -203,6 +204,7 @@ export const indonesiaAreas: Area[] = [
   {
     slug: 'bromo',
     country: 'indonesia',
+    divisions: ['East Java'],
     region: 'East Java',
     coordinates: { lat: -7.9425, lng: 112.953 },
     difficulty: 'easy',
@@ -396,6 +398,7 @@ export const indonesiaAreas: Area[] = [
   {
     slug: 'ijen',
     country: 'indonesia',
+    divisions: ['East Java'],
     region: 'East Java',
     coordinates: { lat: -8.0581, lng: 114.2422 },
     difficulty: 'moderate',
@@ -595,6 +598,7 @@ export const indonesiaAreas: Area[] = [
   {
     slug: 'batur',
     country: 'indonesia',
+    divisions: ['Bali'],
     region: 'Bali',
     coordinates: { lat: -8.2422, lng: 115.3752 },
     difficulty: 'moderate',

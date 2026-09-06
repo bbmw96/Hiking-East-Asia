@@ -192,3 +192,41 @@ test('the month arrays agree with the prose they were read from', () => {
     }
   }
 });
+
+/* ---- Administrative hierarchy ------------------------------------------ */
+
+test('every area is placed in at least one division', () => {
+  for (const a of allCountryAreas) {
+    assert.ok(Array.isArray(a.divisions) && a.divisions.length > 0,
+      `${a.country}/${a.slug} has no division`);
+    for (const d of a.divisions) {
+      assert.ok(d.trim().length > 0, `${a.country}/${a.slug} has a blank division`);
+    }
+  }
+});
+
+test('the structured hierarchy never claims more than the region text says', () => {
+  /* This is the test that makes the hierarchy trustworthy. Every division and
+     locality has to appear in the area's own region string, which was written
+     and checked during research. If a value cannot be found there it was
+     added from memory, and on this site that is exactly what must not happen.
+     Writing this test caught four such entries on its first run. */
+  for (const a of allCountryAreas) {
+    const at = `${a.country}/${a.slug}`;
+    for (const d of a.divisions) {
+      assert.ok(a.region.includes(d),
+        `${at} claims division '${d}', which does not appear in its region string '${a.region}'`);
+    }
+    if (a.locality) {
+      assert.ok(a.region.includes(a.locality),
+        `${at} claims locality '${a.locality}', which does not appear in its region string '${a.region}'`);
+    }
+  }
+});
+
+test('divisions are not repeated within one area', () => {
+  for (const a of allCountryAreas) {
+    assert.equal(new Set(a.divisions).size, a.divisions.length,
+      `${a.country}/${a.slug} repeats a division`);
+  }
+});

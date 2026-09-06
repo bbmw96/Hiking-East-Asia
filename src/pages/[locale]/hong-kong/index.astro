@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TerrainArt from '../../../components/TerrainArt.astro';
 import AreaCard from '../../../components/AreaCard.astro';
 import TrailMap from '../../../components/TrailMap.astro';
+import RegionIndex from '../../../components/RegionIndex.astro';
 import { getUi, url } from '../../../i18n/utils';
 import { locales, type Locale } from '../../../i18n/locales';
 import { getCountry } from '../../../data/countries';
@@ -55,4 +56,6 @@ const country = getCountry('hong-kong')!;
       ))}
     </div>
   </section>
+
+  <RegionIndex locale={locale} country={country.slug as any} />
 </BaseLayout>

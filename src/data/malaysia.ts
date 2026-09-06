@@ -5,6 +5,7 @@ export const malaysiaAreas: Area[] = [
   {
     slug: 'mount-kinabalu',
     country: 'malaysia',
+    divisions: ['Sabah'],
     region: 'Sabah, Borneo',
     coordinates: { lat: 6.0754, lng: 116.5583 },
     difficulty: 'expert',
@@ -119,6 +120,7 @@ export const malaysiaAreas: Area[] = [
   {
     slug: 'taman-negara',
     country: 'malaysia',
+    divisions: ['Pahang', 'Kelantan', 'Terengganu'],
     region: 'Pahang / Kelantan / Terengganu',
     coordinates: { lat: 4.3833, lng: 102.4 },
     difficulty: 'hard',
@@ -230,6 +232,7 @@ export const malaysiaAreas: Area[] = [
   {
     slug: 'cameron-highlands',
     country: 'malaysia',
+    divisions: ['Pahang'],
     region: 'Pahang',
     coordinates: { lat: 4.4711, lng: 101.3762 },
     difficulty: 'moderate',
@@ -341,6 +344,7 @@ export const malaysiaAreas: Area[] = [
   {
     slug: 'gunung-mulu',
     country: 'malaysia',
+    divisions: ['Sarawak'],
     region: 'Sarawak, Borneo',
     coordinates: { lat: 4.0483, lng: 114.8181 },
     difficulty: 'expert',
@@ -455,6 +459,7 @@ export const malaysiaAreas: Area[] = [
   {
     slug: 'penang-national-park',
     country: 'malaysia',
+    divisions: ['Penang'],
     region: 'Penang',
     coordinates: { lat: 5.4611, lng: 100.1978 },
     difficulty: 'easy',
@@ -566,6 +571,7 @@ export const malaysiaAreas: Area[] = [
   {
     slug: 'bukit-gasing',
     country: 'malaysia',
+    divisions: ['Selangor', 'Kuala Lumpur'],
     region: 'Selangor / Kuala Lumpur',
     coordinates: { lat: 3.1201, lng: 101.6544 },
     difficulty: 'easy',

@@ -4,6 +4,7 @@ export const singaporeAreas: Area[] = [
   {
     slug: 'central-catchment',
     country: 'singapore',
+    divisions: ['Central Singapore'],
     region: 'Central Singapore',
     coordinates: { lat: 1.3413, lng: 103.83 },
     difficulty: 'easy',
@@ -110,6 +111,7 @@ export const singaporeAreas: Area[] = [
   {
     slug: 'bukit-timah',
     country: 'singapore',
+    divisions: ['Central Singapore'],
     region: 'Central Singapore',
     coordinates: { lat: 1.3548, lng: 103.7767 },
     difficulty: 'moderate',
@@ -214,6 +216,7 @@ export const singaporeAreas: Area[] = [
   {
     slug: 'southern-ridges',
     country: 'singapore',
+    divisions: ['Southern Singapore'],
     region: 'Southern Singapore',
     coordinates: { lat: 1.2762, lng: 103.8095 },
     difficulty: 'easy',
@@ -311,6 +314,7 @@ export const singaporeAreas: Area[] = [
   {
     slug: 'pulau-ubin-chek-jawa',
     country: 'singapore',
+    divisions: ['Eastern Singapore'],
     region: 'Eastern Singapore (offshore island)',
     coordinates: { lat: 1.4043, lng: 103.9601 },
     difficulty: 'easy',

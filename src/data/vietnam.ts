@@ -4,6 +4,8 @@ export const vietnamAreas: Area[] = [
   {
     slug: 'fansipan',
     country: 'vietnam',
+    divisions: ['Lao Cai'],
+    locality: 'Sapa',
     region: 'Sapa, Lao Cai',
     coordinates: { lat: 22.3033, lng: 103.7752 },
     difficulty: 'expert',
@@ -203,6 +205,7 @@ export const vietnamAreas: Area[] = [
   {
     slug: 'cat-ba',
     country: 'vietnam',
+    divisions: ['Hai Phong'],
     region: 'Hai Phong',
     coordinates: { lat: 20.7997, lng: 107.0378 },
     difficulty: 'moderate',
@@ -402,6 +405,7 @@ export const vietnamAreas: Area[] = [
   {
     slug: 'pu-luong',
     country: 'vietnam',
+    divisions: ['Thanh Hoa'],
     region: 'Thanh Hoa',
     coordinates: { lat: 20.4167, lng: 105.15 },
     difficulty: 'moderate',
@@ -600,6 +604,7 @@ export const vietnamAreas: Area[] = [
   {
     slug: 'ba-vi',
     country: 'vietnam',
+    divisions: ['Hanoi'],
     region: 'Hanoi',
     coordinates: { lat: 21.0833, lng: 105.3667 },
     difficulty: 'easy',

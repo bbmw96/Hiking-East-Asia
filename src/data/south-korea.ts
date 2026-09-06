@@ -4,6 +4,7 @@ export const southKoreaAreas: Area[] = [
   {
     slug: 'seoraksan',
     country: 'south-korea',
+    divisions: ['Gangwon'],
     region: 'Gangwon',
     coordinates: { lat: 38.1197, lng: 128.4656 },
     difficulty: 'hard',
@@ -203,6 +204,7 @@ export const southKoreaAreas: Area[] = [
   {
     slug: 'jirisan',
     country: 'south-korea',
+    divisions: ['Jeolla', 'Gyeongsang'],
     region: 'Jeolla / Gyeongsang',
     coordinates: { lat: 35.3372, lng: 127.7306 },
     difficulty: 'expert',
@@ -402,6 +404,7 @@ export const southKoreaAreas: Area[] = [
   {
     slug: 'bukhansan',
     country: 'south-korea',
+    divisions: ['Seoul'],
     region: 'Seoul',
     coordinates: { lat: 37.6585, lng: 126.9772 },
     difficulty: 'moderate',
@@ -601,6 +604,7 @@ export const southKoreaAreas: Area[] = [
   {
     slug: 'hallasan',
     country: 'south-korea',
+    divisions: ['Jeju'],
     region: 'Jeju',
     coordinates: { lat: 33.3617, lng: 126.5292 },
     difficulty: 'hard',
