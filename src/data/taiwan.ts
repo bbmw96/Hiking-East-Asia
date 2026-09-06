@@ -46,6 +46,8 @@ export const taiwanAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 3, 4, 5],
+      monthsAvoid: [6, 7, 8, 9, 1, 2],
       bestMonths: {
         en: 'October to December and March to May, the clearest and driest windows',
         ms: 'Oktober hingga Disember dan Mac hingga Mei, tempoh paling jelas dan kering',
@@ -243,6 +245,8 @@ export const taiwanAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 3, 4, 5],
+      monthsAvoid: [6, 7, 8, 9, 1, 2],
       bestMonths: {
         en: 'October to December and March to May',
         ms: 'Oktober hingga Disember dan Mac hingga Mei',
@@ -440,6 +444,8 @@ export const taiwanAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 3, 4, 5],
+      monthsAvoid: [],
       bestMonths: {
         en: 'October to December and March to May for clear sunrise and sea-of-clouds views',
         ms: 'Oktober hingga Disember dan Mac hingga Mei untuk pandangan matahari terbit dan lautan awan yang jelas',
@@ -637,6 +643,8 @@ export const taiwanAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [11, 12, 1, 2, 3, 4],
+      monthsAvoid: [7, 8, 9],
       bestMonths: {
         en: 'November to April, for the most reliable sea-of-clouds and sunrise conditions',
         ms: 'November hingga April, untuk keadaan lautan awan dan matahari terbit paling boleh dipercayai',

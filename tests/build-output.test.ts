@@ -250,3 +250,24 @@ test('no map library is loaded from a CDN', opts, () => {
       `${f} loads a map library from a third party rather than this origin`);
   }
 });
+
+test('every area page ships a complete twelve month season strip', opts, () => {
+  const areaPages = pages.filter((f) => /dist\/en\/[a-z-]+\/[a-z0-9-]+\/index\.html$/.test(f));
+  for (const f of areaPages) {
+    const html = readFileSync(f, 'utf8');
+    assert.match(html, /data-season-now/, `${f} has no season strip`);
+    const cells = (html.match(/class="season-cell"/g) ?? []).length;
+    assert.equal(cells, 12, `${f} renders ${cells} month cells rather than 12`);
+    // Rendered at build time, so the strip is complete without JavaScript.
+    assert.ok((html.match(/season-cell-label/g) ?? []).length === 12,
+      `${f} depends on JavaScript to label its months`);
+  }
+});
+
+test('the season strip states are not carried by colour alone', opts, () => {
+  const f = pages.find((p) => readFileSync(p, 'utf8').includes('data-season-now'))!;
+  const html = readFileSync(f, 'utf8');
+  // Each cell carries a symbol and a screen-reader label as well as a state.
+  assert.ok((html.match(/season-cell-mark/g) ?? []).length === 12, 'cells lack a non-colour marker');
+  assert.ok((html.match(/class="sr-only">[^<]+:/g) ?? []).length >= 12, 'cells lack a spoken label');
+});

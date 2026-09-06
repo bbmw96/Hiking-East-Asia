@@ -45,6 +45,8 @@ export const bruneiAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [2, 3, 4, 5, 6, 7, 8],
+      monthsAvoid: [11, 12, 1],
       bestMonths: {
         en: 'February to August, when river levels are more predictable',
         ms: 'Februari hingga Ogos, apabila paras sungai lebih boleh diramal',
@@ -242,6 +244,8 @@ export const bruneiAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [2, 3, 4, 5, 6, 7, 8],
+      monthsAvoid: [11, 12, 1],
       bestMonths: {
         en: 'February to August, with the clearest views from the summit',
         ms: 'Februari hingga Ogos, dengan pandangan paling jelas dari puncak',
@@ -438,6 +442,8 @@ export const bruneiAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      monthsAvoid: [],
       bestMonths: {
         en: 'Year-round, ideally in the early morning before the midday heat and humidity build',
         ms: 'Sepanjang tahun, sebaik-baiknya pada awal pagi sebelum haba dan kelembapan tengah hari meningkat',

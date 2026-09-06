@@ -4,6 +4,7 @@ import TerrainArt from '../../../components/TerrainArt.astro';
 import PermitBox from '../../../components/PermitBox.astro';
 import SeasonBox from '../../../components/SeasonBox.astro';
 import TrailMap from '../../../components/TrailMap.astro';
+import SeasonNow from '../../../components/SeasonNow.astro';
 import { getUi, url } from '../../../i18n/utils';
 import { locales, type Locale } from '../../../i18n/locales';
 import { japanAreas } from '../../../data/japan';
@@ -87,6 +88,7 @@ const t = getUi(locale);
       <aside class="space-y-6">
         <PermitBox locale={locale} area={area} />
         <SeasonBox locale={locale} area={area} />
+        <SeasonNow locale={locale} area={area} />
         <div class="reveal reveal-delay-1">
           <h2 class="font-display text-base font-semibold text-ink-950">{t.map.coordinates}</h2>
           <TrailMap

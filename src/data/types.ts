@@ -41,6 +41,13 @@ export interface Area {
     howToApply: LocalizedString;
   };
   season: {
+    /* The prose below is the source of truth: it was checked against the
+       authority when the area was written. These two arrays are a reading of
+       that prose as month numbers, so the site can say where today sits in a
+       season without anyone having to parse a sentence at runtime. A test
+       asserts they never contradict each other. */
+    monthsBest: number[];
+    monthsAvoid: number[];
     bestMonths: LocalizedString;
     avoidMonths?: LocalizedString;
     notes: LocalizedString;

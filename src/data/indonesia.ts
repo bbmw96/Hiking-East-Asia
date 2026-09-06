@@ -46,6 +46,8 @@ export const indonesiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [4, 5, 6, 7, 8, 9, 10, 11, 12],
+      monthsAvoid: [1, 2, 3],
       bestMonths: {
         en: 'April to December, the official trekking season',
         ms: 'April hingga Disember, musim pendakian rasmi',
@@ -243,6 +245,8 @@ export const indonesiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [5, 6, 7, 8, 9, 10],
+      monthsAvoid: [12, 1, 2, 3],
       bestMonths: {
         en: 'May to October, the dry season with the clearest sunrise views',
         ms: 'Mei hingga Oktober, musim kering dengan pandangan matahari terbit paling jelas',
@@ -434,6 +438,8 @@ export const indonesiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [4, 5, 6, 7, 8, 9, 10],
+      monthsAvoid: [11, 12, 1, 2, 3],
       bestMonths: {
         en: 'April to October, the dry season, for the clearest pre-dawn views',
         ms: 'April hingga Oktober, musim kering, untuk pandangan sebelum subuh paling jelas',
@@ -631,6 +637,8 @@ export const indonesiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [4, 5, 6, 7, 8, 9],
+      monthsAvoid: [12, 1, 2],
       bestMonths: {
         en: 'April to September, the dry season, for the most reliable sunrise conditions',
         ms: 'April hingga September, musim kering, untuk keadaan matahari terbit paling boleh dipercayai',

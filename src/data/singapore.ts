@@ -31,6 +31,8 @@ export const singaporeAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [2, 8],
+      monthsAvoid: [11, 12, 1],
       bestMonths: { en: "February and August, Singapore's driest months", ms: 'Februari dan Ogos, bulan paling kering di Singapura', 'zh-cn': '2 月与 8 月，新加坡最干燥的月份', 'zh-hk': '2 月同 8 月，新加坡最乾爽嘅月份', ta: 'பிப்ரவரி மற்றும் ஆகஸ்ட், சிங்கப்பூரின் மிகவும் வறண்ட மாதங்கள்', ar: 'فبراير وأغسطس، أكثر أشهر سنغافورة جفافًا' },
       avoidMonths: { en: 'November to January, the wettest and stormiest period', ms: 'November hingga Januari, tempoh paling basah dan bercuaca ribut', 'zh-cn': '11 月至次年 1 月，降雨与风暴最多的时期', 'zh-hk': '11 月到嚟年 1 月，落雨同風暴最多嘅時段', ta: 'நவம்பர் முதல் ஜனவரி வரை, அதிக மழையும் புயலும் நிறைந்த காலம்', ar: 'من نوفمبر إلى يناير، أكثر الفترات مطرًا وعواصف' },
       notes: {
@@ -136,6 +138,8 @@ export const singaporeAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [2, 8],
+      monthsAvoid: [11, 12, 1],
       bestMonths: { en: 'February and August', ms: 'Februari dan Ogos', 'zh-cn': '2 月与 8 月', 'zh-hk': '2 月同 8 月', ta: 'பிப்ரவரி மற்றும் ஆகஸ்ட்', ar: 'فبراير وأغسطس' },
       avoidMonths: { en: 'November to January', ms: 'November hingga Januari', 'zh-cn': '11 月至次年 1 月', 'zh-hk': '11 月到嚟年 1 月', ta: 'நவம்பர் முதல் ஜனவரி வரை', ar: 'من نوفمبر إلى يناير' },
       notes: {
@@ -231,6 +235,8 @@ export const singaporeAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      monthsAvoid: [],
       bestMonths: { en: 'Year round; early morning or late afternoon avoids the midday heat', ms: 'Sepanjang tahun; awal pagi atau lewat petang mengelakkan haba tengah hari', 'zh-cn': '全年皆宜；清晨或傍晚可避开正午高温', 'zh-hk': '成年都啱；清晨或者傍晚可以避開中午高溫', ta: 'ஆண்டு முழுவதும்; அதிகாலை அல்லது மாலை நேரம் நண்பகல் வெப்பத்தைத் தவிர்க்கும்', ar: 'طوال العام؛ الصباح الباكر أو أواخر بعد الظهر يتجنبان حرارة الظهيرة' },
       avoidMonths: { en: 'No closed season, though afternoon thunderstorms are more frequent November to January', ms: 'Tiada musim tertutup, walaupun ribut petir petang lebih kerap November hingga Januari', 'zh-cn': '全年无休园期，惟11月至次年1月午后雷阵雨更为频密', 'zh-hk': '全年冇休園期，不過11月到嚟年1月晏晝雷陣雨會更加頻密', ta: 'மூடிய பருவம் இல்லை, ஆனாலும் நவம்பர் முதல் ஜனவரி வரை மதிய இடியுடன் கூடிய மழை அடிக்கடி வரும்', ar: 'لا موسم إغلاق، لكن العواصف الرعدية بعد الظهر أكثر تكرارًا من نوفمبر إلى يناير' },
       notes: {
@@ -339,6 +345,8 @@ export const singaporeAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      monthsAvoid: [],
       bestMonths: { en: "Year round; check tide tables for the best Chek Jawa exposure", ms: 'Sepanjang tahun; semak jadual air pasang untuk pendedahan Chek Jawa terbaik', 'zh-cn': '全年皆宜；请查看潮汐表以获得最佳查加瓦观赏时机', 'zh-hk': '成年都啱；請查睇潮汐表，搵最好嘅查加瓦觀賞時機', ta: 'ஆண்டு முழுவதும்; சிறந்த செக் ஜாவா வெளிப்பாட்டிற்கு அலை அட்டவணைகளைச் சரிபார்க்கவும்', ar: 'طوال العام؛ تحقق من جداول المد والجزر لأفضل ظهور لتشيك جاوا' },
       avoidMonths: { en: 'None fixed, though high tide covers most of the intertidal flat', ms: 'Tiada yang tetap, walaupun air pasang tinggi menutupi kebanyakan dataran pasang surut', 'zh-cn': '没有固定休息期，惟涨潮时大部分潮间带会被淹没', 'zh-hk': '冇固定休息期，不過漲潮嗰陣大部分潮間帶會俾水浸晒', ta: 'நிலையானது எதுவும் இல்லை, இருப்பினும் அதிக அலை பெரும்பாலான ஒட்டுமொத்த சேற்று நிலத்தை மூடும்', ar: 'لا يوجد موسم ثابت، رغم أن المد المرتفع يغطي معظم السهل بين المد والجزر' },
       notes: {

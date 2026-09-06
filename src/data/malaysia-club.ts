@@ -42,6 +42,8 @@ export const malaysiaClubAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [6, 7, 8],
+      monthsAvoid: [10, 11, 12],
       bestMonths: { en: 'June to August, the driest months in Perak', ms: 'Jun hingga Ogos, bulan paling kering di Perak', 'zh-cn': '6 月至 8 月，霹雳州最干燥的月份', 'zh-hk': '6 月至 8 月，霹靂州最乾燥嘅月份', ta: 'ஜூன் முதல் ஆகஸ்ட் வரை, பேராக்கின் மிக வறண்ட மாதங்கள்', ar: 'من يونيو إلى أغسطس، أكثر أشهر بيراك جفافًا' },
       avoidMonths: { en: 'October to December, when heavy rain closes the river sections', ms: 'Oktober hingga Disember, apabila hujan lebat menutup bahagian sungai', 'zh-cn': '10 月至 12 月，暴雨会导致河道段关闭', 'zh-hk': '10 月至 12 月，暴雨會令河道段封閉', ta: 'அக்டோபர் முதல் டிசம்பர் வரை, கனமழை ஆற்றுப் பகுதிகளை மூடும்போது', ar: 'من أكتوبر إلى ديسمبر، حين تُغلق الأمطار الغزيرة المقاطع النهرية' },
       notes: {
@@ -131,6 +133,8 @@ export const malaysiaClubAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [6, 7, 8],
+      monthsAvoid: [11, 12, 1],
       bestMonths: { en: 'June to August, the driest stretch of the year', ms: 'Jun hingga Ogos, tempoh paling kering dalam setahun', 'zh-cn': '6 月至 8 月，一年中最干燥的时段', 'zh-hk': '6 月至 8 月，一年之中最乾燥嘅時段', ta: 'ஜூன் முதல் ஆகஸ்ட் வரை, ஆண்டின் மிக வறண்ட காலம்', ar: 'من يونيو إلى أغسطس، أكثر فترات السنة جفافًا' },
       avoidMonths: { en: 'November to January, and any day with rain forecast upstream', ms: 'November hingga Januari, dan mana-mana hari dengan ramalan hujan di hulu', 'zh-cn': '11 月至 1 月，以及上游有降雨预报的任何一天', 'zh-hk': '11 月至 1 月，以及上游有落雨預報嘅任何一日', ta: 'நவம்பர் முதல் ஜனவரி வரை, மேல்நோக்கிய பகுதியில் மழை முன்னறிவிப்பு உள்ள எந்த நாளும்', ar: 'من نوفمبر إلى يناير، وأي يوم يُتوقع فيه مطر في أعالي المجرى' },
       notes: {
@@ -221,6 +225,8 @@ export const malaysiaClubAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [2, 3, 4, 5, 6, 7, 8],
+      monthsAvoid: [11, 12, 1],
       bestMonths: { en: 'February to August, and always an early start', ms: 'Februari hingga Ogos, dan sentiasa mulakan awal', 'zh-cn': '2 月至 8 月，并且务必早出发', 'zh-hk': '2 月至 8 月，而且一定要早出發', ta: 'பிப்ரவரி முதல் ஆகஸ்ட் வரை, எப்போதும் அதிகாலைத் தொடக்கம்', ar: 'من فبراير إلى أغسطس، ودائمًا ببداية مبكرة' },
       avoidMonths: { en: 'November to January, when the trail turns to mud and leeches', ms: 'November hingga Januari, apabila laluan bertukar menjadi lumpur dan pacat', 'zh-cn': '11 月至 1 月，此时步道满是泥泞与山蛭', 'zh-hk': '11 月至 1 月，嗰陣步道成地泥濘同山蛭', ta: 'நவம்பர் முதல் ஜனவரி வரை, பாதை சேறும் அட்டைகளுமாக மாறும்போது', ar: 'من نوفمبر إلى يناير، حين يتحول المسار إلى وحل وعَلَق' },
       notes: {
@@ -311,6 +317,8 @@ export const malaysiaClubAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [3, 4, 5, 6, 7, 8, 9],
+      monthsAvoid: [11, 12, 1, 2],
       bestMonths: { en: 'March to September, when the logging roads are passable', ms: 'Mac hingga September, apabila jalan pembalakan boleh dilalui', 'zh-cn': '3 月至 9 月，伐木道路可通行的时段', 'zh-hk': '3 月至 9 月，伐木道路行得通嘅時段', ta: 'மார்ச் முதல் செப்டம்பர் வரை, மரம் வெட்டும் சாலைகள் கடக்கக்கூடியவையாக இருக்கும்போது', ar: 'من مارس إلى سبتمبر، حين تكون طرق قطع الأشجار سالكة' },
       avoidMonths: { en: 'November to February, when the roads turn and the rivers run high', ms: 'November hingga Februari, apabila jalan bertukar teruk dan sungai melimpah', 'zh-cn': '11 月至 2 月，道路变差且河水高涨', 'zh-hk': '11 月至 2 月，道路變差而且河水高漲', ta: 'நவம்பர் முதல் பிப்ரவரி வரை, சாலைகள் மோசமாகி ஆறுகள் பெருகும்போது', ar: 'من نوفمبر إلى فبراير، حين تسوء الطرق وترتفع الأنهار' },
       notes: {

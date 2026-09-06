@@ -46,6 +46,8 @@ export const philippinesAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [11, 12, 1, 2],
+      monthsAvoid: [6, 7, 8, 9, 10],
       bestMonths: {
         en: 'November to February, for the reliable pre-dawn sea of clouds',
         ms: 'November hingga Februari, untuk lautan awan sebelum subuh yang boleh dipercayai',
@@ -243,6 +245,8 @@ export const philippinesAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [11, 12, 1, 2, 3, 4, 5],
+      monthsAvoid: [6, 7, 8, 9, 10],
       bestMonths: {
         en: 'November to May, the dry season',
         ms: 'November hingga Mei, musim kering',
@@ -440,6 +444,8 @@ export const philippinesAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [9, 10, 11, 12, 1, 2, 3, 4, 5],
+      monthsAvoid: [6, 7, 8],
       bestMonths: {
         en: 'September to May, outside the annual closure and wettest months',
         ms: 'September hingga Mei, di luar penutupan tahunan dan bulan paling basah',
@@ -637,6 +643,8 @@ export const philippinesAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [11, 12, 1, 2, 3, 4],
+      monthsAvoid: [6, 7, 8, 9, 10],
       bestMonths: {
         en: 'November to April, the dry season',
         ms: 'November hingga April, musim kering',

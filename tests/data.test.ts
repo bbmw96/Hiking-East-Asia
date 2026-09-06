@@ -146,3 +146,49 @@ test('every live country has verified emergency numbers', () => {
     }
   }
 });
+
+/* ---- Structured season months ------------------------------------------
+   The prose is the source of truth; these arrays are a reading of it. These
+   tests keep the reading honest. */
+
+test('every area carries structured season months', () => {
+  for (const a of allCountryAreas) {
+    const at = `${a.country}/${a.slug}`;
+    assert.ok(Array.isArray(a.season.monthsBest), `${at} has no monthsBest`);
+    assert.ok(Array.isArray(a.season.monthsAvoid), `${at} has no monthsAvoid`);
+    assert.ok(a.season.monthsBest.length > 0, `${at} names no good month at all`);
+  }
+});
+
+test('season months are valid, unique and never contradict each other', () => {
+  for (const a of allCountryAreas) {
+    const at = `${a.country}/${a.slug}`;
+    for (const [name, list] of [['monthsBest', a.season.monthsBest], ['monthsAvoid', a.season.monthsAvoid]] as const) {
+      for (const m of list) {
+        assert.ok(Number.isInteger(m) && m >= 1 && m <= 12, `${at} ${name} contains ${m}`);
+      }
+      assert.equal(new Set(list).size, list.length, `${at} ${name} repeats a month`);
+    }
+    const both = a.season.monthsBest.filter((m) => a.season.monthsAvoid.includes(m));
+    assert.deepEqual(both, [], `${at} lists ${both.join(', ')} as both a best and an avoid month`);
+  }
+});
+
+test('the month arrays agree with the prose they were read from', () => {
+  /* Only the cases a machine can check without parsing English properly, but
+     they are the ones most likely to drift: an area whose prose says it is
+     good all year must not have a partial best list, and an area whose prose
+     names no avoid window must not have avoid months invented for it. */
+  for (const a of allCountryAreas) {
+    const at = `${a.country}/${a.slug}`;
+    const best = a.season.bestMonths.en.toLowerCase();
+    if (/^year[ -]round/.test(best)) {
+      assert.equal(a.season.monthsBest.length, 12,
+        `${at} prose says year round but only ${a.season.monthsBest.length} months are marked good`);
+    }
+    if (a.season.monthsBest.length === 12) {
+      assert.deepEqual(a.season.monthsAvoid, [],
+        `${at} marks every month good yet also marks months to avoid`);
+    }
+  }
+});

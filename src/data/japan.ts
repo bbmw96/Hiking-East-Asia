@@ -46,6 +46,8 @@ export const japanAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [7, 8, 9],
+      monthsAvoid: [10, 11, 12, 1, 2, 3, 4, 5, 6],
       bestMonths: {
         en: 'Early July to early September, the official climbing season',
         ms: 'Awal Julai hingga awal September, musim pendakian rasmi',
@@ -242,6 +244,8 @@ export const japanAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [3, 4, 5, 10, 11],
+      monthsAvoid: [7, 8, 9],
       bestMonths: {
         en: 'March to May and October to November',
         ms: 'Mac hingga Mei dan Oktober hingga November',
@@ -439,6 +443,8 @@ export const japanAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      monthsAvoid: [],
       bestMonths: {
         en: 'Year-round, with mid-November to early December drawing the largest crowds for autumn foliage',
         ms: 'Sepanjang tahun, dengan pertengahan November hingga awal Disember menarik orang ramai terbesar untuk warna musim luruh',
@@ -636,6 +642,8 @@ export const japanAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [5, 10, 11],
+      monthsAvoid: [6, 8, 9],
       bestMonths: {
         en: 'May and October to November, for a relatively drier and cooler window on one of Japan\'s wettest islands',
         ms: 'Mei dan Oktober hingga November, untuk tempoh yang agak kering dan sejuk di salah satu pulau paling basah Jepun',

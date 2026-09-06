@@ -40,6 +40,8 @@ export const malaysiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [3, 4, 5, 6, 7, 8],
+      monthsAvoid: [11, 12, 1],
       bestMonths: { en: 'March to August, the drier season', ms: 'Mac hingga Ogos, musim yang lebih kering', 'zh-cn': '3 月至 8 月，较为干燥的季节', 'zh-hk': '3 月到 8 月，天氣比較乾爽嘅季節', ta: 'மார்ச் முதல் ஆகஸ்ட் வரை, குறைந்த மழைப் பருவம்', ar: 'من مارس إلى أغسطس، وهو الموسم الأقل مطرًا' },
       avoidMonths: { en: 'November to January, the wettest months', ms: 'November hingga Januari, bulan paling basah', 'zh-cn': '11 月至次年 1 月，降雨最多的月份', 'zh-hk': '11 月到嚟年 1 月，落雨最多嘅月份', ta: 'நவம்பர் முதல் ஜனவரி வரை, அதிக மழை பெய்யும் மாதங்கள்', ar: 'من نوفمبر إلى يناير، أكثر الأشهر مطرًا' },
       notes: {
@@ -152,6 +154,8 @@ export const malaysiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [2, 3, 4, 5, 6, 7, 8, 9],
+      monthsAvoid: [11, 12, 1],
       bestMonths: { en: 'February to September', ms: 'Februari hingga September', 'zh-cn': '2 月至 9 月', 'zh-hk': '2 月到 9 月', ta: 'பிப்ரவரி முதல் செப்டம்பர் வரை', ar: 'من فبراير إلى سبتمبر' },
       avoidMonths: { en: 'November to January, when the Tahan trek often closes and rivers flood', ms: 'November hingga Januari, apabila pendakian Tahan sering ditutup dan sungai banjir', 'zh-cn': '11 月至次年 1 月，大汉山步道常关闭且河流易泛滥', 'zh-hk': '11 月到嚟年 1 月，大漢山步道成日封閉，河水又易氾濫', ta: 'நவம்பர் முதல் ஜனவரி வரை, தஹான் பயணம் அடிக்கடி மூடப்படும், ஆறுகள் வெள்ளத்தில் மூழ்கும்', ar: 'من نوفمبر إلى يناير، حيث يُغلق مسار تاهان غالبًا وتفيض الأنهار' },
       notes: {
@@ -261,6 +265,8 @@ export const malaysiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [3, 4, 5, 6, 7, 8, 9],
+      monthsAvoid: [11, 12, 1],
       bestMonths: { en: 'March to September', ms: 'Mac hingga September', 'zh-cn': '3 月至 9 月', 'zh-hk': '3 月到 9 月', ta: 'மார்ச் முதல் செப்டம்பர் வரை', ar: 'من مارس إلى سبتمبر' },
       avoidMonths: { en: 'November to January, when trails are muddiest and some close after storm damage', ms: 'November hingga Januari, apabila laluan paling berlumpur dan sesetengah ditutup selepas kerosakan ribut', 'zh-cn': '11 月至次年 1 月，步道最泥泞，部分因风暴受损而关闭', 'zh-hk': '11 月到嚟年 1 月，步道最泥濘，部分仲會因為風暴受損而封閉', ta: 'நவம்பர் முதல் ஜனவரி வரை, பாதைகள் மிகவும் சேறாக இருக்கும், சில புயல் சேதத்திற்குப் பிறகு மூடப்படும்', ar: 'من نوفمبر إلى يناير، حين تكون المسارات أكثر وحلًا وتُغلق بعضها بعد أضرار العواصف' },
       notes: {
@@ -370,6 +376,8 @@ export const malaysiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [3, 4, 5, 6, 7, 8, 9],
+      monthsAvoid: [11, 12, 1],
       bestMonths: { en: 'March to September', ms: 'Mac hingga September', 'zh-cn': '3 月至 9 月', 'zh-hk': '3 月到 9 月', ta: 'மார்ச் முதல் செப்டம்பர் வரை', ar: 'من مارس إلى سبتمبر' },
       avoidMonths: { en: 'November to January, when Camp 5 and the Pinnacles trail sometimes close after heavy rain', ms: 'November hingga Januari, apabila Camp 5 dan laluan Pinnacles kadangkala ditutup selepas hujan lebat', 'zh-cn': '11 月至次年 1 月，5号营地与尖峰石阵步道有时因暴雨而关闭', 'zh-hk': '11 月到嚟年 1 月，5號營地同尖峰石陣步道有時因為暴雨封閉', ta: 'நவம்பர் முதல் ஜனவரி வரை, கனமழைக்குப் பிறகு முகாம் 5 மற்றும் பின்னாக்கிள்ஸ் பாதை சில நேரங்களில் மூடப்படும்', ar: 'من نوفمبر إلى يناير، حيث يُغلق المخيم 5 ومسار بيناكلز أحيانًا بعد الأمطار الغزيرة' },
       notes: {
@@ -482,6 +490,8 @@ export const malaysiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [12, 1, 2, 3],
+      monthsAvoid: [9, 10, 11],
       bestMonths: { en: "December to March, the driest window on Penang's west coast", ms: 'Disember hingga Mac, tempoh paling kering di pantai barat Pulau Pinang', 'zh-cn': '12 月至次年 3 月，槟城西海岸最干燥的时段', 'zh-hk': '12 月到嚟年 3 月，檳城西海岸最乾爽嘅時段', ta: 'டிசம்பர் முதல் மார்ச் வரை, பினாங்கின் மேற்குக் கடற்கரையில் மிகவும் வறண்ட காலம்', ar: 'من ديسمبر إلى مارس، أكثر الفترات جفافًا على الساحل الغربي لبينانج' },
       avoidMonths: { en: "September to November, the wettest months for northern Peninsular Malaysia's west coast", ms: 'September hingga November, bulan paling basah untuk pantai barat utara Semenanjung Malaysia', 'zh-cn': '9 月至 11 月，马来西亚半岛西北海岸降雨最多的月份', 'zh-hk': '9 月到 11 月，馬來西亞半島西北海岸落雨最多嘅月份', ta: 'செப்டம்பர் முதல் நவம்பர் வரை, வடக்கு மேற்கு மலேசியாவின் மேற்குக் கடற்கரையில் அதிக மழை பெய்யும் மாதங்கள்', ar: 'من سبتمبر إلى نوفمبر، أكثر الأشهر مطرًا على الساحل الغربي الشمالي لشبه جزيرة ماليزيا' },
       notes: {
@@ -577,6 +587,8 @@ export const malaysiaAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      monthsAvoid: [],
       bestMonths: { en: 'Year round, best early morning', ms: 'Sepanjang tahun, terbaik awal pagi', 'zh-cn': '全年皆宜，清晨最佳', 'zh-hk': '成年都啱，清晨最好', ta: 'ஆண்டு முழுவதும், அதிகாலையில் சிறந்தது', ar: 'طوال العام، والأفضل في الصباح الباكر' },
       avoidMonths: { en: 'Avoid straight after heavy rain, when the clay trails get slippery', ms: 'Elakkan sejurus selepas hujan lebat, apabila laluan tanah liat menjadi licin', 'zh-cn': '避免在暴雨后立即前往，黏土步道会变得湿滑', 'zh-hk': '避免暴雨之後即刻去，黏土步道會變得濕滑', ta: 'கனமழைக்குப் பிறகு உடனடியாகத் தவிர்க்கவும், களிமண் பாதைகள் வழுக்கும்', ar: 'تجنّب الذهاب مباشرة بعد الأمطار الغزيرة، حين تصبح المسارات الطينية زلقة' },
       notes: {

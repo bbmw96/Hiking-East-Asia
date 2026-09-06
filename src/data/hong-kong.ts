@@ -46,6 +46,8 @@ export const hongKongAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 1, 2, 3, 4],
+      monthsAvoid: [6, 7, 8, 9],
       bestMonths: {
         en: 'October to April, the cooler, drier months',
         ms: 'Oktober hingga April, bulan lebih sejuk dan kering',
@@ -243,6 +245,8 @@ export const hongKongAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 1, 2, 3, 4],
+      monthsAvoid: [6, 7, 8, 9],
       bestMonths: {
         en: 'October to April, for cooler temperatures and clearer coastal views',
         ms: 'Oktober hingga April, untuk suhu lebih sejuk dan pandangan pantai lebih jelas',
@@ -440,6 +444,8 @@ export const hongKongAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 1, 2, 3, 4],
+      monthsAvoid: [6, 7, 8],
       bestMonths: {
         en: 'October to April, for the clearest views over the city',
         ms: 'Oktober hingga April, untuk pandangan paling jelas merentasi bandar',
@@ -637,6 +643,8 @@ export const hongKongAreas: Area[] = [
       },
     },
     season: {
+      monthsBest: [10, 11, 12, 1, 2],
+      monthsAvoid: [6, 7, 8, 9],
       bestMonths: {
         en: 'October to February, for the clearest skies and the chance of the cool misty conditions the mountain is known for',
         ms: 'Oktober hingga Februari, untuk langit paling jelas dan peluang keadaan berkabus sejuk yang menjadikan gunung itu terkenal',
