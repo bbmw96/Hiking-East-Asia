@@ -1,0 +1,46 @@
+---
+import TerrainArt from './TerrainArt.astro';
+import credits from '../data/photo-credits.json';
+
+interface Props {
+  /** 'areas/<country>/<slug>' or 'countries/<country>' */
+  photoKey: string;
+  /** Describes the subject for screen readers. Never left empty on content images. */
+  alt: string;
+  /** Used when no photograph has been added yet. */
+  gradient: string;
+  class?: string;
+  position?: 'relative' | 'absolute';
+  eager?: boolean;
+}
+
+type Credit = { title: string; author: string; licence: string; sourceUrl: string; ext?: string };
+
+const { photoKey, alt, gradient, class: klass = '', position = 'relative', eager = false } = Astro.props;
+const table = credits as unknown as Record<string, Credit>;
+const credit = photoKey.startsWith('_') ? undefined : table[photoKey];
+const src = credit ? `/photos/${photoKey}.${credit.ext ?? 'jpg'}` : null;
+---
+
+{src && credit ? (
+  <figure class:list={['area-photo', position === 'absolute' && 'is-absolute', klass]}>
+    <img
+      src={src}
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      fetchpriority={eager ? 'high' : 'auto'}
+    />
+    {/* Attribution is rendered from the same record that switches the photo on,
+        so a photograph can never appear on the site uncredited. */}
+    <figcaption class="area-photo-credit">
+      <a href={credit.sourceUrl} target="_blank" rel="noopener noreferrer">{credit.title}</a>
+      <span> · {credit.author} · {credit.licence}</span>
+    </figcaption>
+    <slot />
+  </figure>
+) : (
+  <TerrainArt gradient={gradient} class={klass} position={position}>
+    <slot />
+  </TerrainArt>
+)}

@@ -4,6 +4,9 @@ export interface Chapter {
   altitude: number;
   title: string;
   body: string;
+  statValue: string;
+  statLabel: string;
+  statNote: string;
   ctaLabel?: string;
   ctaHref?: string;
 }
@@ -14,12 +17,13 @@ interface Props {
 }
 
 const { chapters, altitudeLabel } = Astro.props;
+
+/* The rail is the same scale in every chapter, so the lit tick moving down the
+   stack is what tells you how far up you have climbed. */
+const PEAK = 4095;
+const ticks = chapters.map((c) => c.altitude);
 ---
 
-{/* Sticky-stack: each chapter pins and the next peels over it. This is native
-    position: sticky, so the pinning itself costs no JavaScript. Under reduced
-    motion or on narrow screens the sticky is dropped and the chapters simply
-    stack as ordinary sections. */}
 <div class="chapters">
   {chapters.map((c, i) => (
     <Fragment>
@@ -34,18 +38,41 @@ const { chapters, altitudeLabel } = Astro.props;
         </svg>
       </div>
 
-      <div class="chapter-inner">
-        <p class="chapter-meta">
-          <span class="chapter-label">{c.label}</span>
-          <span class="chapter-alt">
-            <span class="sr-only">{altitudeLabel}&nbsp;</span>{c.altitude.toLocaleString('en-GB')}&nbsp;m
+      {/* Altitude rail: full viewport height, so the frame is never an empty
+          band of colour, and the ticks give the ascent a fixed scale. */}
+      <div class="chapter-rail" aria-hidden="true">
+        {ticks.map((t, ti) => (
+          <span class="rail-tick" class:list={[ti === i && 'is-active']} style={`--at: ${(1 - t / PEAK) * 100}%`}>
+            <i></i>
+            <b>{t.toLocaleString('en-GB')}</b>
           </span>
-        </p>
-        <h2 class="chapter-title">{c.title}</h2>
-        <p class="chapter-body">{c.body}</p>
-        {c.ctaLabel && c.ctaHref && (
-          <a href={c.ctaHref} data-magnetic class="chapter-cta">{c.ctaLabel}</a>
-        )}
+        ))}
+      </div>
+
+      <div class="chapter-inner">
+        <div class="chapter-lede">
+          <p class="chapter-meta">
+            <span class="chapter-index">{String(i + 1).padStart(2, '0')}</span>
+            <span class="chapter-label">{c.label}</span>
+            <span class="chapter-alt">
+              <span class="sr-only">{altitudeLabel}&nbsp;</span>{c.altitude.toLocaleString('en-GB')}&nbsp;m
+            </span>
+          </p>
+          <h2 class="chapter-title">{c.title}</h2>
+          <p class="chapter-body">{c.body}</p>
+          {c.ctaLabel && c.ctaHref && (
+            <a href={c.ctaHref} data-magnetic class="chapter-cta">{c.ctaLabel}</a>
+          )}
+        </div>
+
+        {/* The right half carries a real figure from the site's own data, so the
+            column earns its space instead of being decorative fill. */}
+        <aside class="chapter-figure">
+          <span class="figure-value">{c.statValue}</span>
+          <span class="figure-label">{c.statLabel}</span>
+          <span class="figure-rule"></span>
+          <p class="figure-note">{c.statNote}</p>
+        </aside>
       </div>
     </section>
     {i < chapters.length - 1 && <div class="chapter-dwell" aria-hidden="true"></div>}
@@ -54,15 +81,19 @@ const { chapters, altitudeLabel } = Astro.props;
 </div>
 
 <script>
-  /* Writes --vis and --shift on each chapter once per frame. The outgoing
-     chapter's content clears before the incoming chapter's edge reaches it,
-     which is what stops the peel slicing a line of body copy in half. */
+  /* One rAF-batched pass writes three custom properties per chapter.
+
+     The outgoing chapter is lifted out through the top of the viewport faster
+     than the incoming chapter's edge rises, so it is always moving while it
+     leaves. That is what removes both faults the first version had: the peel
+     can no longer slice a line of body copy (the copy is already above the
+     edge), and there is no longer a stretch of scroll where the frame holds
+     still on an empty field of colour. */
   const chapters = Array.from(document.querySelectorAll<HTMLElement>('.chapter'));
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const wide = window.matchMedia('(min-width: 768px)');
 
   if (chapters.length && !reduce) {
-    // Smoothstep, so the fade eases rather than ramping linearly.
     const ease = (edge0: number, edge1: number, x: number) => {
       const t = Math.min(Math.max((x - edge0) / (edge1 - edge0), 0), 1);
       return t * t * (3 - 2 * t);
@@ -72,28 +103,33 @@ const { chapters, altitudeLabel } = Astro.props;
     const update = () => {
       ticking = false;
       const vh = window.innerHeight || 1;
-      for (const ch of chapters) {
+      for (let i = 0; i < chapters.length; i++) {
+        const ch = chapters[i];
         if (!wide.matches) {
           ch.style.removeProperty('--vis');
           ch.style.removeProperty('--shift');
+          ch.style.removeProperty('--p');
           continue;
         }
         const r = ch.getBoundingClientRect();
-        // Rising into view before it pins.
-        const entering = ease(0.95, 0.55, r.top / vh);
-        /* Coverage is measured from the NEXT chapter's leading edge, not this
-           one's own box: sticky siblings share a parent, so a pinned chapter
-           keeps top:0 and its own bottom never moves. */
-        const next = chapters[chapters.indexOf(ch) + 1] ?? null;
+        const entering = ease(0.95, 0.5, r.top / vh);
+        /* Coverage is read from the NEXT chapter's leading edge: sticky
+           siblings share a parent, so a pinned chapter keeps top:0 and its own
+           bottom never moves. */
+        const next = chapters[i + 1] ?? null;
         const covered = next
           ? 1 - Math.min(Math.max(next.getBoundingClientRect().top / vh, 0), 1)
           : 0;
-        /* The incoming edge travels bottom-to-top and reaches the centred text
-           at roughly 45% coverage, so the fade must be finished before that. */
-        const leaving = 1 - ease(0.04, 0.30, covered);
-        const vis = Math.min(entering, leaving);
+        /* Lift at 0.78 of viewport height per unit of coverage: faster than the
+           incoming edge, which rises at 1.0, so the gap between them widens. */
+        const lift = -0.78 * covered * vh;
+        const rise = (1 - entering) * 56;
+        const vis = Math.min(entering, 1 - ease(0.62, 0.96, covered));
         ch.style.setProperty('--vis', vis.toFixed(3));
-        ch.style.setProperty('--shift', `${(-46 * covered).toFixed(1)}px`);
+        ch.style.setProperty('--shift', `${(lift + rise).toFixed(1)}px`);
+        /* Progress drives the ridge and the rail, so every frame of scroll
+           changes something even while the copy is settled and readable. */
+        ch.style.setProperty('--p', (covered || 1 - Math.min(Math.max(r.top / vh, 0), 1)).toFixed(3));
       }
     };
 
