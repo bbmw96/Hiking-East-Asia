@@ -1,0 +1,12 @@
+{
+  "_readme": "One entry per photograph actually present in public/photos/. The site shows a photo ONLY when its key exists here, so a picture can never appear without its attribution. Keys: 'areas/<country>/<area-slug>' and 'countries/<country>'. Delete an entry and the generated terrain art comes back automatically. 'licence' must be the exact licence short name from the source page (e.g. 'CC BY-SA 4.0', 'CC0', 'Public domain'). 'ext' defaults to jpg.",
+  "_example": {
+    "areas/malaysia/mount-kinabalu": {
+      "title": "Mount Kinabalu seen from Kundasang",
+      "author": "Name as credited on the source page",
+      "licence": "CC BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Example.jpg",
+      "ext": "jpg"
+    }
+  }
+}
