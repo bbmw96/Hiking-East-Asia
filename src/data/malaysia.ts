@@ -1,4 +1,5 @@
 import type { Area } from './types.ts';
+import { malaysiaClubAreas } from './malaysia-club.ts';
 
 export const malaysiaAreas: Area[] = [
   {
@@ -647,4 +648,5 @@ export const malaysiaAreas: Area[] = [
     },
     officialLinks: [{ label: 'Petaling Jaya City Council (MBPJ)', url: 'https://www.mbpj.gov.my/' }],
   },
+  ...malaysiaClubAreas,
 ];
