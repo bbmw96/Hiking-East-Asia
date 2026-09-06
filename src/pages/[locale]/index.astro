@@ -7,6 +7,8 @@ import CountryCard from '../../components/CountryCard.astro';
 import { getUi, url } from '../../i18n/utils';
 import { locales, type Locale } from '../../i18n/locales';
 import { getLiveCountries } from '../../data/countries';
+import { allAreas } from '../../data/all-areas';
+import { getOfficialChannels } from '../../data/channels';
 
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale }, props: { locale } }));
@@ -24,13 +26,32 @@ const [lead, ...rest] = countries;
 /* Three beats, climbing. The copy is the site's real argument; the altitude
    band is the frame that carries it. */
 const chapters: Chapter[] = [
-  { label: t.home.ch1, altitude: 210, title: t.home.introTitle, body: t.home.introBody },
-  { label: t.home.ch2, altitude: 1290, title: t.home.whyTitle, body: t.home.whyBody },
+  {
+    label: t.home.ch1,
+    altitude: 210,
+    title: t.home.introTitle,
+    body: t.home.introBody,
+    statValue: String(countries.length),
+    statLabel: t.home.stat1Label,
+    statNote: t.home.stat1Note,
+  },
+  {
+    label: t.home.ch2,
+    altitude: 1290,
+    title: t.home.whyTitle,
+    body: t.home.whyBody,
+    statValue: String(getOfficialChannels().length),
+    statLabel: t.home.stat2Label,
+    statNote: t.home.stat2Note,
+  },
   {
     label: t.home.ch3,
     altitude: 2810,
     title: t.home.safetyCtaTitle,
     body: t.home.safetyCtaBody,
+    statValue: String(allAreas.length),
+    statLabel: t.home.stat3Label,
+    statNote: t.home.stat3Note,
     ctaLabel: t.home.safetyCtaButton,
     ctaHref: url(`/${locale}/safety/`),
   },

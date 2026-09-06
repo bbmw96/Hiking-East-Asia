@@ -46,19 +46,35 @@ const EMERGENCY_LABEL = {
 } as const;
 ---
 
-<section id={`safety-${country.slug}`} class="scroll-mt-24 border-t border-ink-950/10 py-14 first:border-t-0">
-  <header class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-    <h3 class="reveal flex items-baseline gap-3 font-display text-2xl font-semibold text-ink-950 sm:text-3xl">
-      <span aria-hidden="true" class="text-3xl">{country.flagEmoji}</span>
-      {country.name[locale]}
-    </h3>
+{/* Twelve countries laid out flat made the page 21,300px tall, which is not a
+    page anyone can navigate. Each country is a disclosure instead: the summary
+    row carries the two things you scan for (the emergency number and whether a
+    permit is needed) and the detail opens on demand, or automatically when a
+    jump link targets it. */}
+<details id={`safety-${country.slug}`} class="country-panel scroll-mt-24 border-t border-ink-950/10 first:border-t-0">
+  <summary class="flex cursor-pointer flex-wrap items-center gap-x-5 gap-y-1.5 py-5 list-none [&::-webkit-details-marker]:hidden">
+    <span aria-hidden="true" class="text-2xl">{country.flagEmoji}</span>
+    <h3 class="font-display text-xl font-semibold text-ink-950 sm:text-2xl">{country.name[locale]}</h3>
+    <span class="ms-auto flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-900/65">
+      {safety && (
+        <span class="ltr-only font-semibold tabular-nums text-ink-950">
+          {safety.emergency.map((e) => e.number).join(' · ')}
+        </span>
+      )}
+      <span>{needed === 0 ? t.safety.permitNo : `${needed}/${total}`}</span>
+      <span class="panel-chevron" aria-hidden="true">+</span>
+    </span>
+  </summary>
+
+  <div class="pb-14">
+  <div class="flex flex-wrap items-baseline justify-end gap-x-6 gap-y-2">
     <a
       href={url(`/${locale}/${country.slug}/`)}
       class="text-sm font-semibold text-canopy-700 underline-offset-4 hover:underline"
     >
       {t.safety.viewCountry.replace('{country}', country.name[locale])}
     </a>
-  </header>
+  </div>
 
   {safety && (
     <div class="reveal mt-6 rounded-2xl bg-canopy-900 p-5 text-white sm:p-6">
@@ -174,4 +190,5 @@ const EMERGENCY_LABEL = {
       </table>
     </div>
   </div>
-</section>
+  </div>
+</details>
