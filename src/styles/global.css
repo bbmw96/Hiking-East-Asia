@@ -849,3 +849,66 @@ header[data-stuck='true'] {
   line-height: 1.5;
   color: rgb(16 29 22 / 0.5);
 }
+
+/* ---- Live weather ---- */
+.weather-now { margin-top: 1.5rem; }
+.weather-now-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink-950);
+}
+.weather-status {
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: rgb(16 29 22 / 0.55);
+}
+.weather-current {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.weather-temp {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-ink-950);
+  font-variant-numeric: tabular-nums;
+}
+.weather-desc { font-size: 0.875rem; color: rgb(16 29 22 / 0.65); }
+.weather-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+  color: rgb(16 29 22 / 0.6);
+}
+.weather-forecast {
+  margin: 0.9rem 0 0;
+  padding: 0.75rem 0 0;
+  border-top: 1px solid rgb(11 20 16 / 0.1);
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+}
+.weather-day {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr auto;
+  align-items: baseline;
+  column-gap: 0.5rem;
+  font-size: 0.8125rem;
+}
+.weather-day-name { font-weight: 600; color: var(--color-ink-950); }
+.weather-day-desc { color: rgb(16 29 22 / 0.6); }
+.weather-day-temps { font-variant-numeric: tabular-nums; color: var(--color-ink-950); }
+.weather-day-rain { grid-column: 1 / -1; font-size: 0.75rem; color: rgb(16 29 22 / 0.5); }
+.weather-basis {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgb(16 29 22 / 0.5);
+}
