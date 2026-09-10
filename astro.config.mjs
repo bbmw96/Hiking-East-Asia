@@ -85,10 +85,13 @@ function cspMetaTags() {
             // execute code, so this is the accepted residual.
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
-            // The only third-party origin the site contacts, images only, and
-            // only after the visitor presses the button on a map.
-            "img-src 'self' data: https://tile.openstreetmap.org",
-            "connect-src 'self'",
+            // Map tiles after the visitor presses the map button, and trip
+            // photos the country admins upload to Supabase Storage.
+            "img-src 'self' data: https://tile.openstreetmap.org https://sdcyiwsfihldacmoreny.supabase.co",
+            // The trips backend (Supabase auth, database and edge functions)
+            // and the free weather API the area pages read live conditions
+            // from, both contacted directly from the visitor's browser.
+            "connect-src 'self' https://sdcyiwsfihldacmoreny.supabase.co https://api.open-meteo.com",
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",

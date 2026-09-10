@@ -230,16 +230,39 @@ test('the static locator is real markup, not a placeholder box', opts, () => {
   assert.ok((html.match(/class="grat"/g) ?? []).length > 0, 'the locator draws no graticule');
 });
 
-test('the map adds exactly one external origin, for images only', opts, () => {
+test('the CSP only ever reaches the named, justified third parties', opts, () => {
+  // Every third-party origin the site is allowed to contact, and why. A new
+  // entry here should mean a new feature that genuinely needs it, not scope
+  // creep: this list is the thing to update when that happens, not a
+  // constraint to route around.
+  const allowedImgSrc = new Set([
+    'https://tile.openstreetmap.org', // map tiles, loaded only after the visitor asks
+    'https://sdcyiwsfihldacmoreny.supabase.co', // trip photos a country admin uploaded
+  ]);
+  const allowedConnectSrc = new Set([
+    'https://sdcyiwsfihldacmoreny.supabase.co', // trips database, auth and the password-setup function
+    'https://api.open-meteo.com', // live trail weather, read straight from the visitor's browser
+  ]);
+
   const html = readFileSync(pages[0], 'utf8');
   const csp = metaCsp(html)!;
-  const imgSrc = csp.split(';').find((d) => d.trim().startsWith('img-src'))!;
-  assert.ok(imgSrc.includes('https://tile.openstreetmap.org'), 'tiles are not allowed by the policy');
-  // Everything else must still be first-party. A map must not become a hole.
-  for (const d of ['script-src', 'connect-src', 'default-src', 'frame-src']) {
-    const directive = csp.split(';').find((x) => x.trim().startsWith(d)) ?? '';
-    assert.ok(!directive.includes('openstreetmap') && !directive.includes('http'),
-      `${d} was widened for the map: ${directive}`);
+  const directive = (name: string) => (csp.split(';').find((d) => d.trim().startsWith(name)) ?? '').trim();
+
+  const imgOrigins = directive('img-src').split(/\s+/).filter((t) => t.startsWith('http'));
+  for (const origin of imgOrigins) {
+    assert.ok(allowedImgSrc.has(origin), `img-src allows an origin not on the allow list: ${origin}`);
+  }
+  assert.ok(imgOrigins.includes('https://tile.openstreetmap.org'), 'tiles are not allowed by the policy');
+
+  const connectOrigins = directive('connect-src').split(/\s+/).filter((t) => t.startsWith('http'));
+  for (const origin of connectOrigins) {
+    assert.ok(allowedConnectSrc.has(origin), `connect-src allows an origin not on the allow list: ${origin}`);
+  }
+
+  // Everything else must still be strictly first-party.
+  for (const d of ['script-src', 'default-src', 'frame-src']) {
+    const value = directive(d);
+    assert.ok(!/https?:\/\//.test(value), `${d} was widened to a third party: ${value}`);
   }
 });
 
