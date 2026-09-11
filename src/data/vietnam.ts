@@ -1,4 +1,5 @@
 import type { Area } from './types.ts';
+import { vietnamDeepdiveAreas } from './vietnam-deepdive.ts';
 
 export const vietnamAreas: Area[] = [
   {
@@ -795,4 +796,5 @@ export const vietnamAreas: Area[] = [
     },
     officialLinks: [{ label: 'Ba Vi National Park · Management Board', url: 'https://vuonquocgiabavi.com.vn/' }],
   },
+  ...vietnamDeepdiveAreas,
 ];
