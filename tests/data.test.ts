@@ -134,10 +134,21 @@ test('every live country has areas, and every area belongs to a live country', (
   }
 });
 
+/* North Korea is the one documented exception to 'every live country has a
+   number': there is no independent access to emergency services for a
+   foreign visitor there, so a number would be invented rather than
+   verified. Every other live country must still carry a real one. */
+const COUNTRIES_WITHOUT_INDEPENDENT_EMERGENCY_ACCESS: CountrySlug[] = ['north-korea'];
+
 test('every live country has verified emergency numbers', () => {
   for (const c of getLiveCountries()) {
     const s = getCountrySafety(c.slug as CountrySlug);
     assert.ok(s, `no safety record for ${c.slug}`);
+    if (COUNTRIES_WITHOUT_INDEPENDENT_EMERGENCY_ACCESS.includes(c.slug as CountrySlug)) {
+      assert.equal(s!.emergency.length, 0,
+        `${c.slug} is listed as having no independent emergency access but carries emergency numbers`);
+      continue;
+    }
     assert.ok(s!.emergency.length > 0, `${c.slug} has no emergency numbers`);
     for (const line of s!.emergency) {
       assert.match(line.number, /^[0-9]{3,4}$/, `${c.slug} emergency number '${line.number}' is not a short code`);

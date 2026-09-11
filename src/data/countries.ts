@@ -193,6 +193,22 @@ export const countries: CountryMeta[] = [
       ar: 'من أعمدة هوانگ شان الجرانيتية إلى قمم زانگجياجيه الرملية العائمة والقمة المقدسة فوق يوبنگ.',
     },
   },
+  {
+    slug: 'north-korea',
+    status: 'live',
+    region: 'east-asia',
+    flagEmoji: '🇰🇵',
+    heroGradient: 'from-slate-900 via-stone-700 to-amber-600',
+    name: { en: 'North Korea', ms: 'Korea Utara', 'zh-cn': '朝鲜', 'zh-hk': '北韓', ta: 'வட கொரியா', ar: 'كوريا الشمالية' },
+    teaser: {
+      en: 'Piro Peak above the Ten Thousand Waterfalls of Manphok Valley, documented here for when the country reopens to ordinary visitors.',
+      ms: 'Puncak Piro di atas Lembah Manphok yang bergelar Sepuluh Ribu Air Terjun, didokumenkan di sini untuk apabila negara ini dibuka semula kepada pelawat biasa.',
+      'zh-cn': '万瀑洞满瀑峡谷之上的毗卢峰，本页记录于此，留待该国重新向普通游客开放之时。',
+      'zh-hk': '萬瀑洞滿瀑峽谷之上嘅毗盧峰，呢版記錄喺呢度，留待呢個國家重新向普通遊客開放嗰陣。',
+      ta: 'மன்போக் பள்ளத்தாக்கின் பத்தாயிரம் நீர்வீழ்ச்சிகளுக்கு மேலே உள்ள பிரோ சிகரம், இந்த நாடு சாதாரண பார்வையாளர்களுக்கு மீண்டும் திறக்கும்போது இங்கு ஆவணப்படுத்தப்பட்டுள்ளது.',
+      ar: 'قمة بيرو فوق وادي مانفوك ذي الآلاف من الشلالات، موثّقة هنا تحسّبًا ليوم تُعيد فيه البلاد فتح أبوابها أمام الزوار العاديين.',
+    },
+  },
 ];
 
 export function getCountry(slug: string) {

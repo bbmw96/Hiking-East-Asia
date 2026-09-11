@@ -10,6 +10,7 @@ import { southKoreaAreas } from './south-korea.ts';
 import { taiwanAreas } from './taiwan.ts';
 import { hongKongAreas } from './hong-kong.ts';
 import { chinaAreas } from './china.ts';
+import { northKoreaAreas } from './north-korea.ts';
 import type { Area, CountrySlug } from './types.ts';
 
 /** Every trail area on the site, in the order the countries are presented.
@@ -29,6 +30,7 @@ export const allAreas: Area[] = [
   ...taiwanAreas,
   ...hongKongAreas,
   ...chinaAreas,
+  ...northKoreaAreas,
 ];
 
 export function getAreasByCountry(country: CountrySlug): Area[] {

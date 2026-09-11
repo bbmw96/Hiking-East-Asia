@@ -10,6 +10,7 @@ import { southKoreaAreas } from '../src/data/south-korea.ts';
 import { taiwanAreas } from '../src/data/taiwan.ts';
 import { hongKongAreas } from '../src/data/hong-kong.ts';
 import { chinaAreas } from '../src/data/china.ts';
+import { northKoreaAreas } from '../src/data/north-korea.ts';
 import type { Area } from '../src/data/types.ts';
 
 /* The tests import each country file directly rather than through
@@ -28,6 +29,7 @@ export const areasByCountry: Record<string, Area[]> = {
   taiwan: taiwanAreas,
   'hong-kong': hongKongAreas,
   china: chinaAreas,
+  'north-korea': northKoreaAreas,
 };
 
 export const allCountryAreas: Area[] = Object.values(areasByCountry).flat();

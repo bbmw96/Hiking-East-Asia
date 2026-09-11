@@ -56,7 +56,7 @@ const EMERGENCY_LABEL = {
     <span aria-hidden="true" class="text-2xl">{country.flagEmoji}</span>
     <h3 class="font-display text-xl font-semibold text-ink-950 sm:text-2xl">{country.name[locale]}</h3>
     <span class="ms-auto flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-900/65">
-      {safety && (
+      {safety && safety.emergency.length > 0 && (
         <span class="ltr-only font-semibold tabular-nums text-ink-950">
           {safety.emergency.map((e) => e.number).join(' · ')}
         </span>
@@ -76,7 +76,7 @@ const EMERGENCY_LABEL = {
     </a>
   </div>
 
-  {safety && (
+  {safety && safety.emergency.length > 0 && (
     <div class="reveal mt-6 rounded-2xl bg-canopy-900 p-5 text-white sm:p-6">
       <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-canopy-300">
         {t.safety.emergencyHeading}

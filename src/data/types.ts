@@ -22,7 +22,8 @@ export type CountrySlug =
   | 'south-korea'
   | 'taiwan'
   | 'hong-kong'
-  | 'china';
+  | 'china'
+  | 'north-korea';
 
 export interface Area {
   slug: string;
