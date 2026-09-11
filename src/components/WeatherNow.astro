@@ -1,0 +1,175 @@
+---
+import { getUi } from '../i18n/utils.ts';
+import type { Locale } from '../i18n/locales.ts';
+import type { Area } from '../data/types.ts';
+
+interface Props {
+  locale: Locale;
+  area: Area;
+}
+
+const { locale, area } = Astro.props;
+const t = getUi(locale);
+
+/*
+ * Live conditions cannot be rendered at build time the way the season strip
+ * is: a page built in March saying "6°C, light rain" would still say that in
+ * September. So this ships a loading state and a translated label for every
+ * WMO weather code bucket as data attributes, and the client script does the
+ * one thing that has to happen in the browser: fetch and fill them in.
+ *
+ * Open-Meteo, not the "your own API" the brief asked for, because there is
+ * nothing to build: it is already free, keyless, and gives exactly what a
+ * trailhead forecast needs (openmeteo.com/en/docs). The alternative that was
+ * also researched, Meteomatics, requires a paid account to call at all, which
+ * this site's own standing rule against non-free services rules out.
+ */
+---
+
+<section
+  class="weather-now reveal"
+  data-weather-now
+  data-lat={area.coordinates.lat}
+  data-lng={area.coordinates.lng}
+  data-locale={locale}
+  data-loading={t.weatherNow.loading}
+  data-unavailable={t.weatherNow.unavailable}
+  data-feels-like={t.weatherNow.feelsLike}
+  data-wind={t.weatherNow.wind}
+  data-rain-chance={t.weatherNow.rainChance}
+  data-today={t.weatherNow.today}
+  data-c-clear={t.weatherNow.conditionClear}
+  data-c-mainly-clear={t.weatherNow.conditionMainlyClear}
+  data-c-partly-cloudy={t.weatherNow.conditionPartlyCloudy}
+  data-c-overcast={t.weatherNow.conditionOvercast}
+  data-c-fog={t.weatherNow.conditionFog}
+  data-c-drizzle={t.weatherNow.conditionDrizzle}
+  data-c-rain={t.weatherNow.conditionRain}
+  data-c-snow={t.weatherNow.conditionSnow}
+  data-c-showers={t.weatherNow.conditionShowers}
+  data-c-snow-showers={t.weatherNow.conditionSnowShowers}
+  data-c-thunderstorm={t.weatherNow.conditionThunderstorm}
+  data-c-unknown={t.weatherNow.conditionUnknown}
+>
+  <h2 class="weather-now-title">{t.weatherNow.title}</h2>
+  <p class="weather-status" data-weather-status>{t.weatherNow.loading}</p>
+  <div class="weather-body" data-weather-body hidden></div>
+  <p class="weather-basis">{t.weatherNow.basis}</p>
+</section>
+
+<script>
+  const WMO_BUCKET: Record<number, string> = {
+    0: 'clear',
+    1: 'mainlyClear',
+    2: 'partlyCloudy',
+    3: 'overcast',
+    45: 'fog',
+    48: 'fog',
+    51: 'drizzle',
+    53: 'drizzle',
+    55: 'drizzle',
+    56: 'drizzle',
+    57: 'drizzle',
+    61: 'rain',
+    63: 'rain',
+    65: 'rain',
+    66: 'rain',
+    67: 'rain',
+    71: 'snow',
+    73: 'snow',
+    75: 'snow',
+    77: 'snow',
+    80: 'showers',
+    81: 'showers',
+    82: 'showers',
+    85: 'snowShowers',
+    86: 'snowShowers',
+    95: 'thunderstorm',
+    96: 'thunderstorm',
+    99: 'thunderstorm',
+  };
+  const DATA_KEY: Record<string, string> = {
+    clear: 'cClear',
+    mainlyClear: 'cMainlyClear',
+    partlyCloudy: 'cPartlyCloudy',
+    overcast: 'cOvercast',
+    fog: 'cFog',
+    drizzle: 'cDrizzle',
+    rain: 'cRain',
+    snow: 'cSnow',
+    showers: 'cShowers',
+    snowShowers: 'cSnowShowers',
+    thunderstorm: 'cThunderstorm',
+  };
+
+  function conditionLabel(root: HTMLElement, code: number): string {
+    const bucket = WMO_BUCKET[code];
+    const key = bucket ? DATA_KEY[bucket] : undefined;
+    return (key && root.dataset[key as keyof DOMStringMap]) || root.dataset.cUnknown || '';
+  }
+
+  const roundTemp = (v: number) => `${Math.round(v)}°C`;
+
+  async function loadWeather(root: HTMLElement) {
+    const statusEl = root.querySelector<HTMLElement>('[data-weather-status]')!;
+    const bodyEl = root.querySelector<HTMLElement>('[data-weather-body]')!;
+    const locale = root.dataset.locale || 'en';
+
+    try {
+      const params = new URLSearchParams({
+        latitude: root.dataset.lat ?? '',
+        longitude: root.dataset.lng ?? '',
+        current: 'temperature_2m,apparent_temperature,wind_speed_10m,weather_code',
+        daily: 'temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code',
+        timezone: 'auto',
+        forecast_days: '3',
+      });
+      const res = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
+      if (!res.ok) throw new Error(String(res.status));
+      const data = await res.json();
+      const current = data?.current;
+      const daily = data?.daily;
+      if (!current || !daily?.time) throw new Error('unexpected response shape');
+
+      const dayFormatter = new Intl.DateTimeFormat(locale === 'ar' ? 'ar' : locale, { weekday: 'short' });
+
+      let html = `
+        <div class="weather-current">
+          <span class="weather-temp">${roundTemp(current.temperature_2m)}</span>
+          <span class="weather-desc">${conditionLabel(root, current.weather_code)}</span>
+        </div>
+        <ul class="weather-meta">
+          ${current.apparent_temperature != null ? `<li>${root.dataset.feelsLike}: ${roundTemp(current.apparent_temperature)}</li>` : ''}
+          ${current.wind_speed_10m != null ? `<li>${root.dataset.wind}: ${Math.round(current.wind_speed_10m)} km/h</li>` : ''}
+        </ul>
+        <ul class="weather-forecast">
+      `;
+
+      for (let i = 0; i < Math.min(3, daily.time.length); i++) {
+        const label = i === 0 ? root.dataset.today : dayFormatter.format(new Date(`${daily.time[i]}T00:00:00`));
+        const hi = roundTemp(daily.temperature_2m_max[i]);
+        const lo = roundTemp(daily.temperature_2m_min[i]);
+        const rain = daily.precipitation_probability_max?.[i];
+        html += `
+          <li class="weather-day">
+            <span class="weather-day-name">${label}</span>
+            <span class="weather-day-desc">${conditionLabel(root, daily.weather_code[i])}</span>
+            <span class="weather-day-temps">${hi} / ${lo}</span>
+            ${rain != null ? `<span class="weather-day-rain">${root.dataset.rainChance}: ${rain}%</span>` : ''}
+          </li>
+        `;
+      }
+      html += '</ul>';
+
+      bodyEl.innerHTML = html;
+      bodyEl.hidden = false;
+      statusEl.hidden = true;
+    } catch {
+      statusEl.textContent = root.dataset.unavailable ?? '';
+    }
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-weather-now]')) {
+    loadWeather(root);
+  }
+</script>
