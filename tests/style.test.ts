@@ -70,19 +70,42 @@ test('placeholder tokens are preserved in every translation', () => {
   }
 });
 
+/**
+ * A Supabase anon key is a JWT, so it matches the same shape a leaked
+ * service-role key or a different vendor's secret token would. It is safe to
+ * commit specifically because its own payload says `role: "anon"`: that is
+ * the low-privilege key Supabase expects to sit in a public browser bundle,
+ * with Row Level Security doing the actual access control. A service-role
+ * key carries `role: "service_role"` instead and would still fail this test,
+ * which is the point of decoding it rather than exempting the file outright.
+ */
+function isPublicSupabaseAnonKey(jwt: string): boolean {
+  const parts = jwt.split('.');
+  if (parts.length < 2) return false;
+  try {
+    const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8'));
+    return payload.role === 'anon' && payload.iss === 'supabase';
+  } catch {
+    return false;
+  }
+}
+
 test('no secret-shaped string is committed', () => {
   const patterns: [RegExp, string][] = [
     [/gh[pousr]_[A-Za-z0-9]{20,}/, 'GitHub token'],
     [/sk-[A-Za-z0-9]{20,}/, 'API secret key'],
     [/AKIA[0-9A-Z]{16}/, 'AWS access key id'],
     [/-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----/, 'private key'],
-    [/eyJhbGciOi[A-Za-z0-9_-]{10,}/, 'JWT'],
+    [/eyJhbGciOi[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}/, 'JWT'],
   ];
   for (const f of [...srcFiles, 'vercel.json', 'astro.config.mjs', 'package.json']) {
     let text: string;
     try { text = readFileSync(f, 'utf8'); } catch { continue; }
     for (const [re, what] of patterns) {
-      assert.ok(!re.test(text), `possible ${what} committed in ${f}`);
+      const match = text.match(re);
+      if (!match) continue;
+      if (what === 'JWT' && isPublicSupabaseAnonKey(match[0])) continue;
+      assert.ok(false, `possible ${what} committed in ${f}`);
     }
   }
 });

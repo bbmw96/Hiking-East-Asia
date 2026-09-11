@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TerrainArt from '../../components/TerrainArt.astro';
+import TripLog from '../../components/TripLog.astro';
 import { getUi, url } from '../../i18n/utils';
 import { locales, type Locale } from '../../i18n/locales';
 import { officialTrips } from '../../data/trips';
@@ -110,4 +111,6 @@ const dateFormatter = new Intl.DateTimeFormat(locale === 'ar' ? 'ar' : locale, {
       <p class="reveal mt-8 text-sm leading-relaxed text-ink-900/55">{t.trips.standardNote}</p>
     </div>
   </section>
+
+  <TripLog locale={locale} />
 </BaseLayout>

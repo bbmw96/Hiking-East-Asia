@@ -1,0 +1,535 @@
+---
+import { getUi } from '../i18n/utils.ts';
+import type { Locale } from '../i18n/locales.ts';
+import { getLiveCountries } from '../data/countries.ts';
+import { ADMIN_COUNTRIES } from '../data/config.ts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+const countries = getLiveCountries();
+const adminCountries = countries.filter((c) => (ADMIN_COUNTRIES as readonly string[]).includes(c.slug));
+
+/* Server-rendered data for the client script below. JSON.stringify does not
+   escape "</script>", so the closing angle bracket is neutralised by hand;
+   everything going in here is our own translation copy and country list,
+   never anything a visitor typed, but the guard costs nothing. */
+const safeJson = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c');
+---
+
+<!--
+  Two audiences share this section: every visitor reads the log of trips the
+  club has actually done, and one admin per country can sign in to add to it.
+  Both talk to Supabase directly from the browser. The anon key that ships in
+  the bundle below is not a secret: it only opens the door Row Level Security
+  already decided an anonymous visitor may use. See src/data/config.ts for
+  why, and supabase/README.md for the schema this UI assumes.
+-->
+<section id="trip-log" class="border-t border-ink-950/10 bg-white/60 py-20" data-locale={locale}>
+  <div class="mx-auto max-w-4xl px-5">
+    <h2 class="reveal font-display text-3xl font-semibold text-ink-950 sm:text-4xl">{t.tripsAdmin.logTitle}</h2>
+    <p class="reveal reveal-delay-1 mt-4 max-w-2xl leading-relaxed text-ink-900/70">{t.tripsAdmin.logIntro}</p>
+
+    <div id="trip-log-list" class="mt-10 space-y-10" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="country-admin" class="border-t border-white/10 bg-ink-950 py-20 text-white">
+  <div class="mx-auto max-w-2xl px-5">
+    <h2 class="reveal font-display text-2xl font-semibold sm:text-3xl">{t.tripsAdmin.adminHeading}</h2>
+
+    <form id="admin-login-form" class="reveal mt-8 space-y-4">
+      <div>
+        <label for="admin-country" class="block text-sm text-white/70">{t.tripsAdmin.countryLabel}</label>
+        <select
+          id="admin-country"
+          required
+          class="mt-1.5 w-full rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus-visible:outline-2 focus-visible:outline-white"
+        >
+          <option value="" selected disabled>{t.tripsAdmin.countryPlaceholder}</option>
+          {adminCountries.map((c) => (
+            <option value={c.slug}>{c.flagEmoji} {c.name[locale]}</option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label for="admin-password" class="block text-sm text-white/70">{t.tripsAdmin.passwordLabel}</label>
+        <input
+          id="admin-password"
+          type="password"
+          required
+          autocomplete="current-password"
+          class="mt-1.5 w-full rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus-visible:outline-2 focus-visible:outline-white"
+        />
+      </div>
+      <p class="hidden text-sm text-red-300" data-role="login-error">{t.tripsAdmin.loginError}</p>
+      <button
+        type="submit"
+        class="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink-950 transition hover:bg-white/90"
+      >
+        {t.tripsAdmin.loginButton}
+      </button>
+    </form>
+
+    <form id="password-change-form" class="reveal mt-8 hidden space-y-4">
+      <h3 class="font-display text-xl font-semibold">{t.tripsAdmin.mustChangeTitle}</h3>
+      <p class="text-sm leading-relaxed text-white/70">{t.tripsAdmin.mustChangeBody}</p>
+      <div>
+        <label for="new-password" class="block text-sm text-white/70">{t.tripsAdmin.newPasswordLabel}</label>
+        <input
+          id="new-password"
+          type="password"
+          required
+          minlength="12"
+          autocomplete="new-password"
+          class="mt-1.5 w-full rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus-visible:outline-2 focus-visible:outline-white"
+        />
+      </div>
+      <div>
+        <label for="confirm-password" class="block text-sm text-white/70">{t.tripsAdmin.confirmPasswordLabel}</label>
+        <input
+          id="confirm-password"
+          type="password"
+          required
+          minlength="12"
+          autocomplete="new-password"
+          class="mt-1.5 w-full rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus-visible:outline-2 focus-visible:outline-white"
+        />
+      </div>
+      <p class="hidden text-sm text-red-300" data-role="password-error"></p>
+      <button
+        type="submit"
+        data-role="password-submit"
+        class="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink-950 transition hover:bg-white/90"
+      >
+        {t.tripsAdmin.savePasswordButton}
+      </button>
+    </form>
+
+    <div id="admin-dashboard" class="reveal mt-8 hidden">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h3 class="font-display text-xl font-semibold" data-role="dashboard-title"></h3>
+        <button type="button" id="admin-sign-out" class="text-sm text-white/60 underline hover:text-white">
+          {t.tripsAdmin.signOut}
+        </button>
+      </div>
+
+      <div class="mt-6" data-role="admin-trip-list"></div>
+
+      <form id="add-trip-form" class="mt-10 space-y-4 border-t border-white/10 pt-8">
+        <h4 class="font-display text-lg font-semibold">{t.tripsAdmin.addTripTitle}</h4>
+        <p class="text-xs text-white/50">{t.tripsAdmin.languageNote}</p>
+        <div>
+          <label for="trip-date" class="block text-sm text-white/70">{t.tripsAdmin.dateLabel}</label>
+          <input
+            id="trip-date"
+            type="date"
+            required
+            class="mt-1.5 w-full rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus-visible:outline-2 focus-visible:outline-white"
+          />
+        </div>
+        <div>
+          <label for="trip-title" class="block text-sm text-white/70">{t.tripsAdmin.titleLabel}</label>
+          <input
+            id="trip-title"
+            type="text"
+            required
+            maxlength="120"
+            class="mt-1.5 w-full rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus-visible:outline-2 focus-visible:outline-white"
+          />
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label for="trip-hill" class="block text-sm text-white/70">{t.tripsAdmin.hillLabel}</label>
+            <input
+              id="trip-hill"
+              type="text"
+              maxlength="120"
+              class="mt-1.5 w-full rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus-visible:outline-2 focus-visible:outline-white"
+            />
+          </div>
+          <div>
+            <label for="trip-locality" class="block text-sm text-white/70">{t.tripsAdmin.localityLabel}</label>
+            <input
+              id="trip-locality"
+              type="text"
+              maxlength="120"
+              class="mt-1.5 w-full rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus-visible:outline-2 focus-visible:outline-white"
+            />
+          </div>
+        </div>
+        <div>
+          <label for="trip-summary" class="block text-sm text-white/70">{t.tripsAdmin.summaryLabel}</label>
+          <textarea
+            id="trip-summary"
+            rows="3"
+            maxlength="600"
+            class="mt-1.5 w-full rounded-lg border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus-visible:outline-2 focus-visible:outline-white"
+          ></textarea>
+        </div>
+        <label class="flex items-center gap-2 text-sm text-white/70">
+          <input id="trip-published" type="checkbox" checked class="h-4 w-4" />
+          {t.tripsAdmin.publishedLabel}
+        </label>
+        <p class="hidden text-sm text-red-300" data-role="add-trip-error"></p>
+        <button
+          type="submit"
+          data-role="add-trip-submit"
+          class="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink-950 transition hover:bg-white/90"
+        >
+          {t.tripsAdmin.saveTripButton}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script is:inline type="application/json" id="trip-log-i18n" set:html={safeJson(t.tripsAdmin)} />
+<script
+  is:inline
+  type="application/json"
+  id="trip-log-countries"
+  set:html={safeJson(countries.map((c) => ({ slug: c.slug, name: c.name[locale] })))}
+/>
+
+<script>
+  import { getSupabaseClient } from '../lib/supabase-client.ts';
+  import { SUPABASE_FUNCTIONS_URL, SUPABASE_PHOTO_BASE } from '../data/config.ts';
+  import { locales } from '../i18n/locales.ts';
+
+  const section = document.getElementById('trip-log');
+  const locale = section?.getAttribute('data-locale') || 'en';
+  const strings = JSON.parse(document.getElementById('trip-log-i18n')!.textContent!);
+  const countryMeta: { slug: string; name: string }[] = JSON.parse(
+    document.getElementById('trip-log-countries')!.textContent!,
+  );
+  const countryName = (slug: string) => countryMeta.find((c) => c.slug === slug)?.name ?? slug;
+  const dateFormatter = new Intl.DateTimeFormat(locale === 'ar' ? 'ar' : locale, {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  function escapeHtml(value: unknown): string {
+    const div = document.createElement('div');
+    div.textContent = value == null ? '' : String(value);
+    return div.innerHTML;
+  }
+
+  function photoUrl(path: string): string {
+    return `${SUPABASE_PHOTO_BASE}/${path}`;
+  }
+
+  type LoggedTrip = {
+    id: string;
+    country: string;
+    locality: string | null;
+    region_label: string | null;
+    trip_date: string;
+    title: Record<string, string>;
+    summary: Record<string, string>;
+    photos: { path: string }[];
+    published: boolean;
+  };
+
+  async function loadPublicTrips() {
+    const listEl = document.getElementById('trip-log-list')!;
+    const client = await getSupabaseClient();
+    const { data, error } = await client
+      .from('trips')
+      .select('*')
+      .eq('published', true)
+      .order('trip_date', { ascending: false });
+
+    if (error || !data) {
+      listEl.innerHTML = `<p class="text-sm text-red-700">${escapeHtml(strings.loadError)}</p>`;
+      return;
+    }
+    if (data.length === 0) {
+      listEl.innerHTML = `<p class="text-sm text-ink-900/60">${escapeHtml(strings.noLoggedTrips)}</p>`;
+      return;
+    }
+
+    const byCountry = new Map<string, LoggedTrip[]>();
+    for (const trip of data as LoggedTrip[]) {
+      if (!byCountry.has(trip.country)) byCountry.set(trip.country, []);
+      byCountry.get(trip.country)!.push(trip);
+    }
+
+    listEl.innerHTML = '';
+    for (const [country, trips] of byCountry) {
+      const block = document.createElement('div');
+      const heading = document.createElement('h3');
+      heading.className = 'reveal font-display text-xl font-semibold text-ink-950';
+      heading.textContent = countryName(country);
+      block.appendChild(heading);
+
+      const ul = document.createElement('ul');
+      ul.className = 'mt-4 grid gap-5 sm:grid-cols-2';
+      for (const trip of trips) {
+        const title = trip.title?.[locale] ?? trip.title?.en ?? '';
+        const summary = trip.summary?.[locale] ?? trip.summary?.en ?? '';
+        const where = [trip.region_label, trip.locality].filter(Boolean).join(', ');
+        const photos = Array.isArray(trip.photos) ? trip.photos : [];
+        const li = document.createElement('li');
+        li.className = 'reveal rounded-2xl border border-black/10 bg-white p-6';
+        li.innerHTML = `
+          <p class="text-xs font-semibold uppercase tracking-wide text-canopy-700">${dateFormatter.format(new Date(trip.trip_date))}</p>
+          <h4 class="mt-1.5 font-display text-lg font-semibold text-ink-950">${escapeHtml(title)}</h4>
+          ${where ? `<p class="mt-1 text-sm text-ink-900/60">${escapeHtml(where)}</p>` : ''}
+          ${summary ? `<p class="mt-2 text-sm leading-relaxed text-ink-900/75">${escapeHtml(summary)}</p>` : ''}
+          ${
+            photos.length
+              ? `<div class="mt-4 flex flex-wrap gap-2">${photos
+                  .map((p) => `<img src="${photoUrl(p.path)}" loading="lazy" decoding="async" class="h-20 w-20 rounded-lg object-cover" alt="">`)
+                  .join('')}</div>`
+              : ''
+          }
+        `;
+        ul.appendChild(li);
+      }
+      block.appendChild(ul);
+      listEl.appendChild(block);
+    }
+  }
+
+  loadPublicTrips().catch(() => {
+    const listEl = document.getElementById('trip-log-list');
+    if (listEl) listEl.innerHTML = `<p class="text-sm text-red-700">${escapeHtml(strings.loadError)}</p>`;
+  });
+
+  /* --- Country admin: login, forced first password change, dashboard --- */
+
+  const loginForm = document.getElementById('admin-login-form') as HTMLFormElement;
+  const pwForm = document.getElementById('password-change-form') as HTMLFormElement;
+  const dashboard = document.getElementById('admin-dashboard') as HTMLElement;
+  const addTripForm = document.getElementById('add-trip-form') as HTMLFormElement;
+
+  let session: { access_token: string } | null = null;
+  let currentUser: { id: string; app_metadata: Record<string, unknown> } | null = null;
+
+  function show(el: HTMLElement, visible: boolean) {
+    el.classList.toggle('hidden', !visible);
+  }
+
+  async function afterLogin() {
+    show(loginForm, false);
+    const mustChange = currentUser?.app_metadata?.must_change_password === true;
+    show(pwForm, mustChange);
+    show(dashboard, !mustChange);
+    if (!mustChange) await renderDashboard();
+  }
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const country = (document.getElementById('admin-country') as HTMLSelectElement).value;
+    const password = (document.getElementById('admin-password') as HTMLInputElement).value;
+    const errEl = loginForm.querySelector('[data-role="login-error"]') as HTMLElement;
+    if (!country) return;
+    const client = await getSupabaseClient();
+    const email = `${country}-admin@hiking-east-asia.internal`;
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    if (error || !data.session || !data.user) {
+      show(errEl, true);
+      return;
+    }
+    show(errEl, false);
+    session = data.session;
+    currentUser = data.user as typeof currentUser;
+    await afterLogin();
+  });
+
+  pwForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = pwForm.querySelector('[data-role="password-submit"]') as HTMLButtonElement;
+    const errEl = pwForm.querySelector('[data-role="password-error"]') as HTMLElement;
+    const newPw = (document.getElementById('new-password') as HTMLInputElement).value;
+    const confirmPw = (document.getElementById('confirm-password') as HTMLInputElement).value;
+    show(errEl, false);
+
+    if (newPw.length < 12) {
+      errEl.textContent = strings.passwordTooShort;
+      show(errEl, true);
+      return;
+    }
+    if (newPw !== confirmPw) {
+      errEl.textContent = strings.passwordMismatch;
+      show(errEl, true);
+      return;
+    }
+
+    submitBtn.disabled = true;
+    const originalLabel = submitBtn.textContent;
+    submitBtn.textContent = strings.savingButton;
+    try {
+      const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/admin-auth/complete-password-setup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session!.access_token}` },
+        body: JSON.stringify({ newPassword: newPw }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body?.error || 'failed');
+
+      const client = await getSupabaseClient();
+      const { data } = await client.auth.refreshSession();
+      session = data.session;
+      currentUser = data.user as typeof currentUser;
+      pwForm.reset();
+      await afterLogin();
+    } catch {
+      errEl.textContent = strings.loginError;
+      show(errEl, true);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    }
+  });
+
+  document.getElementById('admin-sign-out')!.addEventListener('click', async () => {
+    const client = await getSupabaseClient();
+    await client.auth.signOut();
+    session = null;
+    currentUser = null;
+    show(dashboard, false);
+    show(pwForm, false);
+    show(loginForm, true);
+    loginForm.reset();
+  });
+
+  async function uploadPhotos(country: string, tripId: string, files: File[]) {
+    const client = await getSupabaseClient();
+    const uploaded: { path: string }[] = [];
+    for (const file of files) {
+      const cleanName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+      const path = `${country}/${tripId}/${Date.now()}-${cleanName}`;
+      const { error } = await client.storage.from('trip-photos').upload(path, file, { upsert: false });
+      if (!error) uploaded.push({ path });
+    }
+    if (uploaded.length) {
+      const { data: existing } = await client.from('trips').select('photos').eq('id', tripId).single();
+      const merged = [...(((existing?.photos as { path: string }[]) ?? [])), ...uploaded];
+      await client.from('trips').update({ photos: merged }).eq('id', tripId);
+    }
+  }
+
+  async function renderDashboard() {
+    if (!currentUser) return;
+    const country = currentUser.app_metadata.country as string;
+    (document.querySelector('[data-role="dashboard-title"]') as HTMLElement).textContent =
+      `${strings.dashboardTitle} ${countryName(country)}`;
+
+    const client = await getSupabaseClient();
+    const { data, error } = await client
+      .from('trips')
+      .select('*')
+      .eq('country', country)
+      .order('trip_date', { ascending: false });
+
+    const listEl = document.querySelector('[data-role="admin-trip-list"]') as HTMLElement;
+    if (error) {
+      listEl.innerHTML = `<p class="text-sm text-red-300">${escapeHtml(strings.loadError)}</p>`;
+      return;
+    }
+    if (!data || data.length === 0) {
+      listEl.innerHTML = `<p class="text-sm text-white/60">${escapeHtml(strings.noAdminTrips)}</p>`;
+      return;
+    }
+
+    const heading = document.createElement('p');
+    heading.className = 'text-sm font-semibold uppercase tracking-wide text-white/50';
+    heading.textContent = strings.yourTrips;
+    listEl.innerHTML = '';
+    listEl.appendChild(heading);
+
+    const ul = document.createElement('ul');
+    ul.className = 'mt-4 space-y-4';
+    for (const trip of data as LoggedTrip[]) {
+      const title = trip.title?.[locale] ?? trip.title?.en ?? '';
+      const li = document.createElement('li');
+      li.className = 'rounded-xl border border-white/10 bg-white/5 p-4';
+      li.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p class="text-sm font-semibold">${escapeHtml(title)}</p>
+            <p class="text-xs text-white/50">${dateFormatter.format(new Date(trip.trip_date))}${trip.published ? '' : ` · ${escapeHtml(strings.unpublishedTag)}`}</p>
+          </div>
+          <label class="flex items-center gap-2 text-xs text-white/70">
+            <input type="checkbox" data-role="publish-toggle" ${trip.published ? 'checked' : ''} />
+            ${escapeHtml(strings.publishedLabel)}
+          </label>
+        </div>
+        <div class="mt-3 flex flex-wrap items-center gap-2" data-role="photo-strip">
+          ${(trip.photos || []).map((p) => `<img src="${photoUrl(p.path)}" loading="lazy" decoding="async" class="h-14 w-14 rounded object-cover" alt="">`).join('')}
+        </div>
+        <label class="mt-3 inline-flex cursor-pointer items-center gap-2 text-xs text-white/70">
+          <input type="file" accept="image/*" multiple class="hidden" data-role="photo-input" />
+          <span class="underline">${escapeHtml(strings.addPhotosButton)}</span>
+        </label>
+      `;
+      const toggle = li.querySelector('[data-role="publish-toggle"]') as HTMLInputElement;
+      toggle.addEventListener('change', async () => {
+        await client.from('trips').update({ published: toggle.checked }).eq('id', trip.id);
+        await loadPublicTrips();
+      });
+      const photoInput = li.querySelector('[data-role="photo-input"]') as HTMLInputElement;
+      photoInput.addEventListener('change', async () => {
+        const files = Array.from(photoInput.files || []);
+        if (!files.length) return;
+        await uploadPhotos(country, trip.id, files);
+        await renderDashboard();
+        await loadPublicTrips();
+      });
+      ul.appendChild(li);
+    }
+    listEl.appendChild(ul);
+  }
+
+  addTripForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!currentUser) return;
+    const country = currentUser.app_metadata.country as string;
+    const date = (document.getElementById('trip-date') as HTMLInputElement).value;
+    const title = (document.getElementById('trip-title') as HTMLInputElement).value.trim();
+    const summary = (document.getElementById('trip-summary') as HTMLTextAreaElement).value.trim();
+    const locality = (document.getElementById('trip-locality') as HTMLInputElement).value.trim();
+    const hill = (document.getElementById('trip-hill') as HTMLInputElement).value.trim();
+    const published = (document.getElementById('trip-published') as HTMLInputElement).checked;
+    const errEl = addTripForm.querySelector('[data-role="add-trip-error"]') as HTMLElement;
+    show(errEl, false);
+    if (!date || !title) return;
+
+    const localized = (text: string) => Object.fromEntries(locales.map((l) => [l, text]));
+    const submitBtn = addTripForm.querySelector('[data-role="add-trip-submit"]') as HTMLButtonElement;
+    submitBtn.disabled = true;
+    const originalLabel = submitBtn.textContent;
+    submitBtn.textContent = strings.savingTripButton;
+
+    const client = await getSupabaseClient();
+    const { error } = await client.from('trips').insert({
+      country,
+      trip_date: date,
+      title: localized(title),
+      summary: localized(summary || title),
+      locality: locality || null,
+      region_label: hill || null,
+      published,
+      created_by: currentUser.id,
+    });
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalLabel;
+
+    if (error) {
+      errEl.textContent = strings.loadError;
+      show(errEl, true);
+      return;
+    }
+    addTripForm.reset();
+    (document.getElementById('trip-published') as HTMLInputElement).checked = true;
+    await renderDashboard();
+    await loadPublicTrips();
+  });
+</script>
