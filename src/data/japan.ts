@@ -1,4 +1,5 @@
 import type { Area } from './types.ts';
+import { japanDeepdiveAreas } from './japan-deepdive.ts';
 
 export const japanAreas: Area[] = [
   {
@@ -801,4 +802,5 @@ export const japanAreas: Area[] = [
     },
     officialLinks: [{ label: 'JNTO · Yakushima / Jomon Sugi', url: 'https://www.japan.travel/en/spot/596/' }],
   },
+  ...japanDeepdiveAreas,
 ];
