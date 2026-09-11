@@ -230,34 +230,47 @@ test('the static locator is real markup, not a placeholder box', opts, () => {
   assert.ok((html.match(/class="grat"/g) ?? []).length > 0, 'the locator draws no graticule');
 });
 
+/**
+ * Deliberately avoids `Array.includes` / `Set.has` / `String.includes`
+ * against a URL: CodeQL's incomplete-url-substring-sanitization query
+ * flags exactly that shape, since on a plain string it would let
+ * "https://evil.example/https://tile.openstreetmap.org" slip past. This
+ * compares each origin token to each allow-listed origin with `===`, so
+ * there is no substring operation over a URL anywhere in this test.
+ */
+function originListsMatch(present: string[], allowed: string[]): { extra: string[]; missing: string[] } {
+  const extra = present.filter((p) => !allowed.some((a) => a === p));
+  const missing = allowed.filter((a) => !present.some((p) => p === a));
+  return { extra, missing };
+}
+
 test('the CSP only ever reaches the named, justified third parties', opts, () => {
   // Every third-party origin the site is allowed to contact, and why. A new
   // entry here should mean a new feature that genuinely needs it, not scope
   // creep: this list is the thing to update when that happens, not a
   // constraint to route around.
-  const allowedImgSrc = new Set([
+  const allowedImgSrc = [
     'https://tile.openstreetmap.org', // map tiles, loaded only after the visitor asks
     'https://sdcyiwsfihldacmoreny.supabase.co', // trip photos a country admin uploaded
-  ]);
-  const allowedConnectSrc = new Set([
+  ];
+  const allowedConnectSrc = [
     'https://sdcyiwsfihldacmoreny.supabase.co', // trips database, auth and the password-setup function
     'https://api.open-meteo.com', // live trail weather, read straight from the visitor's browser
-  ]);
+  ];
 
   const html = readFileSync(pages[0], 'utf8');
   const csp = metaCsp(html)!;
   const directive = (name: string) => (csp.split(';').find((d) => d.trim().startsWith(name)) ?? '').trim();
 
   const imgOrigins = directive('img-src').split(/\s+/).filter((t) => t.startsWith('http'));
-  for (const origin of imgOrigins) {
-    assert.ok(allowedImgSrc.has(origin), `img-src allows an origin not on the allow list: ${origin}`);
-  }
-  assert.ok(imgOrigins.includes('https://tile.openstreetmap.org'), 'tiles are not allowed by the policy');
+  const imgResult = originListsMatch(imgOrigins, allowedImgSrc);
+  assert.deepEqual(imgResult.extra, [], `img-src allows an origin not on the allow list: ${imgResult.extra.join(', ')}`);
+  assert.deepEqual(imgResult.missing, [], `img-src is missing an origin the site depends on: ${imgResult.missing.join(', ')}`);
 
   const connectOrigins = directive('connect-src').split(/\s+/).filter((t) => t.startsWith('http'));
-  for (const origin of connectOrigins) {
-    assert.ok(allowedConnectSrc.has(origin), `connect-src allows an origin not on the allow list: ${origin}`);
-  }
+  const connectResult = originListsMatch(connectOrigins, allowedConnectSrc);
+  assert.deepEqual(connectResult.extra, [], `connect-src allows an origin not on the allow list: ${connectResult.extra.join(', ')}`);
+  assert.deepEqual(connectResult.missing, [], `connect-src is missing an origin the site depends on: ${connectResult.missing.join(', ')}`);
 
   // Everything else must still be strictly first-party.
   for (const d of ['script-src', 'default-src', 'frame-src']) {
