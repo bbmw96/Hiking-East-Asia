@@ -1,4 +1,5 @@
 import type { Area } from './types.ts';
+import { thailandDeepdiveAreas } from './thailand-deepdive.ts';
 
 export const thailandAreas: Area[] = [
   {
@@ -548,4 +549,5 @@ export const thailandAreas: Area[] = [
     },
     officialLinks: [{ label: 'DNP · National Park Reservation', url: 'https://nps.dnp.go.th/reservation.php' }],
   },
+  ...thailandDeepdiveAreas,
 ];
