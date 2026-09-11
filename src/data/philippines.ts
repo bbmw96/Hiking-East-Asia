@@ -1,4 +1,5 @@
 import type { Area } from './types.ts';
+import { philippinesDeepdiveAreas } from './philippines-deepdive.ts';
 
 export const philippinesAreas: Area[] = [
   {
@@ -804,4 +805,5 @@ export const philippinesAreas: Area[] = [
     },
     officialLinks: [{ label: 'Municipality of Nasugbu · Official Site', url: 'https://nasugbu.gov.ph/' }],
   },
+  ...philippinesDeepdiveAreas,
 ];
