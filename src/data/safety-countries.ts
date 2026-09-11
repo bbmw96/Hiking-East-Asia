@@ -159,6 +159,18 @@ export const countrySafety: CountrySafety[] = [
       ar: 'المرشدون غير مطلوبين، لكن كل منطقة سياحية هنا تبيع تذاكر بالاسم الحقيقي مرتبطة بجواز السفر أو الهوية وتحدّ من الأعداد اليومية. اشترِ عبر المنصة الرسمية: تذكرة أُعيد بيعها دون اسمك عليها قد لا تسمح لك بالدخول.',
     },
   },
+  {
+    country: 'north-korea',
+    emergency: [],
+    guides: {
+      en: 'Independent travel does not exist here: every visitor is assigned a state guide who is present at all times, and there is no separate permit, booking or emergency-calling system outside that arrangement. As of this update, North Korea remains closed to almost all foreign tourism (Russian nationals are the current exception), and several governments, including the United States, either advise against all travel there or restrict their own citizens’ passports from being used for it. Everything on this page describes what has been offered when the country has been open, for planning ahead of a reopening, not a trip you can book today.',
+      ms: 'Perjalanan bebas tidak wujud di sini: setiap pelawat diberikan pemandu negara yang hadir sepanjang masa, dan tiada sistem permit, tempahan atau panggilan kecemasan berasingan di luar aturan itu. Setakat kemas kini ini, Korea Utara kekal ditutup kepada hampir semua pelancongan asing (warganegara Rusia adalah pengecualian semasa), dan beberapa kerajaan, termasuk Amerika Syarikat, sama ada menasihati menentang sebarang perjalanan ke sana atau menyekat pasport warganya daripada digunakan untuknya. Segala-galanya di halaman ini menerangkan apa yang pernah ditawarkan semasa negara ini dibuka, untuk perancangan sebelum pembukaan semula, dan bukan perjalanan yang boleh anda tempah hari ini.',
+      'zh-cn': '这里不存在独立自由行：每位访客都会被分配一名国家导游全程陪同，除此安排外没有独立的许可、预订或紧急呼叫系统。截至本次更新，朝鲜仍对几乎所有外国游客关闭（俄罗斯公民目前是例外），包括美国在内的多国政府要么建议避免一切前往，要么限制本国公民的护照不得用于此行程。本页所述内容记录的是该国开放时期曾提供的项目，供重新开放前的规划参考，而非当下可预订的行程。',
+      'zh-hk': '呢度冇獨立自由行呢回事：每位訪客都會派一個國家導遊全程跟住，除咗呢個安排之外冇獨立嘅許可、預訂或者緊急求助系統。截至今次更新，北韓仍然對幾乎所有外國遊客封閉（俄羅斯公民而家係例外），包括美國喺內嘅多個政府，要麼建議避免一切前往，要麼限制本國公民嘅護照唔准用嚟去呢度。呢版所講嘅內容記錄嘅係呢個國家開放時期曾經提供嘅項目，供重新開放之前規劃參考，而唔係而家可以預訂嘅行程。',
+      ta: 'இங்கு சுதந்திரமான பயணம் என்பதே இல்லை: ஒவ்வொரு பார்வையாளருக்கும் எப்போதும் உடனிருக்கும் அரசு வழிகாட்டி நியமிக்கப்படுகிறார், அந்த ஏற்பாட்டிற்கு வெளியே தனி அனுமதி, முன்பதிவு அல்லது அவசரகால அழைப்பு அமைப்பு எதுவும் இல்லை. இந்தப் புதுப்பிப்பின்படி, வட கொரியா கிட்டத்தட்ட அனைத்து வெளிநாட்டு சுற்றுலாவிற்கும் மூடப்பட்டே உள்ளது (ரஷ்ய குடிமக்கள் தற்போதைய விதிவிலக்கு), அமெரிக்கா உட்பட பல அரசாங்கங்கள் அனைத்துப் பயணத்திற்கும் எதிராக அறிவுறுத்துகின்றன அல்லது தங்கள் குடிமக்களின் கடவுச்சீட்டுகளை இதற்குப் பயன்படுத்த தடை விதிக்கின்றன. இந்தப் பக்கத்தில் உள்ளது நாடு திறந்திருந்தபோது வழங்கப்பட்டவற்றை விவரிக்கிறது, மீண்டும் திறப்பதற்கு முன் திட்டமிட, இன்று முன்பதிவு செய்யக்கூடிய பயணமாக அல்ல.',
+      ar: 'لا وجود للسفر المستقل هنا: يُخصَّص لكل زائر مرشد حكومي يرافقه طوال الوقت، ولا يوجد نظام منفصل للتصاريح أو الحجز أو الاتصال بالطوارئ خارج هذا الترتيب. حتى هذا التحديث، لا تزال كوريا الشمالية مغلقة أمام جل السياحة الأجنبية (المواطنون الروس هم الاستثناء الحالي)، وتنصح عدة حكومات، من بينها الولايات المتحدة، إما بتجنّب كل سفر إليها أو تقيّد استخدام جوازات مواطنيها لهذا الغرض. ما يرد في هذه الصفحة يصف ما كان يُقدَّم حين كانت البلاد مفتوحة، للتخطيط قبل إعادة الفتح، لا رحلة يمكن حجزها اليوم.',
+    },
+  },
 ];
 
 export function getCountrySafety(slug: CountrySlug): CountrySafety | undefined {
