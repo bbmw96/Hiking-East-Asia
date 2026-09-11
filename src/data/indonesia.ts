@@ -1,4 +1,5 @@
 import type { Area } from './types.ts';
+import { indonesiaDeepdiveAreas } from './indonesia-deepdive.ts';
 
 export const indonesiaAreas: Area[] = [
   {
@@ -795,4 +796,5 @@ export const indonesiaAreas: Area[] = [
     },
     officialLinks: [{ label: 'Batur UNESCO Global Geopark', url: 'https://www.baturunescoglobalgeopark.org/' }],
   },
+  ...indonesiaDeepdiveAreas,
 ];
