@@ -251,6 +251,7 @@ test('the CSP only ever reaches the named, justified third parties', opts, () =>
   // constraint to route around.
   const allowedImgSrc = [
     'https://tile.openstreetmap.org', // map tiles, loaded only after the visitor asks
+    'https://*.tile.opentopomap.org', // the free terrain-relief layer toggle on the same map
     'https://sdcyiwsfihldacmoreny.supabase.co', // trip photos a country admin uploaded
   ];
   const allowedConnectSrc = [
