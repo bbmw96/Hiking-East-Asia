@@ -118,7 +118,6 @@ for (let d = Math.ceil(invMercLat(maxY) / step) * step; d <= invMercLat(minY); d
 }
 
 const centre = points.length === 1 ? points[0] : null;
-const bounds = [minY, minX, maxY, maxX];
 const mapId = `map-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
@@ -164,7 +163,14 @@ const mapId = `map-${Math.random().toString(36).slice(2, 9)}`;
       ))}
     </svg>
 
-    <div class="trail-map-live" id={mapId} data-bounds={JSON.stringify(bounds)} data-points={JSON.stringify(points)} data-mode={mode} hidden></div>
+    <div
+      class="trail-map-live"
+      id={mapId}
+      data-points={JSON.stringify(points)}
+      data-mode={mode}
+      data-layer-labels={JSON.stringify({ standard: t.map.standardLayer, terrain: t.map.terrainLayer })}
+      hidden
+    ></div>
 
     <button type="button" class="trail-map-load" data-map-load={mapId}>
       {t.map.load}
@@ -198,7 +204,20 @@ const mapId = `map-${Math.random().toString(36).slice(2, 9)}`;
   const OSM = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   const ATTRIB = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors';
 
+  /* The closest free, keyless equivalent to a hillshaded terrain layer.
+     Mapbox's raster-dem terrain needs an access token tied to an account,
+     which this site's standing rule against non-free services rules out;
+     OpenTopoMap bakes SRTM-derived hillshading and contours into an
+     ordinary XYZ raster tile, so it drops in as a second tileLayer with no
+     token, no account and no JavaScript beyond what is already loaded. */
+  const TOPO = 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
+  const TOPO_ATTRIB =
+    ATTRIB +
+    ', <a href="https://www.opentopomap.org" target="_blank" rel="noopener noreferrer">OpenTopoMap</a> (CC-BY-SA)';
+
   type Pt = { lat: number; lng: number; label: string; href?: string; detail?: string };
+
+  const prefersReducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   async function boot(container: HTMLElement, button: HTMLButtonElement) {
     button.disabled = true;
@@ -208,12 +227,17 @@ const mapId = `map-${Math.random().toString(36).slice(2, 9)}`;
     ]);
 
     const points: Pt[] = JSON.parse(container.dataset.points ?? '[]');
-    const bounds: [number, number, number, number] = JSON.parse(container.dataset.bounds ?? '[]');
     const single = container.dataset.mode === 'area' && points.length === 1;
+    const labels = JSON.parse(container.dataset.layerLabels ?? '{}') as { standard?: string; terrain?: string };
 
     container.hidden = false;
     const map = L.map(container, { scrollWheelZoom: false, attributionControl: true });
-    L.tileLayer(OSM, { maxZoom: 17, attribution: ATTRIB }).addTo(map);
+
+    const standard = L.tileLayer(OSM, { maxZoom: 17, attribution: ATTRIB }).addTo(map);
+    const terrain = L.tileLayer(TOPO, { maxZoom: 17, attribution: TOPO_ATTRIB, subdomains: 'abc' });
+    L.control
+      .layers({ [labels.standard ?? 'Standard map']: standard, [labels.terrain ?? 'Terrain relief']: terrain })
+      .addTo(map);
 
     // A plain divIcon, so no marker image has to be fetched or hosted.
     const icon = L.divIcon({ className: 'trail-pin', iconSize: [16, 16], iconAnchor: [8, 8] });
@@ -241,8 +265,27 @@ const mapId = `map-${Math.random().toString(36).slice(2, 9)}`;
       })
     ).addTo(map);
 
-    if (single) map.setView([points[0].lat, points[0].lng], 12);
-    else map.fitBounds(group.getBounds(), { padding: [28, 28] });
+    const targetBounds = group.getBounds();
+    const boundsCenter = targetBounds.getCenter();
+    const targetCenter: [number, number] = single ? [points[0].lat, points[0].lng] : [boundsCenter.lat, boundsCenter.lng];
+    const targetZoom = single ? 12 : map.getBoundsZoom(targetBounds, false, L.point(28, 28));
+
+    if (prefersReducedMotion()) {
+      // No animation: land straight on the final view, respecting the same
+      // system setting that turns off every other motion effect on this site.
+      map.setView(targetCenter, targetZoom);
+    } else {
+      /* A short cinematic entrance rather than an instant cut: start a few
+         zoom levels further out over the same point, then flyTo the framed
+         view. This is Leaflet's own eased pan-and-zoom, the 2D equivalent of
+         the flyTo choreography a WebGL globe would use, with no extra
+         library and nothing to load beyond Leaflet itself. */
+      map.setView(targetCenter, Math.max(targetZoom - 4, 2), { animate: false });
+      requestAnimationFrame(() => {
+        if (single) map.flyTo(targetCenter, targetZoom, { duration: 1.6 });
+        else map.flyToBounds(targetBounds, { padding: [28, 28], duration: 1.6 });
+      });
+    }
 
     button.remove();
     container.closest('.trail-map')?.setAttribute('data-live', 'true');

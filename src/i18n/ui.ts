@@ -168,6 +168,8 @@ export const ui = {
       privacyNote: 'Map tiles load from OpenStreetMap only once you choose to show them.',
       openIn: 'Open these coordinates in a map app',
       coordinates: 'Coordinates',
+      standardLayer: 'Standard map',
+      terrainLayer: 'Terrain relief',
     },
     safety: {
       title: 'Safety & permits',
@@ -391,6 +393,8 @@ export const ui = {
       privacyNote: 'Jubin peta dimuatkan daripada OpenStreetMap hanya setelah anda memilih untuk menunjukkannya.',
       openIn: 'Buka koordinat ini dalam aplikasi peta',
       coordinates: 'Koordinat',
+      standardLayer: 'Peta standard',
+      terrainLayer: 'Relief rupa bumi',
     },
     safety: {
       title: 'Keselamatan & permit',
@@ -614,6 +618,8 @@ export const ui = {
       privacyNote: '地图图块仅在你选择显示后，才会向 OpenStreetMap 载入。',
       openIn: '在地图应用中打开这组坐标',
       coordinates: '坐标',
+      standardLayer: '标准地图',
+      terrainLayer: '地形晕渲',
     },
     safety: {
       title: '安全与许可证',
@@ -837,6 +843,8 @@ export const ui = {
       privacyNote: '地圖圖塊淨係喺你揀咗顯示之後，先至會向 OpenStreetMap 載入。',
       openIn: '喺地圖應用程式打開呢組坐標',
       coordinates: '坐標',
+      standardLayer: '標準地圖',
+      terrainLayer: '地形浮雕',
     },
     safety: {
       title: '安全與許可證',
@@ -1060,6 +1068,8 @@ export const ui = {
       privacyNote: 'நீங்கள் காட்டத் தேர்ந்தெடுத்த பிறகுதான் வரைபடத் துண்டுகள் OpenStreetMap இலிருந்து ஏற்றப்படும்.',
       openIn: 'இந்த ஆயத்தொலைவுகளை வரைபட செயலியில் திற',
       coordinates: 'ஆயத்தொலைவுகள்',
+      standardLayer: 'நிலையான வரைபடம்',
+      terrainLayer: 'நில அமைப்பு நிழற்படம்',
     },
     safety: {
       title: 'பாதுகாப்பு & அனுமதிகள்',
@@ -1283,6 +1293,8 @@ export const ui = {
       privacyNote: 'لا تُحمّل مربّعات الخريطة من OpenStreetMap إلا بعد أن تختار إظهارها.',
       openIn: 'افتح هذه الإحداثيات في تطبيق خرائط',
       coordinates: 'الإحداثيات',
+      standardLayer: 'خريطة قياسية',
+      terrainLayer: 'تضاريس الأرض',
     },
     safety: {
       title: 'السلامة والتصاريح',
