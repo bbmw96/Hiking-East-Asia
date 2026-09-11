@@ -711,6 +711,12 @@ header[data-stuck='true'] {
 .trail-map-frame {
   position: relative;
   overflow: hidden;
+  /* Leaflet's own panes and controls use z-index values up to 1000,
+     meaningful only within a stacking context of their own. Without this,
+     nothing here scopes them, so they compare directly against whatever
+     the browser paints next and can appear to float above later sections
+     while scrolling. */
+  isolation: isolate;
   border-radius: 1rem;
   border: 1px solid rgb(11 20 16 / 0.1);
   background: var(--map-ground);

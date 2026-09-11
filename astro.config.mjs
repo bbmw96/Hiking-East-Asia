@@ -87,7 +87,7 @@ function cspMetaTags() {
             "font-src 'self' https://fonts.gstatic.com",
             // Map tiles after the visitor presses the map button, and trip
             // photos the country admins upload to Supabase Storage.
-            "img-src 'self' data: https://tile.openstreetmap.org https://*.tile.opentopomap.org https://sdcyiwsfihldacmoreny.supabase.co",
+            "img-src 'self' data: https://tile.openstreetmap.org https://tile.openmaps.fr https://sdcyiwsfihldacmoreny.supabase.co",
             // The trips backend (Supabase auth, database and edge functions)
             // and the free weather API the area pages read live conditions
             // from, both contacted directly from the visitor's browser.

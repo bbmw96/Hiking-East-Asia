@@ -16,7 +16,7 @@ const path = Astro.url.pathname;
 <header id="site-header" data-stuck="false" class="sticky top-0 z-50 border-b border-black/5 bg-mist-100/85 backdrop-blur transition-shadow duration-300 supports-[backdrop-filter]:bg-mist-100/70">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
     <a href={url(`/${locale}/`)} class="flex items-center gap-2 font-display text-lg font-semibold tracking-tight text-canopy-900">
-      <span aria-hidden="true" class="inline-block h-2.5 w-2.5 rounded-full bg-canopy-500"></span>
+      <img src={url('/favicon.svg')} alt="" aria-hidden="true" width="24" height="24" class="h-6 w-6 rounded-md" />
       {SITE_NAME}
     </a>
 

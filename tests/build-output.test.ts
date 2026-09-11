@@ -189,6 +189,36 @@ test('the response headers add the cross-origin isolation set', () => {
   }
 });
 
+test('the response-header CSP never falls behind the meta-tag CSP', opts, () => {
+  // These two policies are enforced together by any browser that receives
+  // both (every visitor except the header-less GitHub Pages mirror): a
+  // resource must satisfy the *intersection* of the two. A header img-src or
+  // connect-src that forgot an origin the meta tag already allows silently
+  // blocks that feature for every visitor on Vercel, with no error beyond a
+  // console CSP violation nobody watches. This caught exactly that drift
+  // once already: vercel.json had never been updated after the trips
+  // backend, live weather and the terrain map layer were added, so all
+  // three were broken in production while the meta tag (and the tests
+  // above) said the policy was fine.
+  const v = JSON.parse(readFileSync('vercel.json', 'utf8'));
+  const headers: { key: string; value: string }[] = v.headers.flatMap((h: any) => h.headers);
+  const headerCsp = headers.find((h) => h.key.toLowerCase() === 'content-security-policy')?.value ?? '';
+  const headerDirective = (name: string) => (headerCsp.split(';').find((d) => d.trim().startsWith(name)) ?? '').trim();
+
+  const html = readFileSync(pages[0], 'utf8');
+  const metaCspValue = metaCsp(html)!;
+  const metaDirective = (name: string) => (metaCspValue.split(';').find((d) => d.trim().startsWith(name)) ?? '').trim();
+
+  for (const directive of ['img-src', 'connect-src']) {
+    const metaOrigins = metaDirective(directive).split(/\s+/).filter((t) => t.startsWith('http'));
+    const headerOrigins = new Set(headerDirective(directive).split(/\s+/).filter((t) => t.startsWith('http')));
+    const missing = metaOrigins.filter((o) => !headerOrigins.has(o));
+    assert.deepEqual(missing, [],
+      `vercel.json's ${directive} is missing ${missing.join(', ')}, which the meta CSP already allows; ` +
+      'add it to vercel.json or the header CSP will block it in production');
+  }
+});
+
 test('a security contact is published', () => {
   const txt = readFileSync('public/.well-known/security.txt', 'utf8');
   assert.match(txt, /^Contact: /m, 'security.txt has no Contact line');
@@ -251,7 +281,7 @@ test('the CSP only ever reaches the named, justified third parties', opts, () =>
   // constraint to route around.
   const allowedImgSrc = [
     'https://tile.openstreetmap.org', // map tiles, loaded only after the visitor asks
-    'https://*.tile.opentopomap.org', // the free terrain-relief layer toggle on the same map
+    'https://tile.openmaps.fr', // the free terrain-relief layer toggle on the same map (OpenTopoMap-R)
     'https://sdcyiwsfihldacmoreny.supabase.co', // trip photos a country admin uploaded
   ];
   const allowedConnectSrc = [
