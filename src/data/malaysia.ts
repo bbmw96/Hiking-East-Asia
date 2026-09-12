@@ -1,6 +1,7 @@
 import type { Area } from './types.ts';
 import { malaysiaClubAreas } from './malaysia-club.ts';
 import { malaysiaDeepdiveAreas } from './malaysia-deepdive.ts';
+import { malaysiaKlClusterAreas } from './malaysia-kl-cluster.ts';
 
 export const malaysiaAreas: Area[] = [
   {
@@ -669,4 +670,5 @@ export const malaysiaAreas: Area[] = [
   },
   ...malaysiaClubAreas,
   ...malaysiaDeepdiveAreas,
+  ...malaysiaKlClusterAreas,
 ];
