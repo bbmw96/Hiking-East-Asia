@@ -1,4 +1,5 @@
 import type { Area } from './types.ts';
+import { singaporeNatureParksAreas } from './singapore-nature-parks.ts';
 
 export const singaporeAreas: Area[] = [
   {
@@ -722,4 +723,5 @@ export const singaporeAreas: Area[] = [
       { label: 'NParks · Labrador Nature Reserve and Nature Park', url: 'https://www.nparks.gov.sg/visit/parks/park-detail/labrador-nature-reserve/' },
     ],
   },
+  ...singaporeNatureParksAreas,
 ];
