@@ -10,7 +10,7 @@ export const ui = {
       howToApply: 'How to apply', advanceNotice: 'Apply at least', officialSource: 'Official source',
       gettingThere: 'Getting there', highlights: 'Highlights', safetyTips: 'Safety tips', whatToBring: 'What to bring',
       readMore: 'Read more', comingSoon: 'Coming soon', viewArea: 'View area', exploreTrails: 'Explore trails',
-      photoCredit: 'Illustrative image, not a photograph', backTo: 'Back to',
+      photoCredit: 'Illustrative image, not a photograph', backTo: 'Back to', onThisPage: 'On this page',
     },
     trips: {
       title: 'Upcoming club trips',
@@ -240,7 +240,7 @@ export const ui = {
       howToApply: 'Cara memohon', advanceNotice: 'Mohon sekurang-kurangnya', officialSource: 'Sumber rasmi',
       gettingThere: 'Cara ke sana', highlights: 'Perkara menarik', safetyTips: 'Petua keselamatan', whatToBring: 'Apa yang perlu dibawa',
       readMore: 'Baca lanjut', comingSoon: 'Akan datang', viewArea: 'Lihat kawasan', exploreTrails: 'Terokai laluan',
-      photoCredit: 'Imej ilustrasi, bukan gambar sebenar', backTo: 'Kembali ke',
+      photoCredit: 'Imej ilustrasi, bukan gambar sebenar', backTo: 'Kembali ke', onThisPage: 'Dalam halaman ini',
     },
     trips: {
       title: 'Perjalanan kelab akan datang',
@@ -470,7 +470,7 @@ export const ui = {
       howToApply: '申请方式', advanceNotice: '至少提前申请', officialSource: '官方来源',
       gettingThere: '交通方式', highlights: '亮点', safetyTips: '安全提示', whatToBring: '需携带物品',
       readMore: '阅读更多', comingSoon: '即将推出', viewArea: '查看该地区', exploreTrails: '探索路线',
-      photoCredit: '示意图，非实景照片', backTo: '返回',
+      photoCredit: '示意图，非实景照片', backTo: '返回', onThisPage: '本页内容',
     },
     trips: {
       title: '即将举行的会员行程',
@@ -700,7 +700,7 @@ export const ui = {
       howToApply: '申請方法', advanceNotice: '須提前申請', officialSource: '官方來源',
       gettingThere: '前往方法', highlights: '行程亮點', safetyTips: '安全貼士', whatToBring: '需要攜帶物品',
       readMore: '閱讀更多', comingSoon: '即將推出', viewArea: '查看地區', exploreTrails: '探索路線',
-      photoCredit: '示意圖，並非實景照片', backTo: '返回',
+      photoCredit: '示意圖，並非實景照片', backTo: '返回', onThisPage: '本頁內容',
     },
     trips: {
       title: '即將舉行嘅會員行程',
@@ -930,7 +930,7 @@ export const ui = {
       howToApply: 'விண்ணப்பிக்கும் முறை', advanceNotice: 'முன்னதாக விண்ணப்பிக்க வேண்டிய காலம்', officialSource: 'அதிகாரப்பூர்வ ஆதாரம்',
       gettingThere: 'எப்படி செல்வது', highlights: 'சிறப்பம்சங்கள்', safetyTips: 'பாதுகாப்பு குறிப்புகள்', whatToBring: 'என்ன கொண்டு செல்ல வேண்டும்',
       readMore: 'மேலும் படிக்க', comingSoon: 'விரைவில் வருகிறது', viewArea: 'பகுதியைப் பார்க்க', exploreTrails: 'பாதைகளை ஆராயுங்கள்',
-      photoCredit: 'இது ஒரு விளக்கப் படம், உண்மையான புகைப்படம் அல்ல', backTo: 'திரும்பிச் செல்ல',
+      photoCredit: 'இது ஒரு விளக்கப் படம், உண்மையான புகைப்படம் அல்ல', backTo: 'திரும்பிச் செல்ல', onThisPage: 'இந்தப் பக்கத்தில்',
     },
     trips: {
       title: 'வரவிருக்கும் கிளப் பயணங்கள்',
@@ -1160,7 +1160,7 @@ export const ui = {
       howToApply: 'طريقة التقديم', advanceNotice: 'يُقدَّم الطلب قبل الموعد بـ', officialSource: 'المصدر الرسمي',
       gettingThere: 'كيفية الوصول', highlights: 'أبرز المعالم', safetyTips: 'إرشادات السلامة', whatToBring: 'ما يجب إحضاره',
       readMore: 'اقرأ المزيد', comingSoon: 'قريبًا', viewArea: 'عرض المنطقة', exploreTrails: 'استكشف المسارات',
-      photoCredit: 'صورة توضيحية وليست صورة فوتوغرافية فعلية', backTo: 'العودة إلى',
+      photoCredit: 'صورة توضيحية وليست صورة فوتوغرافية فعلية', backTo: 'العودة إلى', onThisPage: 'في هذه الصفحة',
     },
     trips: {
       title: 'رحلات النادي القادمة',

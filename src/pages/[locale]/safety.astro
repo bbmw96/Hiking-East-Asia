@@ -4,6 +4,7 @@ import TerrainArt from '../../components/TerrainArt.astro';
 import VerifyChecklist from '../../components/VerifyChecklist.astro';
 import OfficialChannelsList from '../../components/OfficialChannelsList.astro';
 import CountrySafetyPanel from '../../components/CountrySafetyPanel.astro';
+import OnThisPage from '../../components/OnThisPage.astro';
 import { getUi } from '../../i18n/utils';
 import { locales, type Locale } from '../../i18n/locales';
 import { SAFETY_CONTACT_EMAIL } from '../../data/config';
@@ -38,20 +39,31 @@ const scamSteps = [
   { title: t.safety.scamStep4Title, body: t.safety.scamStep4Body },
   { title: t.safety.scamStep5Title, body: t.safety.scamStep5Body },
 ];
+
+const toc = [
+  { id: 'safety-tips', label: t.common.safetyTips },
+  { id: 'scam-pattern', label: t.safety.scamTitle },
+  { id: 'verify-checklist', label: t.verify.title },
+  { id: 'by-country', label: t.safety.countriesTitle },
+  { id: 'official-channels', label: t.channels.title },
+];
 ---
 
 <BaseLayout locale={locale} title={t.safety.title} description={t.safety.intro}>
   <section class="relative overflow-hidden">
-    <TerrainArt gradient="from-slate-900 via-emerald-900 to-emerald-700" class="inset-0 h-full w-full" position="absolute">
-      <div class="absolute inset-0 bg-black/50"></div>
+    <TerrainArt gradient="from-ink-950 via-red-950 to-amber-800" class="inset-0 h-full w-full" position="absolute">
+      <div class="absolute inset-0 bg-black/45"></div>
     </TerrainArt>
     <div class="relative z-10 mx-auto max-w-3xl px-5 py-24 text-white">
       <h1 class="reveal font-display text-4xl font-semibold sm:text-5xl">{t.safety.title}</h1>
       <p class="reveal reveal-delay-1 mt-4 text-lg text-white/85">{t.safety.intro}</p>
+      <div class="reveal reveal-delay-2 mt-8">
+        <OnThisPage locale={locale} items={toc} />
+      </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-3xl px-5 py-16">
+  <section id="safety-tips" class="mx-auto max-w-3xl px-5 py-16">
     <ol class="space-y-10">
       {tips.map((tip, i) => (
         <li class="reveal flex gap-5">
@@ -69,7 +81,7 @@ const scamSteps = [
 
   {/* The pattern. Dark band so it reads as the one warning on the page rather
       than as another card in a stack of advice. */}
-  <section class="bg-ink-950 py-20 text-white">
+  <section id="scam-pattern" class="bg-ink-950 py-20 text-white">
     <div class="mx-auto max-w-4xl px-5">
       <h2 class="reveal font-display text-3xl font-semibold sm:text-4xl">{t.safety.scamTitle}</h2>
       <p class="reveal reveal-delay-1 mt-4 max-w-2xl leading-relaxed text-white/70">{t.safety.scamIntro}</p>
@@ -95,7 +107,7 @@ const scamSteps = [
     </div>
   </section>
 
-  <section class="mx-auto max-w-3xl px-5 py-16">
+  <section id="verify-checklist" class="mx-auto max-w-3xl px-5 py-16">
     <VerifyChecklist locale={locale} />
   </section>
 
@@ -134,7 +146,7 @@ const scamSteps = [
     </div>
   </section>
 
-  <section class="mx-auto max-w-3xl px-5 py-16">
+  <section id="official-channels" class="mx-auto max-w-3xl px-5 py-16">
     <OfficialChannelsList locale={locale} />
 
     <div class="reveal mt-14 rounded-2xl border border-red-900/15 bg-red-50 p-7">
