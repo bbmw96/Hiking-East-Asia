@@ -75,7 +75,7 @@ const chapters: Chapter[] = [
   <section id="regions" class="mx-auto max-w-6xl px-5 py-24 sm:py-32">
     <div class="max-w-2xl">
       <h2 class="reveal font-display text-3xl font-semibold text-ink-950 sm:text-4xl">{t.home.regionsTitle}</h2>
-      <p class="reveal reveal-delay-1 mt-4 text-lg leading-relaxed text-ink-900/70">{t.home.regionsBody}</p>
+      <p class="reveal reveal-delay-1 mt-4 text-lg leading-relaxed text-ink-900/70">{t.home.regionsBody.replace('{n}', String(allAreas.length))}</p>
     </div>
 
     <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

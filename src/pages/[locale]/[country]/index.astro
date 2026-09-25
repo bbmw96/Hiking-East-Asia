@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TerrainArt from '../../../components/TerrainArt.astro';
 import { getUi, url } from '../../../i18n/utils';
 import { locales, type Locale } from '../../../i18n/locales';
-import { getComingSoonCountries } from '../../../data/countries';
+import { getComingSoonCountries, getLiveCountries } from '../../../data/countries';
 
 export function getStaticPaths() {
   const countries = getComingSoonCountries();
@@ -19,6 +19,7 @@ interface Props {
 
 const { locale, country } = Astro.props;
 const t = getUi(locale);
+const liveCountries = getLiveCountries();
 ---
 
 <BaseLayout locale={locale} title={country.name[locale]} description={country.teaser[locale]}>
@@ -33,10 +34,13 @@ const t = getUi(locale);
       <span class="reveal reveal-delay-3 mt-8 inline-flex items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-sm font-semibold text-ink-950">
         {t.common.comingSoon}
       </span>
-      <p class="reveal reveal-delay-4 mt-10 text-sm text-white/70">
-        <a href={url(`/${locale}/malaysia/`)} class="underline underline-offset-2 hover:text-white">{t.nav.malaysia}</a>
-        <span class="mx-2">·</span>
-        <a href={url(`/${locale}/singapore/`)} class="underline underline-offset-2 hover:text-white">{t.nav.singapore}</a>
+      <p class="reveal reveal-delay-4 mt-10 flex flex-wrap justify-center gap-x-3 gap-y-1 text-sm text-white/70">
+        {liveCountries.map((c, i) => (
+          <>
+            {i > 0 && <span aria-hidden="true">·</span>}
+            <a href={url(`/${locale}/${c.slug}/`)} class="underline underline-offset-2 hover:text-white">{c.name[locale]}</a>
+          </>
+        ))}
       </p>
     </div>
   </section>
