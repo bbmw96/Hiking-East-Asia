@@ -2,6 +2,7 @@
 import { getUi, url } from '../i18n/utils';
 import { locales, localeMeta, type Locale } from '../i18n/locales';
 import { SITE_NAME } from '../i18n/ui';
+import { getLiveCountries } from '../data/countries';
 
 interface Props {
   locale: Locale;
@@ -10,6 +11,9 @@ interface Props {
 const { locale } = Astro.props;
 const t = getUi(locale);
 const path = Astro.url.pathname;
+const liveCountries = getLiveCountries();
+const southeastAsia = liveCountries.filter((c) => c.region === 'southeast-asia');
+const eastAsia = liveCountries.filter((c) => c.region === 'east-asia');
 ---
 
 <div id="header-sentinel" aria-hidden="true"></div>
@@ -21,9 +25,58 @@ const path = Astro.url.pathname;
     </a>
 
     <nav class="hidden items-center gap-6 text-sm font-medium text-ink-900 md:flex">
-      <a class="hover:text-canopy-700" href={url(`/${locale}/malaysia/`)}>{t.nav.malaysia}</a>
-      <a class="hover:text-canopy-700" href={url(`/${locale}/singapore/`)}>{t.nav.singapore}</a>
-      <a class="hover:text-canopy-700" href={url(`/${locale}/#regions`)}>{t.nav.moreCountries}</a>
+      <div class="relative" data-countries-dropdown>
+        <button
+          type="button"
+          id="countries-toggle"
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="countries-menu"
+          class="flex items-center gap-1.5 hover:text-canopy-700"
+        >
+          {t.nav.countries}
+          <svg data-countries-chevron aria-hidden="true" width="10" height="6" viewBox="0 0 10 6" class="transition-transform duration-200">
+            <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div
+          id="countries-menu"
+          role="menu"
+          aria-label={t.nav.countries}
+          data-countries-menu
+          hidden
+          class="absolute start-0 top-full z-20 mt-3 w-[min(90vw,34rem)] rounded-2xl border border-black/8 bg-white p-5 shadow-xl"
+        >
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-900/50">{t.nav.southeastAsia}</p>
+              <ul class="mt-3 space-y-1">
+                {southeastAsia.map((c) => (
+                  <li>
+                    <a role="menuitem" href={url(`/${locale}/${c.slug}/`)} class="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-canopy-100/60 hover:text-canopy-800">
+                      <span aria-hidden="true">{c.flagEmoji}</span>
+                      {c.name[locale]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-900/50">{t.nav.eastAsia}</p>
+              <ul class="mt-3 space-y-1">
+                {eastAsia.map((c) => (
+                  <li>
+                    <a role="menuitem" href={url(`/${locale}/${c.slug}/`)} class="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-canopy-100/60 hover:text-canopy-800">
+                      <span aria-hidden="true">{c.flagEmoji}</span>
+                      {c.name[locale]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <a class="hover:text-canopy-700" href={url(`/${locale}/trips/`)}>{t.nav.trips}</a>
       <a class="hover:text-canopy-700" href={url(`/${locale}/safety/`)}>{t.nav.safety}</a>
     </nav>
@@ -42,10 +95,12 @@ const path = Astro.url.pathname;
     </div>
   </div>
 
-  <nav class="flex items-center gap-4 overflow-x-auto border-t border-black/5 px-5 py-2 text-sm font-medium text-ink-900 md:hidden">
-    <a class="whitespace-nowrap hover:text-canopy-700" href={url(`/${locale}/malaysia/`)}>{t.nav.malaysia}</a>
-    <a class="whitespace-nowrap hover:text-canopy-700" href={url(`/${locale}/singapore/`)}>{t.nav.singapore}</a>
-    <a class="whitespace-nowrap hover:text-canopy-700" href={url(`/${locale}/#regions`)}>{t.nav.moreCountries}</a>
+  <nav class="flex items-center gap-4 overflow-x-auto border-t border-black/5 px-5 py-2 text-sm font-medium text-ink-900 md:hidden" aria-label={t.nav.countries}>
+    {liveCountries.map((c) => (
+      <a class="whitespace-nowrap hover:text-canopy-700" href={url(`/${locale}/${c.slug}/`)}>
+        <span aria-hidden="true">{c.flagEmoji}</span> {c.name[locale]}
+      </a>
+    ))}
     <a class="whitespace-nowrap hover:text-canopy-700" href={url(`/${locale}/trips/`)}>{t.nav.trips}</a>
     <a class="whitespace-nowrap hover:text-canopy-700" href={url(`/${locale}/safety/`)}>{t.nav.safety}</a>
   </nav>
@@ -72,5 +127,37 @@ const path = Astro.url.pathname;
       header.dataset.stuck = String(!entry.isIntersecting);
     });
     io.observe(sentinel);
+  }
+
+  // ---- Countries dropdown: click to open, Escape / outside click to close ----
+  const wrap = document.querySelector<HTMLElement>('[data-countries-dropdown]');
+  const toggle = document.getElementById('countries-toggle');
+  const menu = document.getElementById('countries-menu');
+  const chevron = document.querySelector<HTMLElement>('[data-countries-chevron]');
+
+  if (wrap && toggle && menu) {
+    const close = () => {
+      menu.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+      chevron?.style.setProperty('transform', 'rotate(0deg)');
+    };
+    const open = () => {
+      menu.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+      chevron?.style.setProperty('transform', 'rotate(180deg)');
+    };
+    toggle.addEventListener('click', () => {
+      if (menu.hidden) open();
+      else close();
+    });
+    document.addEventListener('click', (e) => {
+      if (!wrap.contains(e.target as Node)) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hidden) {
+        close();
+        toggle.focus();
+      }
+    });
   }
 </script>
