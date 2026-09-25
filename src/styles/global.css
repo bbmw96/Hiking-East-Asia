@@ -664,6 +664,64 @@ header[data-stuck='true'] {
   .chapter-rail { display: none; }
 }
 
+/* ---- On-this-page contents dropdown ---- */
+.page-toc {
+  display: inline-block;
+  position: relative;
+}
+.page-toc-summary {
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  background: rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(6px);
+  padding: 0.55rem 1.1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+}
+.page-toc-summary::-webkit-details-marker { display: none; }
+.page-toc-summary:focus-visible {
+  outline: 2px solid var(--color-sun-500);
+  outline-offset: 2px;
+}
+.page-toc-chevron { transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1); }
+.page-toc[open] .page-toc-chevron { transform: rotate(180deg); }
+.page-toc-list {
+  position: absolute;
+  inset-inline-start: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 10;
+  min-width: 15rem;
+  margin: 0;
+  padding: 0.6rem;
+  list-style: none;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 20px 40px -12px rgb(0 0 0 / 0.35);
+}
+.page-toc-list a {
+  display: block;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-ink-950);
+}
+.page-toc-list a:hover { background: var(--color-canopy-100); color: var(--color-canopy-900); }
+
+/* On a light section (safety hero is dark, but the pattern reuses this on
+   light backgrounds too), swap to a dark-on-light chip. */
+.page-toc.on-light .page-toc-summary {
+  border-color: rgb(11 20 16 / 0.15);
+  background: rgb(11 20 16 / 0.04);
+  color: var(--color-ink-950);
+}
+
 /* ---- Per-country safety disclosures ---- */
 .country-panel > summary::-webkit-details-marker { display: none; }
 .country-panel > summary:focus-visible {
