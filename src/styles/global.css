@@ -554,7 +554,11 @@ header[data-stuck='true'] {
   line-height: 1.02;
   letter-spacing: -0.02em;
   font-size: clamp(2.25rem, 5.4vw, 4.25rem);
+  overflow-wrap: break-word;
 }
+/* Tamil words run long and the glyphs are wide: at the Latin size a single
+   word in the first chapter headline is wider than its column. */
+:lang(ta) .chapter-title { font-size: clamp(1.875rem, 3.4vw, 3.25rem); line-height: 1.2; }
 
 .chapter-body {
   margin-top: 1.5rem;
@@ -642,11 +646,164 @@ header[data-stuck='true'] {
   .chapter-rail { display: none; }
 }
 
-@media (max-width: 767px) {
+/* Pinning needs the two-column layout: stacked in one column, a chapter and
+   its figure are taller than the frame, so below 1024px they are ordinary
+   sections. The script uses the same breakpoint. */
+@media (max-width: 1023px) {
   .chapter { position: relative; height: auto; min-height: 0; }
   .chapter-dwell { display: none; }
   .chapter-inner { padding-block: 4rem; }
+}
+
+@media (max-width: 767px) {
   .ascent-readout { display: none; }
+}
+
+/* ---- Chapter figures drawn from the site's own data ----------------------
+   Each sits under its chapter's headline number and is built from the same
+   data as the rest of the site, so it can never disagree with a trail page.
+   Children animate only once their figure is revealed; with no script they
+   are simply shown, and every animation runs once, well under five seconds. */
+.chapter-figure > .trailhead-map,
+.chapter-figure > .authority-drift,
+.chapter-figure > .season-year {
+  align-self: stretch;
+  margin-top: 1.75rem;
+}
+
+.trailhead-map { margin-inline: 0; margin-bottom: 0; max-width: 24rem; }
+.trailhead-map svg {
+  display: block;
+  /* Sized from the frame, not fixed: what is left of the viewport after the
+     number, note and caption above and below it. */
+  height: clamp(9rem, calc(100svh - 31rem), 25rem);
+  width: auto;
+  max-width: 100%;
+}
+.th-grid line { stroke: rgb(255 255 255 / 0.09); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.th-grid text { fill: rgb(255 255 255 / 0.45); font-size: 15px; letter-spacing: 0.06em; }
+.th-dot { fill: #c4f2d2; }
+.th-point { transform-box: fill-box; transform-origin: center; }
+.trailhead-map.is-visible .th-point {
+  animation: th-in 600ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
+  animation-delay: calc(300ms + var(--d) * 14ms);
+}
+@keyframes th-in {
+  from { opacity: 0; transform: scale(0.2); }
+  to { opacity: 1; transform: none; }
+}
+
+.th-caption,
+.sy-caption {
+  margin-top: 0.75rem;
+  max-width: 36ch;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: rgb(255 255 255 / 0.68);
+}
+
+.authority-drift { max-width: 30rem; }
+.ad-rows {
+  display: grid;
+  gap: 0.5rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+/* Offset by scroll progress alone, in alternating directions per row. */
+.ad-track {
+  display: flex;
+  gap: 0.5rem;
+  width: max-content;
+  transform: translate3d(calc(-25% + (var(--p, 0.5) - 0.5) * var(--dir) * 30%), 0, 0);
+}
+.ad-pill {
+  flex: none;
+  max-width: 20rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  background: rgb(255 255 255 / 0.05);
+  font-size: 0.8125rem;
+  color: rgb(255 255 255 / 0.82);
+}
+.ad-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  /* Lighter than canopy-300: that green measured 4.25:1 on the lighter sky
+     behind this chapter, under the 4.5:1 body text needs. */
+  color: #b4ecc5;
+  text-decoration: underline;
+  text-decoration-color: rgb(180 236 197 / 0.5);
+  text-underline-offset: 3px;
+}
+.ad-link:hover { color: #fff; }
+[dir='rtl'] .ad-arrow { display: inline-block; transform: scaleX(-1); }
+
+.season-year { margin-inline: 0; margin-bottom: 0; max-width: 26rem; }
+.sy-chart {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0.3rem;
+  height: clamp(6.5rem, calc(100svh - 36rem), 12.5rem);
+}
+.sy-col { display: flex; flex-direction: column; min-width: 0; }
+.sy-best,
+.sy-avoid { flex: 1; display: flex; }
+.sy-best { align-items: flex-end; border-bottom: 1px solid rgb(255 255 255 / 0.4); }
+.sy-avoid { align-items: flex-start; }
+.sy-best i,
+.sy-avoid i { display: block; width: 100%; }
+.sy-best i {
+  height: calc(var(--b) * 100%);
+  border-radius: 3px 3px 0 0;
+  background: #7fd39a;
+  transform-origin: bottom;
+}
+.sy-avoid i {
+  height: calc(var(--a) * 100%);
+  border-radius: 0 0 3px 3px;
+  background: #f0a08c;
+  transform-origin: top;
+}
+.sy-label {
+  margin-top: 0.45rem;
+  text-align: center;
+  font-size: 0.6875rem;
+  color: rgb(255 255 255 / 0.68);
+}
+.sy-col.is-now .sy-best i { background: var(--color-sun-500, #e8b04b); }
+.sy-col.is-now .sy-label { color: #fff; font-weight: 700; }
+.season-year.is-visible .sy-col i {
+  animation: sy-grow 700ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
+  animation-delay: calc(250ms + var(--d) * 45ms);
+}
+@keyframes sy-grow { from { transform: scaleY(0); } }
+
+/* Short laptop screens: the pinned frame is the viewport, so the column has
+   to give back height or its top slides under the header. */
+@media (min-width: 1024px) and (max-height: 820px) {
+  .figure-value { font-size: clamp(3rem, 12svh, 6.5rem); }
+  .figure-rule { margin-block: 1rem; }
+  .chapter-figure > .trailhead-map,
+  .chapter-figure > .authority-drift,
+  .chapter-figure > .season-year { margin-top: 1.25rem; }
+  .ad-rows .ad-row:nth-child(3) { display: none; }
+}
+.sy-now {
+  margin-top: 0.75rem;
+  max-width: 36ch;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #fff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -660,7 +817,8 @@ header[data-stuck='true'] {
   .ascent-readout,
   .ascent-title .split-line > span { animation: none !important; }
   .chapter-inner { animation: none !important; opacity: 1 !important; transform: none !important; }
-  .chapter-ridge, .chapter-figure { transform: none !important; }
+  .chapter-ridge, .chapter-figure, .ad-track { transform: none !important; }
+  .th-point, .sy-col i { animation: none !important; }
   .chapter-rail { display: none; }
 }
 

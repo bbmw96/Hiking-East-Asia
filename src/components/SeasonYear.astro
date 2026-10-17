@@ -1,0 +1,79 @@
+---
+import { allAreas } from '../data/all-areas';
+import { getUi } from '../i18n/utils';
+import type { Locale } from '../i18n/locales';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+
+/* The whole site's season data in one figure: for each month, how many trail
+   areas are at their best (above the line) and how many are best avoided
+   (below). Both halves share one scale so their lengths compare honestly. */
+const best = Array(12).fill(0) as number[];
+const avoid = Array(12).fill(0) as number[];
+for (const area of allAreas) {
+  for (const m of area.season.monthsBest) best[m - 1]++;
+  for (const m of area.season.monthsAvoid) avoid[m - 1]++;
+}
+const scale = Math.max(...best, ...avoid);
+const fmt = (opts: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(locale === 'zh-hk' ? 'zh-HK' : locale, opts);
+const narrow = fmt({ month: 'narrow' });
+const long = fmt({ month: 'long' });
+const months = best.map((b, i) => {
+  const d = new Date(Date.UTC(2026, i, 1));
+  return { n: i + 1, narrow: narrow.format(d), long: long.format(d), best: b, avoid: avoid[i] };
+});
+---
+
+<figure class="season-year reveal"
+  data-season-year
+  data-best={best.join(',')}
+  data-avoid={avoid.join(',')}
+  data-months={months.map((m) => m.long).join('|')}
+  data-total={allAreas.length}
+  data-template={t.home.seasonYearNow}
+>
+  {/* Kept left to right on an RTL page too: the months read as a calendar. */}
+  <div class="sy-chart ltr-only" aria-hidden="true">
+    {months.map((m) => (
+      <div class="sy-col" data-month={m.n} style={`--b: ${(m.best / scale).toFixed(3)}; --a: ${(m.avoid / scale).toFixed(3)}; --d: ${m.n - 1}`}>
+        <span class="sy-best"><i></i></span>
+        <span class="sy-avoid"><i></i></span>
+        <span class="sy-label">{m.narrow}</span>
+      </div>
+    ))}
+  </div>
+  <figcaption class="sy-caption">{t.home.seasonCaption}</figcaption>
+  {/* Filled from the visitor's own clock, so it never goes stale between builds. */}
+  <p class="sy-now" data-season-year-now hidden></p>
+  <ul class="sr-only">
+    {months.map((m) => (
+      <li>{m.long}: {t.seasonNow.legendBest} {m.best}, {t.seasonNow.legendAvoid} {m.avoid}</li>
+    ))}
+  </ul>
+</figure>
+
+<script>
+  /* Marks the current month and states it in words. Without this script the
+     chart is still complete; only the "now" emphasis is missing. */
+  for (const fig of document.querySelectorAll<HTMLElement>('[data-season-year]')) {
+    const m = new Date().getMonth();
+    const best = (fig.dataset.best ?? '').split(',');
+    const avoid = (fig.dataset.avoid ?? '').split(',');
+    const months = (fig.dataset.months ?? '').split('|');
+    fig.querySelector(`.sy-col[data-month="${m + 1}"]`)?.classList.add('is-now');
+    const out = fig.querySelector<HTMLElement>('[data-season-year-now]');
+    if (out && months[m]) {
+      out.textContent = (fig.dataset.template ?? '')
+        .replace('{month}', months[m])
+        .replace('{n}', best[m] ?? '')
+        .replace('{total}', fig.dataset.total ?? '')
+        .replace('{a}', avoid[m] ?? '');
+      out.hidden = false;
+    }
+  }
+</script>

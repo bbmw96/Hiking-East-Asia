@@ -111,6 +111,9 @@ export const ui = {
       stat2Note: 'Every permit on this site links to the office that actually grants it.',
       stat3Label: 'trail areas',
       stat3Note: 'Each with its own season, its own fee and its own permit position.',
+      mapCaption: 'Every point is a trail area on this site, plotted at its real coordinates.',
+      seasonCaption: 'Trail areas at their best each month, above the line, and best avoided, below it.',
+      seasonYearNow: 'In {month}, {n} of {total} trail areas are at their best and {a} are best avoided.',
     },
     footer: {
       builtFor: 'Built for',
@@ -346,6 +349,9 @@ export const ui = {
       stat2Note: 'Setiap permit di laman ini memaut ke pejabat yang benar-benar mengeluarkannya.',
       stat3Label: 'kawasan laluan',
       stat3Note: 'Setiap satu dengan musimnya sendiri, bayarannya sendiri dan kedudukan permitnya sendiri.',
+      mapCaption: 'Setiap titik ialah kawasan laluan di laman ini, diplot pada koordinatnya yang sebenar.',
+      seasonCaption: 'Kawasan laluan pada musim terbaiknya setiap bulan, di atas garisan, dan yang sebaiknya dielakkan, di bawahnya.',
+      seasonYearNow: 'Pada bulan {month}, {n} daripada {total} kawasan laluan berada pada musim terbaiknya dan {a} sebaiknya dielakkan.',
     },
     footer: {
       builtFor: 'Dibina untuk',
@@ -581,6 +587,9 @@ export const ui = {
       stat2Note: '本站每一张许可证都链接到真正核发它的办事处。',
       stat3Label: '个路线地区',
       stat3Note: '每一个都有自己的季节、自己的费用与自己的许可规定。',
+      mapCaption: '每一个点都是本站收录的一个路线区域，按其真实坐标标注。',
+      seasonCaption: '线上方为每月正值最佳季节的路线区域，线下方为最好避开的路线区域。',
+      seasonYearNow: '{month}，{total} 个路线区域中有 {n} 个正值最佳季节，{a} 个最好避开。',
     },
     footer: {
       builtFor: '为以下网站打造',
@@ -816,6 +825,9 @@ export const ui = {
       stat2Note: '本站每一張許可證都連去真正核發佢嘅辦事處。',
       stat3Label: '個路線地區',
       stat3Note: '每一個都有自己嘅季節、自己嘅費用同自己嘅許可規定。',
+      mapCaption: '每一點都係本站收錄嘅一個路線區域，按佢嘅真實座標標示。',
+      seasonCaption: '線上面係每個月正值最佳季節嘅路線區域，線下面係最好避開嘅路線區域。',
+      seasonYearNow: '{month}，{total} 個路線區域之中有 {n} 個正值最佳季節，{a} 個最好避開。',
     },
     footer: {
       builtFor: '為以下網站打造',
@@ -1051,6 +1063,9 @@ export const ui = {
       stat2Note: 'இந்தத் தளத்தின் ஒவ்வொரு அனுமதிச்சீட்டும் அதை உண்மையில் வழங்கும் அலுவலகத்துடன் இணைக்கிறது.',
       stat3Label: 'பாதைப் பகுதிகள்',
       stat3Note: 'ஒவ்வொன்றுக்கும் தனிப் பருவம், தனிக் கட்டணம், தனி அனுமதி நிலை.',
+      mapCaption: 'ஒவ்வொரு புள்ளியும் இந்தத் தளத்தில் உள்ள ஒரு பாதைப் பகுதி, அதன் உண்மையான ஆயத்தொலைவுகளில் குறிக்கப்பட்டுள்ளது.',
+      seasonCaption: 'ஒவ்வொரு மாதமும் சிறந்த பருவத்தில் உள்ள பாதைப் பகுதிகள் கோட்டுக்கு மேலே, தவிர்க்க வேண்டியவை கோட்டுக்குக் கீழே.',
+      seasonYearNow: '{month} மாதத்தில், {total} பாதைப் பகுதிகளில் {n} சிறந்த பருவத்தில் உள்ளன, {a} தவிர்க்கப்பட வேண்டியவை.',
     },
     footer: {
       builtFor: 'இதற்காக உருவாக்கப்பட்டது',
@@ -1286,6 +1301,9 @@ export const ui = {
       stat2Note: 'كل تصريح على هذا الموقع يرتبط بالمكتب الذي يصدره فعليًا.',
       stat3Label: 'منطقة مسارات',
       stat3Note: 'لكل منها موسمها ورسومها وموقفها من التصاريح.',
+      mapCaption: 'كل نقطة هي منطقة مسارات على هذا الموقع، مرسومة عند إحداثياتها الحقيقية.',
+      seasonCaption: 'مناطق المسارات في أفضل مواسمها كل شهر فوق الخط، والمناطق التي يُفضَّل تجنّبها تحته.',
+      seasonYearNow: 'في {month}، تكون {n} من أصل {total} منطقة مسارات في أفضل مواسمها، ويُفضَّل تجنّب {a} منها.',
     },
     footer: {
       builtFor: 'صُمم من أجل',

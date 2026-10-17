@@ -289,6 +289,25 @@ test('every area page ships a complete twelve month season strip', opts, () => {
   }
 });
 
+/* The homepage figures are drawn from the same data as the trail pages, so
+   they must account for every one of them, in every language. */
+test('every homepage plots every trail area and a full year of seasons', opts, () => {
+  const areaCount = pages.filter((f) => /dist\/en\/[a-z-]+\/[a-z0-9-]+\/index\.html$/.test(f)).length;
+  const homes = pages.filter((f) => /dist\/[a-z-]+\/index\.html$/.test(f) && !/dist\/[a-z-]+\/[a-z-]+\//.test(f));
+  assert.equal(homes.length, 6, 'expected one homepage per locale');
+  for (const f of homes) {
+    const html = readFileSync(f, 'utf8');
+    const points = (html.match(/class="th-point"/g) ?? []).length;
+    assert.equal(points, areaCount, `${f} plots ${points} trailheads for ${areaCount} trail pages`);
+    assert.equal((html.match(/class="sy-col"/g) ?? []).length, 12, `${f} has no twelve month season chart`);
+    assert.ok((html.match(/class="ad-pill"/g) ?? []).length > 0, `${f} names no issuing authority`);
+    const template = html.match(/data-template="([^"]*)"/)?.[1] ?? '';
+    for (const token of ['{month}', '{n}', '{total}', '{a}']) {
+      assert.ok(template.includes(token), `${f} season sentence is missing ${token}`);
+    }
+  }
+});
+
 test('the season strip states are not carried by colour alone', opts, () => {
   const f = pages.find((p) => readFileSync(p, 'utf8').includes('data-season-now'))!;
   const html = readFileSync(f, 'utf8');

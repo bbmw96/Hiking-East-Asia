@@ -1,0 +1,74 @@
+---
+import { allAreas } from '../data/all-areas';
+import { getUi } from '../i18n/utils';
+import type { Locale } from '../i18n/locales';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+
+/* Every trail area on the site, plotted at its real coordinates. No coastline
+   is drawn: the points alone trace the region, from the Sumatran ridge to
+   Hokkaido, which is the claim the chapter is making. */
+const PAD = 3;
+const lats = allAreas.map((a) => a.coordinates.lat);
+const lngs = allAreas.map((a) => a.coordinates.lng);
+const latMin = Math.floor(Math.min(...lats) - PAD);
+const latMax = Math.ceil(Math.max(...lats) + PAD);
+const lngMin = Math.floor(Math.min(...lngs) - PAD);
+const lngMax = Math.ceil(Math.max(...lngs) + PAD);
+
+/* Equirectangular, with longitude scaled by cos(mid-latitude) so the region is
+   not stretched sideways. Ten units per degree keeps the numbers readable. */
+const K = Math.cos((((latMin + latMax) / 2) * Math.PI) / 180);
+const x = (lng: number) => +((lng - lngMin) * K * 10).toFixed(1);
+const y = (lat: number) => +((latMax - lat) * 10).toFixed(1);
+const width = x(lngMax);
+const height = y(latMin);
+
+/* Lit west to east, so the sweep reads as crossing the region. */
+const byLng = [...allAreas].sort((a, b) => a.coordinates.lng - b.coordinates.lng);
+const points = byLng.map((a, i) => ({ cx: x(a.coordinates.lng), cy: y(a.coordinates.lat), name: a.name[locale], i }));
+
+const latLines = [-10, 0, 10, 20, 30, 40].filter((l) => l > latMin && l < latMax);
+const lngLines = [100, 110, 120, 130, 140].filter((l) => l > lngMin && l < lngMax);
+const latText = (l: number) => (l === 0 ? '0°' : `${Math.abs(l)}°${l > 0 ? 'N' : 'S'}`);
+---
+
+<figure class="trailhead-map reveal">
+  <svg class="ltr-only" viewBox={`0 0 ${width} ${height}`} style={`aspect-ratio: ${width} / ${height}`} aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="th-halo">
+        <stop offset="0" stop-color="#7fd39a" stop-opacity="0.55" />
+        <stop offset="1" stop-color="#7fd39a" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <g class="th-grid">
+      {latLines.map((l) => (
+        <g>
+          <line x1="0" x2={width} y1={y(l)} y2={y(l)} />
+          <text x="4" y={y(l) - 5}>{latText(l)}</text>
+        </g>
+      ))}
+      {lngLines.map((l) => (
+        <g>
+          <line y1="0" y2={height} x1={x(l)} x2={x(l)} />
+          <text x={x(l) + 4} y={height - 6}>{l}°E</text>
+        </g>
+      ))}
+    </g>
+    <g class="th-points">
+      {points.map((p) => (
+        <g class="th-point" style={`--d: ${p.i}`}>
+          <title>{p.name}</title>
+          <circle class="th-halo" cx={p.cx} cy={p.cy} r="13" fill="url(#th-halo)" />
+          <circle class="th-dot" cx={p.cx} cy={p.cy} r="3.4" />
+        </g>
+      ))}
+    </g>
+  </svg>
+  <figcaption class="th-caption">{t.home.mapCaption}</figcaption>
+</figure>
