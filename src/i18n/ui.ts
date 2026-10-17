@@ -179,6 +179,7 @@ export const ui = {
       coordinates: 'Coordinates',
       standardLayer: 'Standard map',
       terrainLayer: 'Terrain relief',
+      title: 'Map',
     },
     northKorea: {
       noticeTitle: 'Not currently open to ordinary visitors',
@@ -417,6 +418,7 @@ export const ui = {
       coordinates: 'Koordinat',
       standardLayer: 'Peta standard',
       terrainLayer: 'Relief rupa bumi',
+      title: 'Peta',
     },
     northKorea: {
       noticeTitle: 'Tidak dibuka buat masa ini kepada pelawat biasa',
@@ -655,6 +657,7 @@ export const ui = {
       coordinates: '坐标',
       standardLayer: '标准地图',
       terrainLayer: '地形晕渲',
+      title: '地图',
     },
     northKorea: {
       noticeTitle: '目前未向普通游客开放',
@@ -893,6 +896,7 @@ export const ui = {
       coordinates: '坐標',
       standardLayer: '標準地圖',
       terrainLayer: '地形浮雕',
+      title: '地圖',
     },
     northKorea: {
       noticeTitle: '而家未向普通遊客開放',
@@ -1131,6 +1135,7 @@ export const ui = {
       coordinates: 'ஆயத்தொலைவுகள்',
       standardLayer: 'நிலையான வரைபடம்',
       terrainLayer: 'நில அமைப்பு நிழற்படம்',
+      title: 'வரைபடம்',
     },
     northKorea: {
       noticeTitle: 'தற்போது சாதாரண பார்வையாளர்களுக்குத் திறக்கப்படவில்லை',
@@ -1369,6 +1374,7 @@ export const ui = {
       coordinates: 'الإحداثيات',
       standardLayer: 'خريطة قياسية',
       terrainLayer: 'تضاريس الأرض',
+      title: 'الخريطة',
     },
     northKorea: {
       noticeTitle: 'غير مفتوح حاليًا أمام الزوار العاديين',
