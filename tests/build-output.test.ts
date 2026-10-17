@@ -95,23 +95,26 @@ test('no external link opens without noopener', opts, () => {
   assert.deepEqual(bad.slice(0, 5), [], `${bad.length} target=_blank link(s) without rel=noopener`);
 });
 
-test('the security headers are declared and strict', () => {
+/* GitHub Pages, the only host, cannot send response headers. These check the
+   protections that do survive inside the HTML. */
+test('every page sets a strict referrer policy', opts, () => {
+  const missing = pages.filter((f) =>
+    !readFileSync(f, 'utf8').includes('<meta name="referrer" content="strict-origin-when-cross-origin">'));
+  assert.deepEqual(missing.slice(0, 5), [], `${missing.length} page(s) have no referrer policy`);
+});
+
+test('every page refuses to render inside a frame', opts, () => {
+  // Stands in for X-Frame-Options: DENY, which only a response header can set.
+  const missing = pages.filter((f) => !/<script>if \(window\.top !== window\.self\)/.test(readFileSync(f, 'utf8')));
+  assert.deepEqual(missing.slice(0, 5), [], `${missing.length} page(s) have no frame guard`);
+});
+
+test('Vercel stays retired', () => {
+  // GitHub Pages serves the site. If vercel.json is still present it must keep
+  // the old project from building again and filling its storage.
+  if (!existsSync('vercel.json')) return;
   const v = JSON.parse(readFileSync('vercel.json', 'utf8'));
-  const headers: { key: string; value: string }[] = v.headers.flatMap((h: any) => h.headers);
-  const get = (k: string) => headers.find((h) => h.key.toLowerCase() === k)?.value;
-
-  const csp = get('content-security-policy');
-  assert.ok(csp, 'no Content-Security-Policy');
-  for (const directive of ["default-src 'self'", "object-src 'none'", "base-uri 'self'", "frame-ancestors 'none'"]) {
-    assert.ok(csp!.includes(directive), `CSP is missing ${directive}`);
-  }
-  assert.ok(!/script-src[^;]*\*/.test(csp!), 'CSP script-src contains a wildcard');
-
-  assert.match(get('strict-transport-security') ?? '', /max-age=\d{7,}/, 'HSTS max-age is too short or absent');
-  assert.equal(get('x-content-type-options'), 'nosniff');
-  assert.equal(get('x-frame-options'), 'DENY');
-  assert.ok((get('referrer-policy') ?? '').includes('strict-origin'), 'Referrer-Policy is not strict');
-  assert.ok(get('permissions-policy'), 'no Permissions-Policy');
+  assert.equal(v.git?.deploymentEnabled, false, 'vercel.json no longer disables Vercel deployments');
 });
 
 test('no inline event handler survives into the built HTML', opts, () => {
@@ -127,9 +130,8 @@ test('the freshness marker is emitted', opts, () => {
 });
 
 /* ---- Content Security Policy ------------------------------------------
-   The meta policy is what protects the GitHub Pages mirror, which cannot
-   send response headers at all. These assertions stop it regressing to the
-   permissive header policy it replaced. */
+   The meta policy is the site's only policy, since GitHub Pages cannot send
+   response headers. These assertions stop it regressing to a permissive one. */
 
 const metaCsp = (html: string): string | null =>
   html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/)?.[1] ?? null;
@@ -172,50 +174,6 @@ test('the policy locks down the dangerous fetch directives', opts, () => {
     ]) {
       assert.ok(csp.includes(directive), `${f} policy is missing ${directive}`);
     }
-  }
-});
-
-test('the response headers add the cross-origin isolation set', () => {
-  const v = JSON.parse(readFileSync('vercel.json', 'utf8'));
-  const headers: { key: string; value: string }[] = v.headers.flatMap((h: any) => h.headers);
-  const get = (k: string) => headers.find((h) => h.key.toLowerCase() === k)?.value;
-  assert.equal(get('cross-origin-resource-policy'), 'same-origin');
-  assert.equal(get('x-permitted-cross-domain-policies'), 'none');
-  assert.ok((get('cross-origin-opener-policy') ?? '').includes('same-origin'));
-  // A permissions policy that grants nothing it does not need.
-  const pp = get('permissions-policy') ?? '';
-  for (const feature of ['camera=()', 'microphone=()', 'geolocation=()', 'payment=()', 'usb=()']) {
-    assert.ok(pp.includes(feature), `Permissions-Policy does not disable ${feature}`);
-  }
-});
-
-test('the response-header CSP never falls behind the meta-tag CSP', opts, () => {
-  // These two policies are enforced together by any browser that receives
-  // both (every visitor except the header-less GitHub Pages mirror): a
-  // resource must satisfy the *intersection* of the two. A header img-src or
-  // connect-src that forgot an origin the meta tag already allows silently
-  // blocks that feature for every visitor on Vercel, with no error beyond a
-  // console CSP violation nobody watches. This caught exactly that drift
-  // once already: vercel.json had never been updated after the trips
-  // backend, live weather and the terrain map layer were added, so all
-  // three were broken in production while the meta tag (and the tests
-  // above) said the policy was fine.
-  const v = JSON.parse(readFileSync('vercel.json', 'utf8'));
-  const headers: { key: string; value: string }[] = v.headers.flatMap((h: any) => h.headers);
-  const headerCsp = headers.find((h) => h.key.toLowerCase() === 'content-security-policy')?.value ?? '';
-  const headerDirective = (name: string) => (headerCsp.split(';').find((d) => d.trim().startsWith(name)) ?? '').trim();
-
-  const html = readFileSync(pages[0], 'utf8');
-  const metaCspValue = metaCsp(html)!;
-  const metaDirective = (name: string) => (metaCspValue.split(';').find((d) => d.trim().startsWith(name)) ?? '').trim();
-
-  for (const directive of ['img-src', 'connect-src']) {
-    const metaOrigins = metaDirective(directive).split(/\s+/).filter((t) => t.startsWith('http'));
-    const headerOrigins = new Set(headerDirective(directive).split(/\s+/).filter((t) => t.startsWith('http')));
-    const missing = metaOrigins.filter((o) => !headerOrigins.has(o));
-    assert.deepEqual(missing, [],
-      `vercel.json's ${directive} is missing ${missing.join(', ')}, which the meta CSP already allows; ` +
-      'add it to vercel.json or the header CSP will block it in production');
   }
 });
 

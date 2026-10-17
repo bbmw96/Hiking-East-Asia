@@ -29,19 +29,19 @@ history and the data files, but not the site itself.
 | Proprietary licence, all rights reserved | Republishing, hosting a copy, selling, or building a derivative work. This is the enforceable one. | `LICENSE` |
 | Fork guard on the Pages workflow | A fork running the deploy pipeline under its own account, publishing a copy of the site and spending its owner's Actions minutes. | `.github/workflows/deploy-pages.yml` |
 | Photo credits are per-file | A fork inheriting any claim over photographs, which stay with their photographers under their own licences. | `LICENSE`, `src/data/photo-credits.json` |
-| Secrets live in Vercel and GitHub Actions, never in the tree | A fork inheriting anything that would let it deploy to this project. | Repository settings |
+| Secrets live in GitHub and Supabase settings, never in the tree | A fork inheriting anything that would let it deploy to this project. | Repository settings, Supabase project |
 
 ## The trade-off, stated plainly
 
 The two goals conflict:
 
-- **Public** gives free GitHub Pages, which is the second host that keeps the
-  site up when Vercel has an outage. It also makes the repository forkable.
+- **Public** gives free GitHub Pages, which is the site's only host. It also
+  makes the repository forkable.
 - **Private** removes forking, but GitHub Pages on a private repository needs a
-  paid plan, so the redundancy is lost unless the plan is upgraded.
+  paid plan.
 
 Public was chosen. The reasoning: the site's HTML is public by nature, so the
-repository adds little exposure, while the redundancy is a real benefit. The
+repository adds little exposure, while free hosting is a real benefit. The
 asset worth protecting is the *researched content*, and that is protected by
 copyright and the licence, which apply to a fork exactly as they apply to
 anyone else.

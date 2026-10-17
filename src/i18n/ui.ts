@@ -120,6 +120,11 @@ export const ui = {
       copyright: 'All rights reserved.',
       createdBy: 'Created by',
     },
+    notFound: {
+      title: 'Page not found',
+      body: 'That page does not exist, or it has moved.',
+      home: 'Go to the home page',
+    },
     regions: {
       title: 'By region',
       intro: 'Every area on this page, grouped by the state, province or district it sits in. An area that spans more than one appears under each.',
@@ -349,6 +354,11 @@ export const ui = {
       languages: 'Tersedia dalam',
       copyright: 'Hak cipta terpelihara.',
       createdBy: 'Dicipta oleh',
+    },
+    notFound: {
+      title: 'Halaman tidak dijumpai',
+      body: 'Halaman itu tidak wujud, atau telah dipindahkan.',
+      home: 'Pergi ke laman utama',
     },
     regions: {
       title: 'Mengikut wilayah',
@@ -580,6 +590,11 @@ export const ui = {
       copyright: '版权所有。',
       createdBy: '出品方',
     },
+    notFound: {
+      title: '找不到页面',
+      body: '该页面不存在，或已被移走。',
+      home: '前往首页',
+    },
     regions: {
       title: '按地区划分',
       intro: '本页所有地区，按其所属的州、省或县分组。横跨多个行政区的地区会在每一个之下出现。',
@@ -809,6 +824,11 @@ export const ui = {
       languages: '提供語言',
       copyright: '版權所有。',
       createdBy: '出品方',
+    },
+    notFound: {
+      title: '搵唔到呢個頁面',
+      body: '呢個頁面唔存在，或者已經搬咗。',
+      home: '返去主頁',
     },
     regions: {
       title: '按地區劃分',
@@ -1040,6 +1060,11 @@ export const ui = {
       copyright: 'அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
       createdBy: 'உருவாக்கியவர்',
     },
+    notFound: {
+      title: 'பக்கம் கிடைக்கவில்லை',
+      body: 'அந்தப் பக்கம் இல்லை, அல்லது வேறு இடத்திற்கு நகர்த்தப்பட்டுள்ளது.',
+      home: 'முகப்புப் பக்கத்திற்குச் செல்லுங்கள்',
+    },
     regions: {
       title: 'மண்டலம் வாரியாக',
       intro: 'இந்தப் பக்கத்தில் உள்ள ஒவ்வொரு பகுதியும், அது அமைந்துள்ள மாநிலம், மாகாணம் அல்லது மாவட்டத்தின்படி தொகுக்கப்பட்டுள்ளது. ஒன்றுக்கு மேற்பட்டவற்றில் பரவியுள்ள பகுதி ஒவ்வொன்றின் கீழும் தோன்றும்.',
@@ -1269,6 +1294,11 @@ export const ui = {
       languages: 'متوفر باللغات',
       copyright: 'جميع الحقوق محفوظة.',
       createdBy: 'بواسطة',
+    },
+    notFound: {
+      title: 'الصفحة غير موجودة',
+      body: 'هذه الصفحة غير موجودة، أو نُقلت إلى مكان آخر.',
+      home: 'الانتقال إلى الصفحة الرئيسية',
     },
     regions: {
       title: 'حسب المنطقة',

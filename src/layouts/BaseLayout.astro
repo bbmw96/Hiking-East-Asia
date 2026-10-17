@@ -40,6 +40,12 @@ const fontHref = `https://fonts.googleapis.com/css2?${fontFamilies
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    {/* GitHub Pages cannot send X-Frame-Options, and frame-ancestors is
+        ignored in a meta CSP, so a page that finds itself framed hides itself
+        before anything renders. The top-window redirect is best effort:
+        browsers block it from a cross-origin frame without a click. */}
+    <script is:inline>if (window.top !== window.self) { document.documentElement.style.display = 'none'; try { window.top.location.replace(window.self.location.href); } catch (e) {} }</script>
     <title>{title} · {SITE_NAME}</title>
     <meta name="description" content={description} />
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
