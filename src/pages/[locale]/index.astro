@@ -34,6 +34,7 @@ const chapters: Chapter[] = [
     statValue: String(countries.length),
     statLabel: t.home.stat1Label,
     statNote: t.home.stat1Note,
+    visual: 'trailheads',
   },
   {
     label: t.home.ch2,
@@ -43,6 +44,7 @@ const chapters: Chapter[] = [
     statValue: String(getOfficialChannels().length),
     statLabel: t.home.stat2Label,
     statNote: t.home.stat2Note,
+    visual: 'authorities',
   },
   {
     label: t.home.ch3,
@@ -52,6 +54,7 @@ const chapters: Chapter[] = [
     statValue: String(allAreas.length),
     statLabel: t.home.stat3Label,
     statNote: t.home.stat3Note,
+    visual: 'seasons',
     ctaLabel: t.home.safetyCtaButton,
     ctaHref: url(`/${locale}/safety/`),
   },
@@ -68,7 +71,7 @@ const chapters: Chapter[] = [
     altitudeLabel={t.home.altitude}
   />
 
-  <AscentChapters chapters={chapters} altitudeLabel={t.home.altitude} />
+  <AscentChapters locale={locale} chapters={chapters} altitudeLabel={t.home.altitude} />
 
   {/* One countries section, not two. The first cell leads; the rest follow at
       a smaller weight, so the grid has a hierarchy instead of twelve equals. */}

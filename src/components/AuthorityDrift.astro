@@ -1,0 +1,38 @@
+---
+import { getOfficialChannels } from '../data/channels';
+import { getUi, url } from '../i18n/utils';
+import type { Locale } from '../i18n/locales';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale);
+
+/* The real offices behind every permit on the site, shortened to the name a
+   reader would recognise: the parenthetical and any second body after a slash
+   are dropped here, and kept in full on the Safety page this links to. */
+const short = (name: string) => name.split(' / ')[0].replace(/\s*\([^)]*\)/g, '').trim();
+const names = [...new Set(getOfficialChannels().map((c) => short(c.authorityName)))];
+const ROWS = 3;
+const rows = Array.from({ length: ROWS }, (_, r) => names.filter((_, i) => i % ROWS === r));
+---
+
+<div class="authority-drift reveal">
+  {/* Moves only with the reader's scroll, never on its own, so there is
+      nothing to pause: stop scrolling and it stops. The full, linked list is
+      one click away, so this band is decoration and hidden from screen readers. */}
+  <div class="ad-rows ltr-only" aria-hidden="true">
+    {rows.map((row, r) => (
+      <div class="ad-row" style={`--dir: ${r % 2 === 0 ? -1 : 1}`}>
+        <div class="ad-track">
+          {row.map((n) => <span class="ad-pill">{n}</span>)}
+        </div>
+      </div>
+    ))}
+  </div>
+  <a class="ad-link" href={url(`/${locale}/safety/#official-channels`)}>
+    {t.channels.title}<span class="ad-arrow" aria-hidden="true">→</span>
+  </a>
+</div>

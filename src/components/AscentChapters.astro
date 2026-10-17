@@ -1,4 +1,9 @@
 ---
+import TrailheadMap from './TrailheadMap.astro';
+import AuthorityDrift from './AuthorityDrift.astro';
+import SeasonYear from './SeasonYear.astro';
+import type { Locale } from '../i18n/locales';
+
 export interface Chapter {
   label: string;
   altitude: number;
@@ -9,14 +14,17 @@ export interface Chapter {
   statNote: string;
   ctaLabel?: string;
   ctaHref?: string;
+  /** A figure drawn from the site's own data, under the headline number. */
+  visual?: 'trailheads' | 'authorities' | 'seasons';
 }
 
 interface Props {
+  locale: Locale;
   chapters: Chapter[];
   altitudeLabel: string;
 }
 
-const { chapters, altitudeLabel } = Astro.props;
+const { locale, chapters, altitudeLabel } = Astro.props;
 
 /* The rail is the same scale in every chapter, so the lit tick moving down the
    stack is what tells you how far up you have climbed. */
@@ -72,6 +80,9 @@ const ticks = chapters.map((c) => c.altitude);
           <span class="figure-label">{c.statLabel}</span>
           <span class="figure-rule"></span>
           <p class="figure-note">{c.statNote}</p>
+          {c.visual === 'trailheads' && <TrailheadMap locale={locale} />}
+          {c.visual === 'authorities' && <AuthorityDrift locale={locale} />}
+          {c.visual === 'seasons' && <SeasonYear locale={locale} />}
         </aside>
       </div>
     </section>
@@ -91,7 +102,7 @@ const ticks = chapters.map((c) => c.altitude);
      still on an empty field of colour. */
   const chapters = Array.from(document.querySelectorAll<HTMLElement>('.chapter'));
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const wide = window.matchMedia('(min-width: 768px)');
+  const wide = window.matchMedia('(min-width: 1024px)');
 
   if (chapters.length && !reduce) {
     const ease = (edge0: number, edge1: number, x: number) => {
@@ -127,9 +138,13 @@ const ticks = chapters.map((c) => c.altitude);
         const vis = Math.min(entering, 1 - ease(0.62, 0.96, covered));
         ch.style.setProperty('--vis', vis.toFixed(3));
         ch.style.setProperty('--shift', `${(lift + rise).toFixed(1)}px`);
-        /* Progress drives the ridge and the rail, so every frame of scroll
-           changes something even while the copy is settled and readable. */
-        ch.style.setProperty('--p', (covered || 1 - Math.min(Math.max(r.top / vh, 0), 1)).toFixed(3));
+        /* Progress drives the ridge, the figure and the authority band, so
+           every frame of scroll changes something even while the copy is
+           settled. It runs 0 to 0.5 while the chapter rises and 0.5 to 1
+           while the next one covers it: one continuous value, where the
+           previous form fell from 1 back to 0 as the next chapter arrived. */
+        const rose = 1 - Math.min(Math.max(r.top / vh, 0), 1);
+        ch.style.setProperty('--p', ((rose + covered) / 2).toFixed(3));
       }
     };
 
