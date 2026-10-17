@@ -1,5 +1,5 @@
 ---
-import TerrainArt from './TerrainArt.astro';
+import AreaPhoto from './AreaPhoto.astro';
 import { getUi, url } from '../i18n/utils';
 import type { Area } from '../data/types';
 import type { Locale } from '../i18n/locales';
@@ -15,7 +15,7 @@ const difficultyLabel = t.common[area.difficulty];
 ---
 
 <a href={url(`/${locale}/${area.country}/${area.slug}/`)} class="reveal group block overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-  <TerrainArt gradient={area.heroGradient} class="h-44 w-full" label={t.common.photoCredit} />
+  <AreaPhoto photoKey={`areas/${area.country}/${area.slug}`} alt={area.heroAlt[locale]} gradient={area.heroGradient} class="h-44 w-full" label={t.common.photoCredit} inLink />
   <div class="p-5">
     <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-canopy-700">
       <span>{area.region}</span>

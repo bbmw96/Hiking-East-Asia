@@ -1,6 +1,7 @@
 ---
 import TerrainArt from './TerrainArt.astro';
 import credits from '../data/photo-credits.json';
+import { url } from '../i18n/utils';
 
 interface Props {
   /** 'areas/<country>/<slug>' or 'countries/<country>' */
@@ -12,14 +13,22 @@ interface Props {
   class?: string;
   position?: 'relative' | 'absolute';
   eager?: boolean;
+  /** Passed to the generated art only; a real photograph shows its credit instead. */
+  label?: string;
+  animated?: boolean;
+  icon?: boolean;
+  /** Set when the photo sits inside a link (a card): the credit is printed as
+      text, because a link inside a link is invalid and breaks the card apart.
+      The linked credit is on the page the card leads to. */
+  inLink?: boolean;
 }
 
 type Credit = { title: string; author: string; licence: string; sourceUrl: string; ext?: string };
 
-const { photoKey, alt, gradient, class: klass = '', position = 'relative', eager = false } = Astro.props;
+const { photoKey, alt, gradient, class: klass = '', position = 'relative', eager = false, label, animated, icon, inLink = false } = Astro.props;
 const table = credits as unknown as Record<string, Credit>;
 const credit = photoKey.startsWith('_') ? undefined : table[photoKey];
-const src = credit ? `/photos/${photoKey}.${credit.ext ?? 'jpg'}` : null;
+const src = credit ? url(`/photos/${photoKey}.${credit.ext ?? 'jpg'}`) : null;
 ---
 
 {src && credit ? (
@@ -34,13 +43,13 @@ const src = credit ? `/photos/${photoKey}.${credit.ext ?? 'jpg'}` : null;
     {/* Attribution is rendered from the same record that switches the photo on,
         so a photograph can never appear on the site uncredited. */}
     <figcaption class="area-photo-credit">
-      <a href={credit.sourceUrl} target="_blank" rel="noopener noreferrer">{credit.title}</a>
+      {inLink ? <span>{credit.title}</span> : <a href={credit.sourceUrl} target="_blank" rel="noopener noreferrer">{credit.title}</a>}
       <span> · {credit.author} · {credit.licence}</span>
     </figcaption>
     <slot />
   </figure>
 ) : (
-  <TerrainArt gradient={gradient} class={klass} position={position}>
+  <TerrainArt gradient={gradient} class={klass} position={position} label={label} animated={animated} icon={icon}>
     <slot />
   </TerrainArt>
 )}

@@ -50,7 +50,9 @@ const toc = [
 ---
 
 <BaseLayout locale={locale} title={t.safety.title} description={t.safety.intro}>
-  <section class="relative overflow-hidden">
+  {/* No overflow-hidden here: the contents menu opens below the hero edge,
+      and clipping cut it off after its second entry. The art clips itself. */}
+  <section class="relative">
     <TerrainArt gradient="from-ink-950 via-red-950 to-amber-800" class="inset-0 h-full w-full" position="absolute">
       <div class="absolute inset-0 bg-black/45"></div>
     </TerrainArt>
