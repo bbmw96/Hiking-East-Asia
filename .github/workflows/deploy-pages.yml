@@ -1,9 +1,7 @@
 name: Deploy to GitHub Pages
 
-# The repository is public, so Pages is available on the free plan and this
-# publishes on every push to main. GitHub Pages is the second host: Vercel
-# serves hiking.bbmw0.com, and this serves the same build from GitHub, so an
-# outage at either one leaves the site reachable at the other.
+# GitHub Pages is the site's only host: this publishes hiking.bbmw0.com on
+# every push to main. The repository is public, so Pages is free.
 on:
   push:
     branches: [main]
@@ -38,10 +36,11 @@ jobs:
 
       - run: npm ci
 
-      # enablement:true creates the Pages site on first run, so this needs no
-      # manual setup in repository settings. base_path is the subdirectory the
-      # site is served from (e.g. /Hiking-East-Asia), which Astro needs at build
-      # time so every internal link resolves.
+      # enablement:true creates the Pages site on first run. base_path is
+      # empty once a custom domain is set in Settings -> Pages (the site is
+      # then served from the domain root) and /Hiking-East-Asia before that;
+      # Astro needs it at build time so every internal link resolves. Changing
+      # the custom domain therefore needs one fresh run of this workflow.
       - name: Configure Pages
         id: pages
         uses: actions/configure-pages@v6
@@ -53,20 +52,8 @@ jobs:
         env:
           SITE_BASE: ${{ steps.pages.outputs.base_path }}
 
-      # A project Pages site with a custom domain serves at the ROOT of that
-      # domain rather than at /<repo>/, so the mirror ends up with exactly the
-      # same paths as the primary. That removes the need for any path
-      # rewriting between the two hosts.
-      #
-      # Opt-in on purpose. Writing a CNAME before the DNS record exists makes
-      # GitHub fail its domain check and takes the mirror offline, so this
-      # only fires once the repository variable is set. Set it at
-      # Settings -> Secrets and variables -> Actions -> Variables:
-      #   PAGES_CUSTOM_DOMAIN = mirror.bbmw0.com
-      - name: Claim the custom domain, if one is configured
-        if: vars.PAGES_CUSTOM_DOMAIN != ''
-        run: echo "${{ vars.PAGES_CUSTOM_DOMAIN }}" > dist/CNAME
-
+      # No CNAME file: a site published by an Actions workflow ignores one.
+      # The custom domain is the value in Settings -> Pages.
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist

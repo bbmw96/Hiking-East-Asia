@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TerrainArt from '../components/TerrainArt.astro';
+import { getUi, url } from '../i18n/utils';
+import { locales, localeMeta, defaultLocale } from '../i18n/locales';
+
+/* GitHub Pages serves this file for any path that does not exist, at any
+   depth, and cannot tell which language the visitor wanted. So it answers in
+   all six, each line linking to that language's home page. */
+const t = getUi(defaultLocale);
+---
+
+<BaseLayout locale={defaultLocale} title={t.notFound.title} description={t.notFound.body}>
+  <section class="relative flex min-h-[70vh] items-center overflow-hidden">
+    <TerrainArt gradient="from-slate-900 via-emerald-900 to-emerald-700" class="inset-0 h-full w-full" position="absolute">
+      <div class="absolute inset-0 bg-black/45"></div>
+    </TerrainArt>
+    <div class="relative z-10 mx-auto w-full max-w-3xl px-5 py-24 text-white">
+      <p class="font-display text-7xl font-semibold text-white/30 tabular-nums" aria-hidden="true">404</p>
+      <h1 class="mt-2 font-display text-4xl font-semibold sm:text-5xl">{t.notFound.title}</h1>
+      <ul class="mt-10 space-y-4">
+        {locales.map((l) => {
+          const lt = getUi(l);
+          return (
+            <li lang={localeMeta[l].htmlLang} dir={localeMeta[l].dir} class="border-t border-white/15 pt-4">
+              <p class="text-white/80">{lt.notFound.body}</p>
+              <a href={url(`/${l}/`)} class="mt-1 inline-flex font-semibold text-canopy-300 underline-offset-4 hover:underline">
+                {lt.notFound.home} · {localeMeta[l].nativeLabel}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

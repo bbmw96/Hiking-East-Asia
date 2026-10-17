@@ -26,23 +26,18 @@ function buildVersionMarker() {
  * Injects a Content-Security-Policy meta tag into every built page, with a
  * SHA-256 hash for each inline script on that page.
  *
- * Two reasons this is a meta tag rather than only a response header:
+ * Two reasons this is a meta tag rather than a response header:
  *
- *  1. GitHub Pages cannot send custom response headers at all. The header
- *     policy in vercel.json therefore protects the Vercel copy and leaves the
- *     Pages mirror with no policy whatsoever. A meta tag travels inside the
- *     HTML, so the same protection applies on any host the build is served
- *     from, including a local preview.
+ *  1. GitHub Pages, the site's host, cannot send custom response headers at
+ *     all. A meta tag travels inside the HTML, so the policy applies on any
+ *     host the build is served from, including a local preview.
  *  2. Hashing lets script-src drop 'unsafe-inline'. Astro emits its client
- *     scripts inline, so a header written by hand has to allow all inline
+ *     scripts inline, so a policy written by hand has to allow all inline
  *     script or break the site. Hashes are computed here from the exact bytes
  *     that shipped, so only those scripts can run and an injected one cannot.
  *
- * Where a header policy is also present both are enforced and the stricter
- * wins, so this tightens Vercel as well rather than replacing anything.
- *
- * frame-ancestors and HSTS are deliberately absent: neither is honoured in a
- * meta tag, and both are already set as real headers in vercel.json.
+ * frame-ancestors is deliberately absent because a meta tag cannot carry it;
+ * BaseLayout's frame guard covers framing instead.
  */
 function cspMetaTags() {
   const sha256 = (body) => `'sha256-${createHash('sha256').update(body, 'utf8').digest('base64')}'`;
@@ -119,8 +114,8 @@ function cspMetaTags() {
 
 export default defineConfig({
   site: 'https://hiking.bbmw0.com',
-  // '/' for a domain root (Vercel, hiking.bbmw0.com). Set SITE_BASE to a subpath
-  // (e.g. /Hiking-East-Asia) to build for a project-subdirectory host instead.
+  // '/' for a domain root (hiking.bbmw0.com on GitHub Pages). The Pages
+  // workflow sets SITE_BASE to /Hiking-East-Asia while no custom domain is set.
   base: process.env.SITE_BASE || '/',
   integrations: [buildVersionMarker(), cspMetaTags()],
   vite: {

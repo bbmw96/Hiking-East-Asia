@@ -2,7 +2,7 @@
 
 A multilingual hiking guide for Malaysia, Singapore and the wider Southeast and East Asian region, built for `hiking.bbmw0.com`. Every trail page links to the real government or park authority that issues its permit, states current best/avoid months, and covers safety, access and what to bring.
 
-All twelve countries in the nav are now live and built out to the same depth: Malaysia, Singapore, Thailand, Indonesia, Vietnam, the Philippines, Brunei, Japan, South Korea, Taiwan, Hong Kong and mainland China. Each has three to six researched trail areas with real permit/authority links, fees, best/avoid months, safety notes and what to bring, translated across all six locales. A small number of areas were deliberately substituted for a country's single most famous trail because research found it currently closed or inaccessible to independent trekkers rather than because it was overlooked: Taal Volcano (Philippines, active eruption risk), the classic Taroko Gorge trails (Taiwan, post-2024-earthquake closures not expected to fully reopen until 2031) and the Tiger Leaping Gorge High Trail (mainland China, closed to independent trekkers under a recurring rockfall/landslide pattern as of mid-2026) are all noted in the relevant country's git history rather than featured as flagship recommendations.
+All thirteen countries are live: Malaysia, Singapore, Thailand, Indonesia, Vietnam, the Philippines, Brunei, Japan, South Korea, Taiwan, Hong Kong, mainland China and North Korea. Each has researched trail areas with real permit/authority links, fees, best/avoid months, safety notes and what to bring, translated across all six locales. A small number of areas were deliberately substituted for a country's single most famous trail because research found it currently closed or inaccessible to independent trekkers rather than because it was overlooked: Taal Volcano (Philippines, active eruption risk), the classic Taroko Gorge trails (Taiwan, post-2024-earthquake closures not expected to fully reopen until 2031) and the Tiger Leaping Gorge High Trail (mainland China, closed to independent trekkers under a recurring rockfall/landslide pattern as of mid-2026) are all noted in the relevant country's git history rather than featured as flagship recommendations.
 
 ## Languages
 
@@ -67,13 +67,13 @@ npm run build     # astro check + static build to dist/
 npm run preview
 ```
 
-`dist/` is a static site: deploy it to whatever host serves the rest of bbmw0.com (Netlify, Vercel, Cloudflare Pages, S3+CDN, etc.) under the `hiking` subdomain.
+`dist/` is a static site. GitHub Pages builds and serves it from `main`; see Hosting below.
 
 ## Licence and reuse
 
 Proprietary, all rights reserved. See [`LICENSE`](LICENSE). The repository is
-public so the site can be served from GitHub Pages as a second host alongside
-Vercel, not so the work can be reused. Photographs under `public/photos/` are
+public so the site can be served from GitHub Pages, not so the work can be
+reused. Photographs under `public/photos/` are
 each used under their own licence, recorded in `src/data/photo-credits.json`.
 
 Forking cannot be disabled on a public GitHub repository, and no file in a
@@ -82,13 +82,7 @@ chosen anyway, is set out in [`docs/REPOSITORY-POLICY.md`](docs/REPOSITORY-POLIC
 
 ## Hosting
 
-Two hosts serve the same build:
-
-- **Vercel** serves `hiking.bbmw0.com` from `main` on every push.
-- **GitHub Pages** serves the mirror at `https://bbmw96.github.io/Hiking-East-Asia/`,
-  published by `.github/workflows/deploy-pages.yml`.
-
-One hostname resolves to one target, so the two cannot both answer
-`hiking.bbmw0.com`, and failover between them is manual today. An edge worker
-that makes it automatic is in `infra/failover-worker/`, with the DNS
-trade-off it requires written out in [`docs/HOSTING.md`](docs/HOSTING.md).
+GitHub Pages is the only host. `.github/workflows/deploy-pages.yml` publishes
+`hiking.bbmw0.com` on every push to `main`. The domain and DNS settings, the
+retired Vercel project, and what a host without response headers means for
+security are written out in [`docs/HOSTING.md`](docs/HOSTING.md).
