@@ -95,6 +95,21 @@ test('no external link opens without noopener', opts, () => {
   assert.deepEqual(bad.slice(0, 5), [], `${bad.length} target=_blank link(s) without rel=noopener`);
 });
 
+/* A link inside a link is invalid HTML: the browser closes the outer one early
+   and the card it wraps falls apart. Cards are links, and a photo credit is a
+   link, so this is the case to guard. */
+test('no link is nested inside another link', opts, () => {
+  const bad: string[] = [];
+  for (const file of pages) {
+    let depth = 0;
+    for (const m of readFileSync(file, 'utf8').matchAll(/<a\b|<\/a>/g)) {
+      depth += m[0] === '</a>' ? -1 : 1;
+      if (depth > 1) { bad.push(file); break; }
+    }
+  }
+  assert.deepEqual(bad.slice(0, 5), [], `${bad.length} page(s) nest a link inside a link`);
+});
+
 /* GitHub Pages, the only host, cannot send response headers. These check the
    protections that do survive inside the HTML. */
 test('every page sets a strict referrer policy', opts, () => {
@@ -295,4 +310,47 @@ test('the season strip states are not carried by colour alone', opts, () => {
   // Each cell carries a symbol and a screen-reader label as well as a state.
   assert.ok((html.match(/season-cell-mark/g) ?? []).length === 12, 'cells lack a non-colour marker');
   assert.ok((html.match(/class="sr-only">[^<]+:/g) ?? []).length >= 12, 'cells lack a spoken label');
+});
+
+/* ---- On-page contents ---------------------------------------------------- */
+
+test('every trail, country and safety page has a contents menu that only points at real sections', opts, () => {
+  const targets = pages.filter((f) =>
+    /dist\/en\/[a-z-]+\/([a-z0-9-]+\/)?index\.html$/.test(f) && !/dist\/en\/trips\//.test(f));
+  // 98 trail areas, 13 countries and the safety page.
+  assert.ok(targets.length >= 110, `expected 110+ pages with contents, found ${targets.length}`);
+  for (const f of targets) {
+    const html = readFileSync(f, 'utf8');
+    const list = html.match(/<ul class="page-toc-list">([\s\S]*?)<\/ul>/)?.[1];
+    assert.ok(list, `${f} has no on-page contents menu`);
+    const entries = [...list!.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]);
+    assert.ok(entries.length >= 3, `${f} contents menu lists only ${entries.length} section(s)`);
+    for (const id of entries) {
+      assert.ok(html.includes(`id="${id}"`), `${f} contents entry #${id} points at no section`);
+    }
+  }
+});
+
+/* ---- Photographs --------------------------------------------------------- */
+
+test('every photo credit has its file, and every photo file has a credit', () => {
+  // AreaPhoto shows a photograph only when both exist. A credit without its
+  // file is a broken image; a file without its credit is never shown.
+  const credits = JSON.parse(readFileSync('src/data/photo-credits.json', 'utf8'));
+  const keys = Object.keys(credits).filter((k) => !k.startsWith('_'));
+  for (const k of keys) {
+    const c = credits[k];
+    assert.match(k, /^(areas\/[a-z-]+\/[a-z0-9-]+|countries\/[a-z-]+)$/, `photo key "${k}" is not areas/<country>/<slug> or countries/<country>`);
+    for (const field of ['title', 'author', 'licence', 'sourceUrl']) {
+      assert.ok(c[field], `photo credit ${k} has no ${field}`);
+    }
+    assert.match(c.sourceUrl, /^https:\/\//, `photo credit ${k} source is not an https link`);
+    const file = join('public', 'photos', `${k}.${c.ext ?? 'jpg'}`);
+    assert.ok(existsSync(file), `photo credit ${k} has no file at ${file}`);
+  }
+  if (!existsSync(join('public', 'photos'))) return;
+  const orphans = walk(join('public', 'photos'))
+    .map((f) => f.slice(join('public', 'photos').length + 1).replace(/\.[a-z0-9]+$/i, ''))
+    .filter((k) => !keys.includes(k));
+  assert.deepEqual(orphans, [], `photo file(s) with no credit, which the site will never show: ${orphans.join(', ')}`);
 });

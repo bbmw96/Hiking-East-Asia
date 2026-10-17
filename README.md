@@ -6,7 +6,7 @@ All thirteen countries are live: Malaysia, Singapore, Thailand, Indonesia, Vietn
 
 ## Languages
 
-English (UK), Bahasa Melayu, Mandarin (simplified), Cantonese (traditional, Hong Kong usage), Tamil and Arabic (right-to-left), routed as `/en/`, `/ms/`, `/zh-cn/`, `/zh-hk/`, `/ta/`, `/ar/`. All UI chrome and the Malaysia/Singapore content is translated in full. These are AI translations; before public launch, have a native speaker of each language proofread `src/i18n/ui.ts`, `src/data/malaysia.ts` and `src/data/singapore.ts`, particularly the Cantonese (colloquial register) and Arabic (formal MSA) copy.
+English (UK), Bahasa Melayu, Mandarin (simplified), Cantonese (traditional, Hong Kong usage), Tamil and Arabic (right-to-left), routed as `/en/`, `/ms/`, `/zh-cn/`, `/zh-hk/`, `/ta/`, `/ar/`. All UI chrome and every country's trail content is translated in full. These are AI translations; before public launch, have a native speaker of each language proofread `src/i18n/ui.ts` and the country files under `src/data/`, particularly the Cantonese (colloquial register) and Arabic (formal MSA) copy.
 
 ## Stack
 
@@ -23,21 +23,29 @@ src/
   components/       Header, Footer, cards, permit/season boxes, TerrainArt (illustrative art, see below)
   layouts/          BaseLayout (fonts, <html lang/dir>, reveal-on-scroll script)
   pages/[locale]/   every route, generated per language via getStaticPaths
+    [country]/       one template for every country page and one for every trail page
 ```
 
 ## Adding a new trail or area
 
-Add an entry to `malaysiaAreas` / `singaporeAreas` (or a new country file) following the `Area` type in `src/data/types.ts`. Every field that varies by language is a `LocalizedString`/`LocalizedList` object keyed by locale; fill in all six. The page at `[locale]/<country>/[slug].astro` picks it up automatically.
+Add an entry to that country's file under `src/data/` following the `Area` type in `src/data/types.ts`. Every field that varies by language is a `LocalizedString`/`LocalizedList` object keyed by locale; fill in all six. The trail page, its country-page card, the map pin and the contents menu all come from `src/pages/[locale]/[country]/[slug].astro`, so there is no page to write.
 
 ## Adding a new country
 
-1. Add a `CountryMeta` entry to `src/data/countries.ts` with `status: 'coming-soon'`.
-2. It appears automatically in the nav's "more countries" grid and gets a stub page at `/<locale>/<slug>/`.
-3. When you have real trail data, create `src/data/<country>.ts`, and copy `src/pages/[locale]/malaysia/` (both `index.astro` and `[slug].astro`) into a same-named folder, swapping the import. Flip the country's `status` to `'live'` in `countries.ts`.
+1. Add the slug to `CountrySlug` in `src/data/types.ts`, then a `CountryMeta` entry to `src/data/countries.ts` with `status: 'coming-soon'`.
+2. It appears automatically in the Countries menu and gets a placeholder page at `/<locale>/<slug>/`.
+3. When you have real trail data, create `src/data/<country>.ts`, add it to `src/data/all-areas.ts`, and flip the country's `status` to `'live'`. The country page and every trail page are generated from the shared templates in `src/pages/[locale]/[country]/`; nothing needs copying.
 
 ## Images
 
-No photographs are embedded. Real photo sourcing (Wikimedia Commons, park authority sites, stock libraries) was not reachable from the environment this site was built in, and this account's AI image-generation connectors (Higgsfield, Artlist, Krea) were out of credits at build time. Every hero and card instead uses `TerrainArt.astro`, a generated gradient + contour-line illustration, clearly labelled "illustrative image, not a photograph" in every language. Swap these for real photography (ideally the hiking club's own trip photos, or correctly licensed/attributed shots of each named location) before treating the site as launch-ready; do not replace them with AI-generated images of the named real locations without disclosing that they're illustrative, since an inaccurate AI render of a specific summit or trail is actively misleading on a safety-relevant hiking site.
+Every hero and card is a photo slot. Until a photograph is added, it shows `TerrainArt.astro`, a generated gradient and contour-line illustration labelled "illustrative image, not a photograph" in every language. No photographs ship yet: Wikimedia Commons, park authority sites and stock libraries were not reachable from the environment this site was built in.
+
+To add one:
+
+1. Save the file as `public/photos/<key>.jpg`, where the key is `areas/<country>/<area-slug>` for a trail (e.g. `areas/malaysia/mount-kinabalu`) or `countries/<country>` for a country.
+2. Add the same key to `src/data/photo-credits.json` with `title`, `author`, `licence` (the exact short name from the source page, e.g. `CC BY-SA 4.0`), `sourceUrl`, and `ext` if the file is not a `.jpg`.
+
+The photo then replaces the illustration on that trail's page and card, or on that country's page and homepage card, with its credit printed underneath. A photo with no credit entry is never shown, and the test suite fails the build if a credit has no file or a file has no credit. Use the hiking club's own trip photos, or correctly licensed shots of the named location. Don't use AI-generated images of named real places unless they are labelled as illustrative: an inaccurate render of a specific summit or trail misleads readers on a safety-relevant site.
 
 ## Trust & safety programme
 
