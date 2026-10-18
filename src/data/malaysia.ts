@@ -3,6 +3,7 @@ import { malaysiaClubAreas } from './malaysia-club.ts';
 import { malaysiaDeepdiveAreas } from './malaysia-deepdive.ts';
 import { malaysiaKlClusterAreas } from './malaysia-kl-cluster.ts';
 import { malaysiaKlCluster2Areas } from './malaysia-kl-cluster-2.ts';
+import { malaysiaKlCluster3Areas } from './malaysia-kl-cluster-3.ts';
 
 export const malaysiaAreas: Area[] = [
   {
@@ -673,4 +674,5 @@ export const malaysiaAreas: Area[] = [
   ...malaysiaDeepdiveAreas,
   ...malaysiaKlClusterAreas,
   ...malaysiaKlCluster2Areas,
+  ...malaysiaKlCluster3Areas,
 ];
