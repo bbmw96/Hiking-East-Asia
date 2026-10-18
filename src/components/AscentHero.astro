@@ -52,10 +52,13 @@ const words = title.split(' ').filter(Boolean);
       ))}
     </h1>
     <p class="ascent-sub">{subtitle}</p>
-    <a href={ctaHref} data-magnetic class="ascent-cta">
-      {ctaLabel}
-      <span aria-hidden="true" class="drift-slow">→</span>
-    </a>
+    <div class="ascent-actions">
+      <a href={ctaHref} data-magnetic class="ascent-cta">
+        {ctaLabel}
+        <span aria-hidden="true" class="drift-slow">→</span>
+      </a>
+      <slot />
+    </div>
   </div>
 
   <!-- Real figure in the markup, so a script failure leaves a true number. -->
