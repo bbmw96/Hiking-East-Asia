@@ -4,6 +4,7 @@ import AscentHero from '../../components/AscentHero.astro';
 import AscentChapters from '../../components/AscentChapters.astro';
 import type { Chapter } from '../../components/AscentChapters.astro';
 import CountryCard from '../../components/CountryCard.astro';
+import OnThisPage from '../../components/OnThisPage.astro';
 import { getUi, url } from '../../i18n/utils';
 import { locales, type Locale } from '../../i18n/locales';
 import { getLiveCountries } from '../../data/countries';
@@ -59,6 +60,11 @@ const chapters: Chapter[] = [
     ctaHref: url(`/${locale}/safety/`),
   },
 ];
+
+const toc = [
+  ...chapters.map((c, i) => ({ id: `chapter-${i + 1}`, label: c.title })),
+  { id: 'regions', label: t.home.regionsTitle },
+];
 ---
 
 <BaseLayout locale={locale} title={t.home.heroTitle} description={t.home.heroSubtitle}>
@@ -69,7 +75,9 @@ const chapters: Chapter[] = [
     ctaLabel={t.home.heroCta}
     ctaHref={url(`/${locale}/malaysia/`)}
     altitudeLabel={t.home.altitude}
-  />
+  >
+    <span class="ascent-toc"><OnThisPage locale={locale} items={toc} up reveal={false} /></span>
+  </AscentHero>
 
   <AscentChapters locale={locale} chapters={chapters} altitudeLabel={t.home.altitude} />
 

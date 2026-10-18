@@ -10,13 +10,18 @@ interface Item {
 interface Props {
   locale: Locale;
   items: Item[];
+  /** Open the panel upwards, for a menu near the bottom of a clipped hero. */
+  up?: boolean;
+  /** Fade in on scroll. Off where the menu sits in the bottom band of the
+      first screen, which the scroll reveal never reaches without a scroll. */
+  reveal?: boolean;
 }
 
-const { locale, items } = Astro.props;
+const { locale, items, up = false, reveal = true } = Astro.props;
 const t = getUi(locale);
 ---
 
-<details class="page-toc reveal">
+<details class:list={['page-toc', reveal && 'reveal', up && 'opens-up']}>
   <summary class="page-toc-summary">
     <span>{t.common.onThisPage}</span>
     <svg aria-hidden="true" width="11" height="7" viewBox="0 0 10 6" class="page-toc-chevron">

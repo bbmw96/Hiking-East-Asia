@@ -354,11 +354,19 @@ header[data-stuck='true'] {
   animation-delay: 620ms;
 }
 
+/* The call to action and the contents menu share one row, and wrap on a
+   narrow screen. */
+.ascent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-top: 2.25rem;
+}
 .ascent-cta {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 2.25rem;
   padding: 0.9rem 1.6rem;
   border-radius: 999px;
   background: #fff;
@@ -369,6 +377,11 @@ header[data-stuck='true'] {
   animation-delay: 760ms;
 }
 .ascent-cta:hover { background: #dff3e6; }
+/* Same timed entrance as the call to action, just after it. */
+.ascent-toc {
+  animation: ascent-fade 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: 880ms;
+}
 
 .ascent-readout {
   position: absolute;
@@ -814,6 +827,7 @@ header[data-stuck='true'] {
   .ascent-eyebrow,
   .ascent-sub,
   .ascent-cta,
+  .ascent-toc,
   .ascent-readout,
   .ascent-title .split-line > span { animation: none !important; }
   .chapter-inner { animation: none !important; opacity: 1 !important; transform: none !important; }
@@ -871,6 +885,9 @@ header[data-stuck='true'] {
   color: var(--color-ink-950);
 }
 .page-toc-list a:hover { background: var(--color-canopy-100); color: var(--color-canopy-900); }
+/* The homepage hero clips its overflow (its parallax layers need it) and its
+   copy sits near the bottom edge, so there the panel opens upwards. */
+.page-toc.opens-up .page-toc-list { top: auto; bottom: calc(100% + 0.5rem); }
 
 /* On a light section (safety hero is dark, but the pattern reuses this on
    light backgrounds too), swap to a dark-on-light chip. */

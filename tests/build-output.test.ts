@@ -333,11 +333,10 @@ test('the season strip states are not carried by colour alone', opts, () => {
 
 /* ---- On-page contents ---------------------------------------------------- */
 
-test('every trail, country and safety page has a contents menu that only points at real sections', opts, () => {
-  const targets = pages.filter((f) =>
-    /dist\/en\/[a-z-]+\/([a-z0-9-]+\/)?index\.html$/.test(f) && !/dist\/en\/trips\//.test(f));
-  // 98 trail areas, 13 countries and the safety page.
-  assert.ok(targets.length >= 110, `expected 110+ pages with contents, found ${targets.length}`);
+test('every page has a contents menu that only points at real sections', opts, () => {
+  const targets = pages.filter((f) => /dist\/en\/([a-z-]+\/)?([a-z0-9-]+\/)?index\.html$/.test(f));
+  // The homepage, 98 trail areas, 13 countries, Safety and Trips.
+  assert.ok(targets.length >= 113, `expected 113+ pages with contents, found ${targets.length}`);
   for (const f of targets) {
     const html = readFileSync(f, 'utf8');
     const list = html.match(/<ul class="page-toc-list">([\s\S]*?)<\/ul>/)?.[1];
